@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construcciones Ramírez | Construcción Industrial en Nuevo León</title>
+    <script>
+        // Protección básica contra clic derecho
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // Deshabilitar teclas de inspección
+        document.addEventListener('keydown', e => {
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 73) e.preventDefault();
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 74) e.preventDefault();
+            if(e.keyCode == 123) e.preventDefault();
+        });
+        
+        // Marca de agua invisible
+        console.log('%cPROPIEDAD DE [TU EMPRESA] - DEMO CONFIDENCIAL', 'color: red; font-size: 20px;');
+        console.log('Este sitio es una demostración. Uso no autorizado prohibido.');
+    </script>
+    <style>
+        /* Marca de agua CSS */
+        body::after {
+            content: "DEMO - NO PARA PRODUCCIÓN";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            color: rgba(0,0,0,0.05);
+            z-index: -1;
+            pointer-events: none;
+            font-weight: bold;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5490;
+            --secondary: #ff6b35;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo::before {
+            content: "🏗️";
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .cta-button {
+            background: var(--secondary);
+            color: white !important;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23333" width="1200" height="800"/><g fill="%23666"><rect x="100" y="200" width="200" height="400"/><rect x="400" y="150" width="200" height="450"/><rect x="700" y="250" width="200" height="350"/><rect x="1000" y="200" width="150" height="400"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-buttons .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 5%;
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 2rem;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            background: var(--light);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 5rem 5%;
+            background: white;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            background: #f0f0f0;
+            height: 300px;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+        }
+        
+        .project-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-overlay p {
+            opacity: 0.9;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--light);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item strong {
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-button {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .form-button:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Construcciones Ramírez</a>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto" class="cta-button">Cotización Gratis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Líderes en Construcción Industrial en Nuevo León</h1>
+            <p class="subtitle">Más de 25 años construyendo el futuro industrial de México</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn btn-primary">Solicitar Cotización</a>
+                <a href="#proyectos" class="btn btn-secondary">Ver Proyectos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Proyectos Completados</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2M+</span>
+                <span class="stat-label">Metros² Construidos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Clientes Satisfechos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">25</span>
+                <span class="stat-label">Años de Experiencia</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <div class="section-header">
+            <h2>Servicios Especializados</h2>
+            <p>Soluciones integrales para la industria en Nuevo León</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🏭</span>
+                <h3>Naves Industriales</h3>
+                <p>Diseño y construcción de naves industriales con los más altos estándares de calidad y seguridad.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🏗️</span>
+                <h3>Plantas de Producción</h3>
+                <p>Construcción especializada para plantas manufactureras y líneas de producción automatizadas.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🏢</span>
+                <h3>Centros de Distribución</h3>
+                <p>Almacenes y centros logísticos optimizados para máxima eficiencia operativa.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🔧</span>
+                <h3>Mantenimiento Industrial</h3>
+                <p>Servicios de mantenimiento preventivo y correctivo para instalaciones industriales.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">📐</span>
+                <h3>Diseño y Consultoría</h3>
+                <p>Asesoría experta en diseño industrial y optimización de espacios productivos.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🚧</span>
+                <h3>Obra Civil Especializada</h3>
+                <p>Cimentaciones especiales, pavimentos industriales y estructuras de gran escala.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="proyectos">
+        <div class="section-header">
+            <h2>Proyectos Destacados</h2>
+            <p>Construcciones que impulsan la industria de Nuevo León</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Planta Automotriz KIA</h3>
+                    <p>50,000 m² - Pesquería, NL</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Centro Logístico Amazon</h3>
+                    <p>75,000 m² - Apodaca, NL</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Nave Industrial Ternium</h3>
+                    <p>30,000 m² - San Nicolás, NL</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Planta Caterpillar</h3>
+                    <p>40,000 m² - Santa Catarina, NL</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Centro de Distribución Femsa</h3>
+                    <p>60,000 m² - Monterrey, NL</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-overlay">
+                    <h3>Complejo Industrial Nemak</h3>
+                    <p>45,000 m² - García, NL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>¿Listo para construir el futuro de tu empresa?</h2>
+            <p>Obtén una cotización sin compromiso y descubre por qué somos la constructora #1 en Nuevo León</p>
+            <a href="#contacto" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">Solicitar Cotización Ahora</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Construyamos juntos</h3>
+                <div class="contact-item">
+                    <strong>📍</strong> Av. Constitución 1000, Centro, Monterrey, NL
+                </div>
+                <div class="contact-item">
+                    <strong>📞</strong> (81) 8123-4567
+                </div>
+                <div class="contact-item">
+                    <strong>📱</strong> WhatsApp: (81) 1234-5678
+                </div>
+                <div class="contact-item">
+                    <strong>✉️</strong> ventas@construccionesramirez.mx
+                </div>
+                <div class="contact-item">
+                    <strong>🕐</strong> Lun-Vie: 8:00 AM - 6:00 PM
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción del Proyecto</label>
+                        <textarea rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="form-button">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">📷</a>
+                <a href="#">💼</a>
+                <a href="#">📺</a>
+            </div>
+            <p>&copy; 2024 Construcciones Ramírez. Todos los derechos reservados.</p>
+            <p>Construyendo el futuro industrial de México desde 1999</p>
+            <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 1rem;">
+                Demo creado por [TU EMPRESA] - Uso exclusivo para evaluación - Prohibida su reproducción
+            </p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float">
+        <span>💬</span>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Nos pondremos en contacto contigo en las próximas 24 horas.');
+            this.reset();
+        });
+
+        // WhatsApp click
+        document.querySelector('.whatsapp-float').addEventListener('click', function() {
+            window.open('https://wa.me/528112345678?text=Hola,%20me%20interesa%20una%20cotización%20para%20construcción%20industrial', '_blank');
+        });
+
+        // Stats animation
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = stat.textContent;
+                        const isPercentage = finalValue.includes('%');
+                        const hasPlus = finalValue.includes('+');
+                        const hasMillion = finalValue.includes('M');
+                        let numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                        
+                        if (hasMillion) numericValue = numericValue * 1000000;
+                        
+                        let currentValue = 0;
+                        const increment = numericValue / 50;
+                        
+                        const updateCounter = () => {
+                            currentValue += increment;
+                            if (currentValue < numericValue) {
+                                if (hasMillion) {
+                                    stat.textContent = (currentValue / 1000000).toFixed(1) + 'M+';
+                                } else if (isPercentage) {
+                                    stat.textContent = Math.floor(currentValue) + '%';
+                                } else if (hasPlus) {
+                                    stat.textContent = Math.floor(currentValue) + '+';
+                                } else {
+                                    stat.textContent = Math.floor(currentValue);
+                                }
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                stat.textContent = finalValue;
+                            }
+                        };
+                        
+                        updateCounter();
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.querySelector('.stats'));
+    </script>
+</body>
+</html>
