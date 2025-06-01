@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultorio Dra. Quintero & Dr. Martínez | Medicina Deportiva y Rehabilitación en Monterrey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Protección anti-click derecho */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00897B;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: #00897B;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            color: #00897B;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #00897B, #00695C);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 137, 123, 0.3);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: rotate(45deg);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #00695C;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #004D40;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Doctors Section */
+        .doctors {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        
+        .doctors h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00695C;
+        }
+        
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .doctor-card {
+            background: #F5F5F5;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .doctor-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #00897B, #00695C);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .doctor-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #00695C;
+        }
+        
+        .doctor-card .specialty {
+            color: #00897B;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .doctor-card .credentials {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        /* Services */
+        .services {
+            padding: 5rem 2rem;
+            background: #F8F9FA;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00695C;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid #00897B;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #00695C;
+        }
+        
+        /* Technology Section */
+        .technology {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #00695C 0%, #004D40 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .technology h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        
+        .tech-item {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00695C;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: #F8F9FA;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        
+        .contact-info h3 {
+            color: #00695C;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        
+        .info-icon {
+            font-size: 1.5rem;
+            color: #00897B;
+            width: 30px;
+        }
+        
+        .contact-form {
+            background: #F8F9FA;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00897B;
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #00897B, #00695C);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #004D40;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Schedule Section */
+        .schedule {
+            padding: 3rem 2rem;
+            background: #E0F2F1;
+            text-align: center;
+        }
+        
+        .schedule h3 {
+            font-size: 2rem;
+            color: #00695C;
+            margin-bottom: 2rem;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .schedule-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-day {
+            font-weight: bold;
+            color: #00695C;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">⚕️</span>
+                Dra. Quintero & Dr. Martínez
+            </div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#doctores">Doctores</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="#contacto" class="cta-button">Agendar Cita</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <h1>Medicina Deportiva y Rehabilitación de Excelencia</h1>
+        <p>Tratamiento integral con tecnología de vanguardia y algoritmos inteligentes para tu recuperación óptima</p>
+        <div class="hero-buttons">
+            <a href="#contacto" class="cta-button">Agendar Consulta</a>
+            <a href="tel:8120105632" class="cta-button" style="background: transparent; border: 2px solid #00695C; color: #00695C;">📞 Llamar Ahora</a>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="doctors" id="doctores">
+        <h2>Nuestros Especialistas</h2>
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <div class="doctor-avatar">👩‍⚕️</div>
+                <h3>Dra. Iliana Quintero Raygoza</h3>
+                <p class="specialty">Medicina del Deporte y Rehabilitación</p>
+                <p class="credentials">CP: 7741911 UAS<br>CE: 12216156 UANL</p>
+                <p>Especialista en lesiones deportivas, rehabilitación avanzada y medicina regenerativa.</p>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-avatar">👨‍⚕️</div>
+                <h3>Dr. Daniel Martínez</h3>
+                <p class="specialty">Medicina del Deporte y Traumatología</p>
+                <p class="credentials">CP: 5134754<br>CE: 8950545</p>
+                <p>Experto en diagnóstico y tratamiento de fracturas, con enfoque en algoritmos inteligentes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏃‍♂️</div>
+                <h3>Medicina Deportiva</h3>
+                <p>Evaluación y tratamiento especializado para atletas de alto rendimiento y deportistas recreativos.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🦴</div>
+                <h3>Traumatología</h3>
+                <p>Diagnóstico y tratamiento de fracturas, esguinces y lesiones musculoesqueléticas.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💉</div>
+                <h3>Medicina Regenerativa</h3>
+                <p>Terapias avanzadas con plasma rico en plaquetas y células madre para acelerar la recuperación.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏋️‍♀️</div>
+                <h3>Rehabilitación Física</h3>
+                <p>Programas personalizados de fisioterapia y recuperación funcional post-lesión.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Análisis Biomecánico</h3>
+                <p>Evaluación computarizada del movimiento para optimizar el rendimiento deportivo.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧘‍♀️</div>
+                <h3>Prevención de Lesiones</h3>
+                <p>Programas preventivos personalizados basados en análisis de riesgo individual.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology" id="tecnologia">
+        <h2>Tecnología de Vanguardia</h2>
+        <p style="max-width: 800px; margin: 0 auto 3rem; opacity: 0.9;">
+            Colaboración con FIME & HU UANL para diagnóstico asistido por inteligencia artificial
+        </p>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-icon">🤖</div>
+                <h3>IA para Fracturas</h3>
+                <p>Algoritmo inteligente para diagnóstico preciso de fracturas de tobillo</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🔬</div>
+                <h3>Ultrasonido Avanzado</h3>
+                <p>Diagnóstico por imagen de alta resolución para tejidos blandos</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">📱</div>
+                <h3>Telemedicina</h3>
+                <p>Seguimiento digital y consultas virtuales para tu comodidad</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="schedule">
+        <h3>Horarios de Atención</h3>
+        <div class="schedule-grid">
+            <div class="schedule-item">
+                <div class="schedule-day">Lunes - Viernes</div>
+                <div>9:00 AM - 7:00 PM</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-day">Sábados</div>
+                <div>9:00 AM - 2:00 PM</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-day">Urgencias</div>
+                <div>24/7 WhatsApp</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contacto">
+        <h2>Agenda tu Consulta</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div>
+                        <strong>Dirección:</strong><br>
+                        Hospital Universitario UANL<br>
+                        Monterrey, Nuevo León
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div>
+                        <strong>Teléfono:</strong><br>
+                        (81) 2010 5632
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📧</span>
+                    <div>
+                        <strong>Email:</strong><br>
+                        dra.quintero1@gmail.com
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">💬</span>
+                    <div>
+                        <strong>WhatsApp:</strong><br>
+                        Disponible 24/7 para urgencias
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Consulta</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option>Lesión Deportiva</option>
+                        <option>Fractura</option>
+                        <option>Rehabilitación</option>
+                        <option>Medicina Preventiva</option>
+                        <option>Segunda Opinión</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea rows="4" placeholder="Describa brevemente su situación..."></textarea>
+                </div>
+                <button type="submit">Solicitar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Consultorio Dra. Quintero & Dr. Martínez. Todos los derechos reservados.</p>
+        <p>Medicina Deportiva y Rehabilitación | Monterrey, N.L.</p>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float">
+        💬
+    </div>
+
+    <script>
+        // Protección adicional
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                return false;
+            }
+        });
+        
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Form handler
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por su interés! Nos pondremos en contacto con usted a la brevedad.');
+        });
+        
+        // WhatsApp
+        document.querySelector('.whatsapp-float').addEventListener('click', function() {
+            window.open('https://wa.me/528120105632?text=Hola, me gustaría agendar una consulta', '_blank');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
