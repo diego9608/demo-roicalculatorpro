@@ -192,6 +192,7 @@
             font-weight: bold;
             display: block;
             color: #FFD600;
+            min-height: 3.5rem;
         }
 
         .badge-text {
@@ -325,6 +326,12 @@
             padding: 1rem 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 100px;
+            transition: transform 0.3s;
+        }
+        
+        .timer-unit:hover .timer-number {
+            transform: scale(1.05);
         }
         
         .timer-label {
@@ -710,6 +717,10 @@
                 <span class="timer-number" id="minutes">45</span>
                 <span class="timer-label">MINUTOS</span>
             </div>
+            <div class="timer-unit">
+                <span class="timer-number" id="seconds">30</span>
+                <span class="timer-label">SEGUNDOS</span>
+            </div>
         </div>
         <a href="#contacto" class="cta-button" style="background: white; color: #1B5E20; font-size: 1.5rem; padding: 1rem 3rem;">
             ¡APROVECHA AHORA!
@@ -876,21 +887,78 @@
         function updateTimer() {
             const deadline = new Date();
             deadline.setDate(deadline.getDate() + 2);
+            deadline.setHours(23, 59, 59, 999);
             
             const now = new Date();
             const diff = deadline - now;
             
+            if (diff <= 0) {
+                // Reset timer if expired
+                deadline.setDate(deadline.getDate() + 2);
+            }
+            
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
             document.getElementById('days').textContent = days.toString().padStart(2, '0');
             document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
             document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            
+            // Update seconds if element exists
+            const secondsElement = document.getElementById('seconds');
+            if (secondsElement) {
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            }
         }
         
-        setInterval(updateTimer, 60000);
+        // Update every second for real-time countdown
+        setInterval(updateTimer, 1000);
         updateTimer();
+
+        // Animated counter for trust badges
+        function animateCounter(element, target, suffix = '') {
+            const duration = 2000;
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString() + suffix;
+            }, 16);
+        }
+
+        // Intersection Observer for animation trigger
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    
+                    // Animate each counter
+                    const badges = entry.target.querySelectorAll('.badge-number');
+                    badges[0] && animateCounter(badges[0], 30, '+');
+                    badges[1] && animateCounter(badges[1], 50000, '+');
+                    badges[2] && animateCounter(badges[2], 3, '');
+                }
+            });
+        }, observerOptions);
+
+        // Start observing trust badges
+        const trustBadges = document.querySelector('.trust-badges');
+        if (trustBadges) {
+            observer.observe(trustBadges);
+        }
     </script>
 </body>
 </html>
