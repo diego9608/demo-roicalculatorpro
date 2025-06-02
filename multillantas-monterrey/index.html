@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multillantas Monterrey | Llantas y Servicios Automotrices | 30 Años de Experiencia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Protección anti-click derecho */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background: #1B5E20;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #FFD600, #4CAF50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1B5E20;
+            font-size: 1.2rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1B5E20;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            color: #4CAF50;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(27, 94, 32, 0.9), rgba(27, 94, 32, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,261.3C672,256,768,224,864,213.3C960,203,1056,213,1152,224C1248,235,1344,245,1392,250.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .trust-badges {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            text-align: center;
+        }
+
+        .badge-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            color: #FFD600;
+        }
+
+        .badge-text {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Services */
+        .services {
+            padding: 5rem 2rem;
+            background: #F5F5F5;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1B5E20;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            border-top: 4px solid #FFD600;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1B5E20;
+        }
+
+        .service-price {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        /* Brands Section */
+        .brands {
+            padding: 4rem 2rem;
+            background: white;
+            text-align: center;
+        }
+        
+        .brands h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #1B5E20;
+        }
+        
+        .brands-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .brand-item {
+            width: 120px;
+            height: 80px;
+            background: #F5F5F5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            transition: transform 0.3s;
+        }
+        
+        .brand-item:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Promo Section */
+        .promo {
+            background: linear-gradient(45deg, #FFD600, #FBC02D);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #1B5E20;
+        }
+        
+        .promo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .promo-timer {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .timer-unit {
+            text-align: center;
+        }
+        
+        .timer-number {
+            display: block;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timer-label {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Locations */
+        .locations {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        
+        .locations h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1B5E20;
+        }
+        
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .location-card {
+            background: #F5F5F5;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .location-card h3 {
+            color: #1B5E20;
+            margin-bottom: 1rem;
+        }
+        
+        .location-info {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .location-phone {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 1rem;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background: #1B5E20;
+            color: white;
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            font-size: 1.5rem;
+            color: #FFD600;
+            width: 30px;
+        }
+        
+        .contact-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #FFD600, #FBC02D);
+            color: #1B5E20;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0D3B0F;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .promo-timer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>📞 Matriz: (81) 8190-0527 | 📞 Ancira: (81) 8190-2200</span>
+            <div>
+                <a href="#contacto">📍 3 Sucursales</a>
+                <a href="tel:8182588531">🚨 Emergencias</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-img">ML</div>
+                <div class="logo-text">MULTILLANTAS</div>
+            </div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#promociones">Promociones</a></li>
+                <li><a href="#sucursales">Sucursales</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="tel:8182588531" class="cta-button">Cotiza Ahora</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <h1>30 Años Rodando Contigo</h1>
+        <p>Las mejores llantas, el mejor servicio y los mejores precios de Monterrey</p>
+        <div class="hero-buttons">
+            <a href="#contacto" class="cta-button">Cotización Gratis</a>
+            <a href="#promociones" class="cta-button" style="background: transparent; border: 2px solid white;">Ver Promociones</a>
+        </div>
+        <div class="trust-badges">
+            <div class="badge">
+                <span class="badge-number">30+</span>
+                <span class="badge-text">Años de Experiencia</span>
+            </div>
+            <div class="badge">
+                <span class="badge-number">50K+</span>
+                <span class="badge-text">Clientes Satisfechos</span>
+            </div>
+            <div class="badge">
+                <span class="badge-number">3</span>
+                <span class="badge-text">Sucursales</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🛞</div>
+                <h3>Venta de Llantas</h3>
+                <p>Las mejores marcas: Michelin, Bridgestone, Goodyear, Continental y más.</p>
+                <p class="service-price">Desde $899</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Alineación y Balanceo</h3>
+                <p>Tecnología computarizada 3D para máxima precisión. Garantía incluida.</p>
+                <p class="service-price">$350 - Promoción</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Cambio de Aceite</h3>
+                <p>Servicio completo con revisión de 21 puntos. Aceites premium disponibles.</p>
+                <p class="service-price">Desde $450</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔋</div>
+                <h3>Baterías</h3>
+                <p>Instalación gratis. Marcas LTH, Bosch, AC Delco. Garantía hasta 3 años.</p>
+                <p class="service-price">Desde $1,299</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3>Servicio Express</h3>
+                <p>Servicio a domicilio disponible. ¡Llegamos a tu casa u oficina!</p>
+                <p class="service-price">Sin costo extra</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Garantía Total</h3>
+                <p>Respaldamos todos nuestros servicios. Tu satisfacción garantizada.</p>
+                <p class="service-price">100% Garantizado</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="brands">
+        <h2>Marcas que Manejamos</h2>
+        <div class="brands-grid">
+            <div class="brand-item">MICHELIN</div>
+            <div class="brand-item">BRIDGESTONE</div>
+            <div class="brand-item">GOODYEAR</div>
+            <div class="brand-item">CONTINENTAL</div>
+            <div class="brand-item">PIRELLI</div>
+            <div class="brand-item">YOKOHAMA</div>
+        </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="promo" id="promociones">
+        <h2>🔥 OFERTA POR TIEMPO LIMITADO 🔥</h2>
+        <p style="font-size: 1.5rem; margin-bottom: 2rem;">4 Llantas + Alineación + Balanceo + Nitrógeno</p>
+        <div class="promo-timer">
+            <div class="timer-unit">
+                <span class="timer-number" id="days">02</span>
+                <span class="timer-label">DÍAS</span>
+            </div>
+            <div class="timer-unit">
+                <span class="timer-number" id="hours">18</span>
+                <span class="timer-label">HORAS</span>
+            </div>
+            <div class="timer-unit">
+                <span class="timer-number" id="minutes">45</span>
+                <span class="timer-label">MINUTOS</span>
+            </div>
+        </div>
+        <a href="#contacto" class="cta-button" style="background: white; color: #1B5E20; font-size: 1.5rem; padding: 1rem 3rem;">
+            ¡APROVECHA AHORA!
+        </a>
+    </section>
+
+    <!-- Locations -->
+    <section class="locations" id="sucursales">
+        <h2>Nuestras Sucursales</h2>
+        <div class="locations-grid">
+            <div class="location-card">
+                <h3>📍 Matriz</h3>
+                <p class="location-info">Chiapas 1112, Nuevo Repueblo</p>
+                <p class="location-info">Monterrey, N.L. 64700</p>
+                <p class="location-info">Lun-Sáb: 8:00 AM - 7:00 PM</p>
+                <p class="location-phone">📞 (81) 8190-0527</p>
+            </div>
+            <div class="location-card">
+                <h3>📍 Sucursal Independencia</h3>
+                <p class="location-info">Av. Independencia 2345</p>
+                <p class="location-info">Monterrey, N.L. 64520</p>
+                <p class="location-info">Lun-Sáb: 8:00 AM - 7:00 PM</p>
+                <p class="location-phone">📞 (81) 8349-5625</p>
+            </div>
+            <div class="location-card">
+                <h3>📍 Sucursal Ancira</h3>
+                <p class="location-info">Av. Lázaro Cárdenas 890</p>
+                <p class="location-info">San Nicolás, N.L. 66400</p>
+                <p class="location-info">Lun-Sáb: 8:00 AM - 7:00 PM</p>
+                <p class="location-phone">📞 (81) 8190-2200</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contacto">
+        <h2>Cotiza Tus Llantas Ahora</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>¿Por qué Multillantas?</h3>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span>30 años de experiencia nos respaldan</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span>Mejores precios garantizados</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span>Servicio a domicilio disponible</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span>Garantía en todos los servicios</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span>Técnicos certificados</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">💬</span>
+                    <span>WhatsApp: (81) 8258-8531</span>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Marca de tu Auto</label>
+                    <input type="text" placeholder="Ej: Toyota Corolla 2020">
+                </div>
+                <div class="form-group">
+                    <label>Servicio Requerido</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option>Comprar Llantas</option>
+                        <option>Alineación y Balanceo</option>
+                        <option>Cambio de Aceite</option>
+                        <option>Batería</option>
+                        <option>Paquete Completo</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Medida de Llanta (Opcional)</label>
+                    <input type="text" placeholder="Ej: 225/65/R17">
+                </div>
+                <button type="submit">Recibir Cotización</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Multillantas y Servicios Monterrey. Todos los derechos reservados.</p>
+        <p>30 años siendo líderes en llantas y servicios automotrices</p>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float">
+        💬
+    </div>
+
+    <script>
+        // Protección adicional
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                return false;
+            }
+            if (e.keyCode == 123) return false;
+        });
+        
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.onkeydown = function(e) {
+            if(event.keyCode == 123) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+        
+        // Form handler
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias! En breve recibirás tu cotización por WhatsApp.');
+        });
+        
+        // WhatsApp
+        document.querySelector('.whatsapp-float').addEventListener('click', function() {
+            window.open('https://wa.me/528182588531?text=Hola, necesito cotizar llantas para mi auto', '_blank');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Timer countdown
+        function updateTimer() {
+            const deadline = new Date();
+            deadline.setDate(deadline.getDate() + 2);
+            
+            const now = new Date();
+            const diff = deadline - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateTimer, 60000);
+        updateTimer();
+    </script>
+</body>
+</html>
