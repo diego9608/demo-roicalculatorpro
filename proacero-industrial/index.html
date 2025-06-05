@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProAcero Inoxidable | Cocinas Industriales y Áreas de Asador | Fabricación a Medida</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a1a;
+            --accent: #ff4444;
+            --steel: #e8e8e8;
+            --dark: #0a0a0a;
+            --gradient: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .quote-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+        
+        .quote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23222" width="1920" height="1080"/><g fill-opacity="0.1"><polygon fill="%23444" points="1920,1080 0,1080 0,0 960,540"/><polygon fill="%23333" points="1920,1080 1920,0 960,540"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+        
+        .hero h1 span {
+            color: var(--accent);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hero-btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+        
+        .hero-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Trust Indicators */
+        .trust-bar {
+            background: var(--dark);
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        
+        .trust-item {
+            text-align: center;
+            color: white;
+        }
+        
+        .trust-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .trust-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 5rem 2rem;
+            background: #f8f8f8;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            height: 250px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), var(--steel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+        
+        .service-card:hover .service-image::before {
+            animation: shine 0.5s ease;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .service-content {
+            padding: 2rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .service-price {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .service-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .service-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Portfolio */
+        .portfolio {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 300px;
+            background: var(--steel);
+            cursor: pointer;
+            group: portfolio;
+        }
+        
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        .portfolio-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .portfolio-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Process */
+        .process {
+            padding: 5rem 2rem;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .process .section-title {
+            color: white;
+        }
+        
+        .process-timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-50%);
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .process-content {
+            flex: 1;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .process-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .process-desc {
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: var(--gradient);
+            text-align: center;
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-btn-primary {
+            background: white;
+            color: var(--accent);
+        }
+        
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background: #f8f8f8;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .form-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 68, 68, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 5px 25px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 5px 35px rgba(37, 211, 102, 0.6); }
+            100% { box-shadow: 0 5px 25px rgba(0,0,0,0.3); }
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-timeline::before {
+                left: 30px;
+            }
+            
+            .process-step,
+            .process-step:nth-child(even) {
+                flex-direction: column;
+                padding-left: 60px;
+            }
+            
+            .process-number {
+                left: 30px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                PRO<span>ACERO</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="#contacto" class="quote-btn">COTIZAR AHORA</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>COCINAS INDUSTRIALES Y <span>ÁREAS DE ASADOR</span></h1>
+            <p>Especialistas en fabricación a medida con acero inoxidable de la más alta calidad</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="hero-btn hero-btn-primary">
+                    <span>📞</span> Cotización Gratis
+                </a>
+                <a href="#portafolio" class="hero-btn hero-btn-secondary">
+                    <span>🖼️</span> Ver Trabajos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="trust-container">
+            <div class="trust-item">
+                <span class="trust-number">15+</span>
+                <span class="trust-text">Años de Experiencia</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">500+</span>
+                <span class="trust-text">Proyectos Completados</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">100%</span>
+                <span class="trust-text">Acero Inoxidable</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">24/7</span>
+                <span class="trust-text">Servicio Postventa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicios">
+        <div class="section-header">
+            <h2 class="section-title">NUESTROS SERVICIOS</h2>
+            <p class="section-subtitle">Soluciones integrales en acero inoxidable para tu negocio o residencia</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">🔥</div>
+                <div class="service-content">
+                    <h3 class="service-title">Áreas de Asador</h3>
+                    <ul class="service-features">
+                        <li>Parrillas argentinas a medida</li>
+                        <li>Sistemas de extracción incluidos</li>
+                        <li>Braseros y accesorios</li>
+                        <li>Instalación completa</li>
+                    </ul>
+                    <p class="service-price">Desde $45,000 MXN</p>
+                    <a href="#contacto" class="service-btn">Cotizar Proyecto</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">👨‍🍳</div>
+                <div class="service-content">
+                    <h3 class="service-title">Cocinas Industriales</h3>
+                    <ul class="service-features">
+                        <li>Diseño personalizado</li>
+                        <li>Equipamiento completo</li>
+                        <li>Cumplimiento de normas</li>
+                        <li>Garantía extendida</li>
+                    </ul>
+                    <p class="service-price">Desde $120,000 MXN</p>
+                    <a href="#contacto" class="service-btn">Cotizar Proyecto</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🏢</div>
+                <div class="service-content">
+                    <h3 class="service-title">Mobiliario Industrial</h3>
+                    <ul class="service-features">
+                        <li>Mesas de trabajo</li>
+                        <li>Estanterías y repisas</li>
+                        <li>Campanas extractoras</li>
+                        <li>Fregaderos industriales</li>
+                    </ul>
+                    <p class="service-price">Presupuesto a medida</p>
+                    <a href="#contacto" class="service-btn">Cotizar Proyecto</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="portfolio" id="portafolio">
+        <div class="section-header">
+            <h2 class="section-title">PORTAFOLIO</h2>
+            <p class="section-subtitle">Proyectos que hablan por sí solos</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Restaurante El Gaucho</h3>
+                    <p class="portfolio-desc">Cocina completa + área de parrillas</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Hotel Marriott</h3>
+                    <p class="portfolio-desc">Renovación cocina principal</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Residencia Las Colinas</h3>
+                    <p class="portfolio-desc">Área de asador premium</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Cafetería Industrial TEC</h3>
+                    <p class="portfolio-desc">Cocina para 1000 personas</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Club de Golf</h3>
+                    <p class="portfolio-desc">Terraza con asadores múltiples</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Hospital Zambrano</h3>
+                    <p class="portfolio-desc">Cocina hospitalaria completa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="proceso">
+        <div class="section-header">
+            <h2 class="section-title">NUESTRO PROCESO</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">De la idea a la realidad en 4 pasos</p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="process-content">
+                    <h3 class="process-title">Consulta y Diseño</h3>
+                    <p class="process-desc">Visitamos tu espacio, tomamos medidas y creamos un diseño 3D personalizado según tus necesidades y presupuesto.</p>
+                </div>
+                <div class="process-number">1</div>
+            </div>
+            <div class="process-step">
+                <div class="process-content">
+                    <h3 class="process-title">Fabricación</h3>
+                    <p class="process-desc">En nuestro taller especializado, fabricamos cada pieza con acero inoxidable grado alimenticio y los más altos estándares.</p>
+                </div>
+                <div class="process-number">2</div>
+            </div>
+            <div class="process-step">
+                <div class="process-content">
+                    <h3 class="process-title">Instalación</h3>
+                    <p class="process-desc">Nuestro equipo certificado realiza la instalación completa, incluyendo conexiones de gas, agua y electricidad.</p>
+                </div>
+                <div class="process-number">3</div>
+            </div>
+            <div class="process-step">
+                <div class="process-content">
+                    <h3 class="process-title">Garantía y Servicio</h3>
+                    <p class="process-desc">Entregamos con garantía de 5 años y ofrecemos servicio de mantenimiento preventivo para asegurar durabilidad.</p>
+                </div>
+                <div class="process-number">4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>¿LISTO PARA TRANSFORMAR TU ESPACIO?</h2>
+        <p>Agenda una consulta gratuita y recibe un diseño 3D sin compromiso</p>
+        <div class="cta-buttons">
+            <a href="tel:8112345678" class="cta-btn cta-btn-primary">📞 LLAMAR AHORA</a>
+            <a href="#contacto" class="cta-btn cta-btn-secondary">📝 SOLICITAR COTIZACIÓN</a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contacto">
+        <div class="section-header">
+            <h2 class="section-title">CONTACTO</h2>
+            <p class="section-subtitle">Convierte tu proyecto en realidad</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>INFORMACIÓN</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <strong>Dirección:</strong><br>
+                        Av. Industrial 1234, Monterrey, N.L.
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <strong>Teléfonos:</strong><br>
+                        (81) 1234-5678 / (81) 8765-4321
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <strong>Email:</strong><br>
+                        info@proaceroinoxidable.mx
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div>
+                        <strong>Horario:</strong><br>
+                        Lun-Vie: 8:00 AM - 6:00 PM<br>
+                        Sábado: 9:00 AM - 2:00 PM
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Proyecto</label>
+                    <select required>
+                        <option value="">Seleccionar...</option>
+                        <option>Área de Asador Residencial</option>
+                        <option>Cocina Industrial</option>
+                        <option>Restaurante Completo</option>
+                        <option>Mobiliario Industrial</option>
+                        <option>Otro Proyecto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea rows="4" placeholder="Describe tu proyecto..."></textarea>
+                </div>
+                <button type="submit" class="form-btn">ENVIAR COTIZACIÓN</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ProAcero Inoxidable</h4>
+                <p>Líderes en fabricación de cocinas industriales y áreas de asador en acero inoxidable. Calidad garantizada desde 2009.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <p>
+                    <a href="#servicios">Cocinas Industriales</a><br>
+                    <a href="#servicios">Áreas de Asador</a><br>
+                    <a href="#servicios">Mobiliario Industrial</a><br>
+                    <a href="#servicios">Mantenimiento</a>
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto Rápido</h4>
+                <p>
+                    📞 (81) 1234-5678<br>
+                    📱 WhatsApp: (81) 9876-5432<br>
+                    📧 ventas@proacero.mx<br>
+                    📍 Monterrey, N.L.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <p>
+                    Facebook: /proaceroinox<br>
+                    Instagram: @proacero_mx<br>
+                    LinkedIn: ProAcero Industrial
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ProAcero Inoxidable. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="window.open('https://wa.me/528115001487?text=Hola, necesito información sobre cocinas industriales y áreas de asador', '_blank')">
+        💬
+    </div>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas para agendar una visita sin compromiso.');
+            this.reset();
+        });
+
+        // Animate numbers on scroll
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start) + element.dataset.suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    
+                    // Animate trust numbers
+                    if (entry.target.classList.contains('trust-container')) {
+                        const numbers = entry.target.querySelectorAll('.trust-number');
+                        numbers[0].dataset.suffix = '+';
+                        numbers[1].dataset.suffix = '+';
+                        numbers[2].dataset.suffix = '%';
+                        numbers[3].dataset.suffix = '';
+                        
+                        animateValue(numbers[0], 0, 15, 1500);
+                        animateValue(numbers[1], 0, 500, 2000);
+                        animateValue(numbers[2], 0, 100, 1500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Start observing
+        const trustContainer = document.querySelector('.trust-container');
+        if (trustContainer) {
+            observer.observe(trustContainer);
+        }
+
+        // Portfolio hover effect
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.portfolio-title').textContent;
+                alert(`Ver proyecto completo: ${title}\n\nPara ver más fotos y detalles de este proyecto, contáctanos por WhatsApp.`);
+            });
+        });
+    </script>
+</body>
+</html>
