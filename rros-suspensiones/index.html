@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rros Suspensiones, Frenos y Más | Expertos en Suspensión y Frenos | Servicio Premium</title>
+    <script>
+        // Protección del código
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117 || e.keyCode === 83)) return false;
+            if (e.keyCode == 123) return false;
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        :root {
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --red: #ff0000;
+            --yellow: #ffd700;
+            --white: #ffffff;
+            --gray: #888888;
+            --light-gray: #f5f5f5;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            background: var(--black);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-wheel {
+            width: 100px;
+            height: 100px;
+            border: 5px solid var(--dark-gray);
+            border-top: 5px solid var(--red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--red);
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--yellow);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-header {
+            background: linear-gradient(45deg, var(--red), #cc0000);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid transparent;
+        }
+        
+        .cta-header:hover {
+            background: transparent;
+            border-color: var(--red);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+                        radial-gradient(circle at 20% 50%, rgba(255,0,0,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                        var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff0000" fill-opacity="0.05" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,261.3C672,256,768,224,864,213.3C960,203,1056,213,1152,224C1248,235,1344,245,1392,250.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            opacity: 0.3;
+            animation: wave 10s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            z-index: 1;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+        
+        .hero h1 span {
+            color: var(--red);
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--red); }
+            to { text-shadow: 0 0 20px var(--red), 0 0 30px var(--red); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--yellow);
+            font-weight: 300;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .hero-feature-icon {
+            color: var(--yellow);
+            font-size: 1.5rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-btn-primary {
+            background: var(--red);
+            color: var(--white);
+            border: 2px solid var(--red);
+        }
+        
+        .hero-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--yellow);
+        }
+        
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .hero-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--black) 100%);
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--yellow));
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .service-card:nth-child(2) .service-icon { animation-delay: 0.5s; }
+        .service-card:nth-child(3) .service-icon { animation-delay: 1s; }
+        .service-card:nth-child(4) .service-icon { animation-delay: 1.5s; }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-btn {
+            background: var(--red);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--red);
+        }
+        
+        .service-btn:hover {
+            background: transparent;
+            transform: scale(1.05);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(45deg, var(--red), #ff3333);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .promo-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .promo-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            animation: flash 2s infinite;
+        }
+        
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .promo-desc {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .promo-timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timer-unit {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            min-width: 100px;
+        }
+        
+        .timer-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: block;
+            color: var(--yellow);
+        }
+        
+        .timer-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Store Section */
+        .store-section {
+            padding: 5rem 2rem;
+            background: var(--black);
+        }
+        
+        .store-preview {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .store-info h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .store-info h2 span {
+            color: var(--yellow);
+        }
+        
+        .store-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .store-features li {
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--gray);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .store-features li .icon {
+            color: var(--red);
+            font-size: 1.5rem;
+        }
+        
+        .store-cta {
+            background: var(--yellow);
+            color: var(--black);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .store-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .store-preview-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .preview-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .preview-card:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .preview-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--red);
+        }
+        
+        .preview-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preview-price {
+            color: var(--yellow);
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--black) 100%);
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--red);
+            opacity: 0.5;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        
+        .process-number::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 2px solid var(--yellow);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        .process-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .process-desc {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '"';
+            position: absolute;
+            top: -50px;
+            left: 50px;
+            font-size: 300px;
+            color: rgba(255, 0, 0, 0.05);
+            font-family: serif;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .stars {
+            color: var(--yellow);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-text {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .author-info h4 {
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(45deg, var(--red), #cc0000);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-bg 20s linear infinite;
+        }
+        
+        @keyframes float-bg {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .cta-desc {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-btn-primary {
+            background: var(--white);
+            color: var(--red);
+            border: 2px solid var(--white);
+        }
+        
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--black);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .info-text h4 {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        
+        .info-text p {
+            color: var(--gray);
+        }
+        
+        .contact-form {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            color: var(--gray);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .form-btn {
+            background: var(--red);
+            color: var(--white);
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .form-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+        
+        .form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 3rem 2rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--yellow);
+            text-transform: uppercase;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--red);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            padding: 0.5rem 0;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-gray);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-features {
+                gap: 1rem;
+            }
+            
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .store-preview,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step::after {
+                display: none;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-timer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-wheel"></div>
+            <p style="color: var(--red); font-weight: 700; text-transform: uppercase;">Cargando Experiencia Premium...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">🔧</div>
+                <span>RROS SUSPENSIONES, FRENOS Y MÁS</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#tienda">Tienda</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="tel:8182588531" class="cta-header">📞 Llamar Ahora</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>EXPERTOS EN <span>SUSPENSIÓN</span> Y FRENOS</h1>
+            <p class="hero-subtitle">Servicio Premium • Garantía Total • Resultados Inmediatos</p>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">✓</span>
+                    <span>Diagnóstico GRATIS</span>
+                </div>
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">✓</span>
+                    <span>Garantía de 2 Años</span>
+                </div>
+                <div class="hero-feature">
+                    <span class="hero-feature-icon">✓</span>
+                    <span>Técnicos Certificados</span>
+                </div>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="#contacto" class="hero-btn hero-btn-primary">
+                    Cotizar Servicio
+                </a>
+                <a href="#tienda" class="hero-btn hero-btn-secondary">
+                    Ver Tienda de Llantas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicios">
+        <div class="section-header">
+            <h2 class="section-title">NUESTROS SERVICIOS</h2>
+            <p class="section-subtitle">Especialistas en el cuidado integral de tu vehículo</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3 class="service-title">Suspensión</h3>
+                <p class="service-desc">Reparación completa de sistema de suspensión. Amortiguadores, resortes, bujes y más.</p>
+                <p class="service-price">Desde $2,500</p>
+                <a href="#contacto" class="service-btn">Cotizar Ahora</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛑</div>
+                <h3 class="service-title">Frenos</h3>
+                <p class="service-desc">Cambio de balatas, discos, rectificado, líquido de frenos. Seguridad garantizada.</p>
+                <p class="service-price">Desde $1,200</p>
+                <a href="#contacto" class="service-btn">Cotizar Ahora</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3 class="service-title">Alineación y Balanceo</h3>
+                <p class="service-desc">Tecnología 3D de última generación. Precisión milimétrica para máximo rendimiento.</p>
+                <p class="service-price">$450 Promoción</p>
+                <a href="#contacto" class="service-btn">Cotizar Ahora</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛞</div>
+                <h3 class="service-title">Venta de Llantas</h3>
+                <p class="service-desc">Las mejores marcas del mercado. Instalación profesional incluida.</p>
+                <p class="service-price">Desde $1,100</p>
+                <a href="#tienda" class="service-btn">Ver Catálogo</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔩</div>
+                <h3 class="service-title">Dirección Hidráulica</h3>
+                <p class="service-desc">Reparación de bombas, mangueras, cremalleras. Eliminamos fugas y ruidos.</p>
+                <p class="service-price">Desde $1,800</p>
+                <a href="#contacto" class="service-btn">Cotizar Ahora</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🚗</div>
+                <h3 class="service-title">Diagnóstico Completo</h3>
+                <p class="service-desc">Revisión de 21 puntos críticos. Reporte detallado sin costo.</p>
+                <p class="service-price">GRATIS</p>
+                <a href="#contacto" class="service-btn">Agendar Cita</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo-banner">
+        <div class="promo-content">
+            <h2 class="promo-title">🔥 OFERTA ESPECIAL DE TEMPORADA 🔥</h2>
+            <p class="promo-desc">Servicio de Suspensión + Alineación + Balanceo por solo $3,999</p>
+            <div class="promo-timer">
+                <div class="timer-unit">
+                    <span class="timer-number" id="days">02</span>
+                    <span class="timer-label">DÍAS</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-number" id="hours">18</span>
+                    <span class="timer-label">HORAS</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-number" id="minutes">45</span>
+                    <span class="timer-label">MINUTOS</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-number" id="seconds">30</span>
+                    <span class="timer-label">SEGUNDOS</span>
+                </div>
+            </div>
+            <a href="#contacto" class="hero-btn hero-btn-primary" style="background: var(--yellow); color: var(--black);">
+                ¡APROVECHAR OFERTA!
+            </a>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    <section class="store-section" id="tienda">
+        <div class="section-header">
+            <h2 class="section-title">TIENDA DE <span style="color: var(--yellow);">LLANTAS</span></h2>
+            <p class="section-subtitle">Próximamente: Compra en línea con envío e instalación a domicilio</p>
+        </div>
+        
+        <div class="store-preview">
+            <div class="store-info">
+                <h2>Nueva Tienda <span>Online</span></h2>
+                <p style="color: var(--gray); margin-bottom: 2rem;">Estamos preparando algo increíble para ti. Muy pronto podrás:</p>
+                
+                <ul class="store-features">
+                    <li>
+                        <span class="icon">🛒</span>
+                        <span>Comprar llantas 24/7 desde tu casa</span>
+                    </li>
+                    <li>
+                        <span class="icon">🚚</span>
+                        <span>Envío gratis en compras mayores a $5,000</span>
+                    </li>
+                    <li>
+                        <span class="icon">🔧</span>
+                        <span>Instalación a domicilio disponible</span>
+                    </li>
+                    <li>
+                        <span class="icon">💳</span>
+                        <span>Pago seguro con tarjeta - Hasta 12 MSI</span>
+                    </li>
+                    <li>
+                        <span class="icon">🎯</span>
+                        <span>Garantía extendida en todas las marcas</span>
+                    </li>
+                </ul>
+                
+                <a href="#contacto" class="store-cta">Notificarme cuando esté lista</a>
+            </div>
+            
+            <div class="store-preview-cards">
+                <div class="preview-card">
+                    <div class="preview-icon">🏃</div>
+                    <h4 class="preview-title">Michelin Pilot Sport</h4>
+                    <p class="preview-price">$2,850</p>
+                </div>
+                <div class="preview-card">
+                    <div class="preview-icon">🚙</div>
+                    <h4 class="preview-title">Bridgestone Turanza</h4>
+                    <p class="preview-price">$2,200</p>
+                </div>
+                <div class="preview-card">
+                    <div class="preview-icon">🏔️</div>
+                    <h4 class="preview-title">BFGoodrich All-Terrain</h4>
+                    <p class="preview-price">$3,100</p>
+                </div>
+                <div class="preview-card">
+                    <div class="preview-icon">💰</div>
+                    <h4 class="preview-title">Hankook Kinergy</h4>
+                    <p class="preview-price">$1,450</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="proceso">
+        <div class="section-header">
+            <h2 class="section-title">NUESTRO PROCESO</h2>
+            <p class="section-subtitle">Transparencia y profesionalismo en cada paso</p>
+        </div>
+        
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <h3 class="process-title">Diagnóstico</h3>
+                <p class="process-desc">Revisión completa sin costo. Identificamos el problema con precisión.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <h3 class="process-title">Cotización</h3>
+                <p class="process-desc">Presupuesto detallado y transparente. Sin sorpresas ni cargos ocultos.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <h3 class="process-title">Reparación</h3>
+                <p class="process-desc">Trabajo profesional con refacciones de calidad. Garantía por escrito.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <h3 class="process-title">Entrega</h3>
+                <p class="process-desc">Prueba de manejo y explicación detallada del trabajo realizado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonios">
+        <div class="section-header">
+            <h2 class="section-title">LO QUE DICEN NUESTROS CLIENTES</h2>
+            <p class="section-subtitle">La satisfacción de nuestros clientes es nuestra mejor carta de presentación</p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Excelente servicio. Mi carro quedó como nuevo. Los precios son justos y el trabajo es de primera calidad. 100% recomendado."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JM</div>
+                    <div class="author-info">
+                        <h4>Juan Martínez</h4>
+                        <p>Cliente desde 2019</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Llevé mi camioneta por un ruido en la suspensión. Me explicaron todo, me dieron opciones y el problema quedó resuelto. Muy profesionales."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">CR</div>
+                    <div class="author-info">
+                        <h4>Carlos Rodríguez</h4>
+                        <p>Cliente frecuente</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Me cotizaron en varios lugares y aquí fue donde mejor precio y servicio encontré. Además, la garantía que dan es real."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MG</div>
+                    <div class="author-info">
+                        <h4>María González</h4>
+                        <p>Recomendado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">¿TU AUTO NECESITA ATENCIÓN?</h2>
+            <p class="cta-desc">No esperes más. Agenda tu cita hoy y maneja con total seguridad</p>
+            <div class="cta-buttons">
+                <a href="tel:8182588531" class="cta-btn cta-btn-primary">
+                    📞 LLAMAR AHORA
+                </a>
+                <a href="#contacto" class="cta-btn cta-btn-secondary">
+                    📝 COTIZACIÓN ONLINE
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contacto">
+        <div class="section-header">
+            <h2 class="section-title">COTIZA TU SERVICIO</h2>
+            <p class="section-subtitle">Respuesta inmediata • Presupuesto sin compromiso</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>INFORMACIÓN DE CONTACTO</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h4>Dirección</h4>
+                        <p>Sonora 1539, Colonia Ancira<br>Monterrey, N.L. 64720</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h4>Teléfono</h4>
+                        <p>(81) 8258-8531</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-text">
+                        <h4>Horario</h4>
+                        <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br>
+                        Sábado: 8:00 AM - 2:00 PM<br>
+                        <span style="color: var(--red);">Domingo: CERRADO</span></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">💬</div>
+                    <div class="info-text">
+                        <h4>WhatsApp</h4>
+                        <p>(81) 8258-8531<br>Respuesta inmediata</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" id="quotationForm">
+                <h3 style="margin-bottom: 2rem;">SOLICITAR COTIZACIÓN</h3>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre Completo*</label>
+                        <input type="text" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Teléfono*</label>
+                        <input type="tel" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Marca de Auto*</label>
+                        <input type="text" placeholder="Ej: Toyota" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <input type="text" placeholder="Ej: Corolla">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Año</label>
+                        <input type="text" placeholder="Ej: 2020">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Servicio Requerido*</label>
+                        <select required>
+                            <option value="">Seleccione un servicio...</option>
+                            <option>Suspensión - Diagnóstico</option>
+                            <option>Frenos - Revisión Completa</option>
+                            <option>Alineación y Balanceo</option>
+                            <option>Compra de Llantas</option>
+                            <option>Dirección Hidráulica</option>
+                            <option>Paquete Completo</option>
+                            <option>Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Mensaje / Descripción del Problema</label>
+                        <textarea rows="4" placeholder="Describa el problema o servicio que necesita..."></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="form-btn">
+                    ENVIAR SOLICITUD DE COTIZACIÓN
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">
+                    * Su información será procesada con total confidencialidad y precisión en nuestro sistema
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>RROS Suspensiones</h4>
+                <p>Más de 15 años siendo líderes en servicios de suspensión, frenos y mantenimiento automotriz en Monterrey.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#servicios">Suspensión Completa</a></li>
+                    <li><a href="#servicios">Sistema de Frenos</a></li>
+                    <li><a href="#servicios">Alineación y Balanceo</a></li>
+                    <li><a href="#tienda">Venta de Llantas</a></li>
+                    <li><a href="#servicios">Dirección Hidráulica</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#proceso">Nuestro Proceso</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#contacto">Ubicación</a></li>
+                    <li><a href="#contacto">Garantías</a></li>
+                    <li><a href="#">Promociones</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contacto Rápido</h4>
+                <p>📞 (81) 8258-8531<br>
+                   📱 WhatsApp: (81) 8258-8531<br>
+                   📧 info@rrossuspensiones.mx<br>
+                   📍 Monterrey, N.L.</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 RROS Suspensiones, Frenos y Más. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">📍 Sonora 1539, Colonia Ancira, Monterrey, N.L. 64720</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="window.open('https://wa.me/528182588531?text=Hola, necesito información sobre servicios de suspensión y frenos', '_blank')">
+        💬
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.textContent = '☰';
+                }
+            });
+        });
+
+        // Header Scroll Effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Timer Countdown
+        function updateTimer() {
+            const deadline = new Date();
+            deadline.setDate(deadline.getDate() + 2);
+            deadline.setHours(23, 59, 59, 999);
+            
+            const now = new Date();
+            const diff = deadline - now;
+            
+            if (diff <= 0) {
+                deadline.setDate(deadline.getDate() + 2);
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Form Submission
+        document.getElementById('quotationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form processing
+            const button = this.querySelector('.form-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'PROCESANDO...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert('¡Cotización enviada exitosamente!\n\nSu solicitud ha sido recibida en nuestro sistema con precisión.\n\nLe contactaremos en menos de 30 minutos.');
+                this.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        });
+
+        // Animate on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.service-card, .testimonial-card, .process-step').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
