@@ -944,6 +944,37 @@
         .whatsapp-float:hover {
             transform: scale(1.1);
         }
+        
+        /* Contract Button Float */
+        .contract-float {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background: #87CEEB;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 5px 25px rgba(135, 206, 235, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1rem;
+            white-space: nowrap;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .contract-float:hover {
+            transform: scale(1.05);
+            background: #5DADE2;
+            box-shadow: 0 8px 30px rgba(135, 206, 235, 0.5);
+        }
 
         /* Mobile */
         .mobile-menu-toggle {
@@ -1407,6 +1438,12 @@
     <div class="whatsapp-float" onclick="window.open('https://wa.me/528199998888?text=Hola, me interesa el servicio de tintorería', '_blank')">
         💬
     </div>
+    
+    <!-- Contract Button Float -->
+    <a href="../contrato-digital/?cliente=newash&proyecto=lavanderia-premium&precio=65000" 
+       class="contract-float">
+        ¡Aprovecha el Descuento!
+    </a>
 
     <script>
         // Loader
