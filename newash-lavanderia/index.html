@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ne Wash | Tintorería y Lavandería Premium | San Pedro Garza García</title>
+    <script>
+        // Protección del código
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117 || e.keyCode === 83)) return false;
+            if (e.keyCode == 123) return false;
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        :root {
+            --white: #ffffff;
+            --soft-white: #fafafa;
+            --light-gray: #f5f5f5;
+            --gray: #9e9e9e;
+            --dark-gray: #616161;
+            --accent-blue: #2196F3;
+            --accent-green: #4CAF50;
+            --text-dark: #212121;
+            --shadow: 0 2px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .bubbles {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .bubble {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: bubble 1.4s ease-in-out infinite;
+        }
+        
+        .bubble:nth-child(2) { animation-delay: 0.2s; }
+        .bubble:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes bubble {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), #64B5F6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-header {
+            background: #87CEEB;
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        
+        .cta-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(135, 206, 235, 0.4);
+            background: #5DADE2;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--soft-white) 0%, var(--light-gray) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 140px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(33, 150, 243, 0.05) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(1.8rem, 4vw, 4rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .hero-content h1 span {
+            color: var(--accent-blue);
+            position: relative;
+        }
+        
+        .hero-content h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .hero-feature:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), #64B5F6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hero-btn-primary {
+            background: var(--accent-blue);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .hero-btn-secondary {
+            background: var(--white);
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image-main {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .floating-badge {
+            position: absolute;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            font-weight: 600;
+            animation: float-badge 3s ease-in-out infinite;
+        }
+        
+        @keyframes float-badge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .badge-1 {
+            top: 20px;
+            right: -20px;
+            color: var(--accent-green);
+        }
+        
+        .badge-2 {
+            bottom: 30px;
+            left: -20px;
+            color: var(--accent-blue);
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--soft-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-blue), #64B5F6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .service-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+        
+        .service-price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Process */
+        .process {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--light-gray), var(--soft-white));
+        }
+        
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), transparent);
+            z-index: -1;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-number {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .process-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .process-desc {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--soft-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--accent-blue);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent-blue);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .pricing-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--gray);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--accent-blue), #1976D2);
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-desc {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .cta-btn-primary {
+            background: var(--white);
+            color: var(--accent-blue);
+        }
+        
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--soft-white);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), #64B5F6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .info-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-dark);
+        }
+        
+        .info-text p {
+            color: var(--gray);
+        }
+        
+        .contact-form {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--soft-white);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: var(--white);
+        }
+        
+        .form-btn {
+            background: var(--accent-green);
+            color: var(--white);
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Map */
+        .map-section {
+            padding: 0;
+            height: 400px;
+            background: var(--light-gray);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .map-placeholder {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .map-placeholder p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            padding: 0.5rem 0;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--white);
+        }
+        
+        .social-link:hover {
+            background: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 5px 25px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 5px 35px rgba(37, 211, 102, 0.4); }
+            100% { box-shadow: 0 5px 25px rgba(0,0,0,0.2); }
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 120px;
+                min-height: auto;
+                padding-bottom: 3rem;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+                margin-left: 1rem;
+            }
+            
+            .cta-header {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .services-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step::after {
+                display: none;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="bubbles">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+            <p style="color: var(--accent-blue); font-weight: 600;">Preparando tu experiencia limpia...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">👔</div>
+                <span>Ne Wash</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#precios">Precios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="tel:8112345678" class="cta-header">
+                📞 Agendar Servicio
+            </a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Tu Ropa <span>Impecable</span> en las Mejores Manos</h1>
+                <p class="hero-subtitle">Tintorería y lavandería premium en San Pedro Garza García</p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="feature-icon">⚡</div>
+                        <div>
+                            <h3>Servicio Express</h3>
+                            <p>Entrega el mismo día disponible</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="feature-icon">🌿</div>
+                        <div>
+                            <h3>Eco-Friendly</h3>
+                            <p>Productos biodegradables y procesos sustentables</p>
+                        </div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="feature-icon">🚚</div>
+                        <div>
+                            <h3>Recolección a Domicilio</h3>
+                            <p>Recogemos y entregamos sin costo extra</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#contacto" class="hero-btn hero-btn-primary">
+                        Solicitar Servicio
+                    </a>
+                    <a href="#precios" class="hero-btn hero-btn-secondary">
+                        Ver Precios
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="hero-image-main">
+                    👔
+                </div>
+                <div class="floating-badge badge-1">⭐ 4.8 Rating</div>
+                <div class="floating-badge badge-2">🕐 Mismo Día</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicios">
+        <div class="section-header">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Cuidamos cada prenda como si fuera nuestra</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">👔</div>
+                <h3 class="service-title">Tintorería Premium</h3>
+                <p class="service-desc">Limpieza en seco profesional para trajes, vestidos y prendas delicadas.</p>
+                <p class="service-price">Desde $85<span>/prenda</span></p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">👕</div>
+                <h3 class="service-title">Lavandería</h3>
+                <p class="service-desc">Lavado y planchado profesional de camisas, pantalones y ropa casual.</p>
+                <p class="service-price">Desde $35<span>/kg</span></p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛏️</div>
+                <h3 class="service-title">Edredones y Blancos</h3>
+                <p class="service-desc">Lavado especializado de edredones, cobertores y ropa de cama.</p>
+                <p class="service-price">Desde $250<span>/pieza</span></p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">👗</div>
+                <h3 class="service-title">Vestidos de Fiesta</h3>
+                <p class="service-desc">Tratamiento especial para vestidos de noche, quinceañera y novia.</p>
+                <p class="service-price">Desde $350<span>/vestido</span></p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🧥</div>
+                <h3 class="service-title">Pieles y Cuero</h3>
+                <p class="service-desc">Limpieza y acondicionamiento especializado para prendas de piel.</p>
+                <p class="service-price">Cotización<span>/especial</span></p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <h3 class="service-title">Manchas Difíciles</h3>
+                <p class="service-desc">Eliminación de manchas complejas con técnicas avanzadas.</p>
+                <p class="service-price">Desde $120<span>/prenda</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="proceso">
+        <div class="section-header">
+            <h2 class="section-title">Nuestro Proceso</h2>
+            <p class="section-subtitle">Calidad garantizada en cada paso</p>
+        </div>
+        
+        <div class="process-container">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <h3 class="process-title">Recepción</h3>
+                <p class="process-desc">Revisamos cada prenda y etiquetamos con código único para su seguimiento.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <h3 class="process-title">Tratamiento</h3>
+                <p class="process-desc">Aplicamos el proceso adecuado según el tipo de tela y nivel de suciedad.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <h3 class="process-title">Control de Calidad</h3>
+                <p class="process-desc">Inspección detallada para asegurar resultados impecables.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <h3 class="process-title">Entrega</h3>
+                <p class="process-desc">Empaque profesional y entrega puntual en el horario acordado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="precios">
+        <div class="section-header">
+            <h2 class="section-title">Planes y Precios</h2>
+            <p class="section-subtitle">Opciones flexibles para cada necesidad</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-title">Individual</h3>
+                <p class="pricing-price">Por Servicio</p>
+                <ul class="pricing-features">
+                    <li>Servicio por pieza</li>
+                    <li>Entrega en 48-72 horas</li>
+                    <li>Garantía de satisfacción</li>
+                    <li>Pago por servicio</li>
+                </ul>
+                <a href="#contacto" class="hero-btn hero-btn-secondary">Solicitar</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Más Popular</div>
+                <h3 class="pricing-title">Membresía</h3>
+                <p class="pricing-price">$1,999/mes</p>
+                <ul class="pricing-features">
+                    <li>25 prendas al mes</li>
+                    <li>Recolección semanal</li>
+                    <li>Servicio express incluido</li>
+                    <li>10% dto. servicios extra</li>
+                    <li>App de seguimiento</li>
+                </ul>
+                <a href="#contacto" class="hero-btn hero-btn-primary">Contratar</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="pricing-title">Empresarial</h3>
+                <p class="pricing-price">Cotización</p>
+                <ul class="pricing-features">
+                    <li>Volumen ilimitado</li>
+                    <li>Precios especiales</li>
+                    <li>Facturación empresarial</li>
+                    <li>Ejecutivo dedicado</li>
+                    <li>Términos flexibles</li>
+                </ul>
+                <a href="#contacto" class="hero-btn hero-btn-secondary">Contactar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">¿Primera vez en Ne Wash?</h2>
+            <p class="cta-desc">Obtén 20% de descuento en tu primer servicio</p>
+            <div class="cta-buttons">
+                <a href="tel:8112345678" class="cta-btn cta-btn-primary">
+                    Llamar Ahora
+                </a>
+                <a href="#contacto" class="cta-btn cta-btn-secondary">
+                    Agendar Online
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contacto">
+        <div class="section-header">
+            <h2 class="section-title">Contacto</h2>
+            <p class="section-subtitle">Estamos listos para cuidar tus prendas</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h4>Dirección</h4>
+                        <p>Bosques del Valle 1er Sector<br>66250 San Pedro Garza García, N.L.</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h4>Teléfono</h4>
+                        <p>(81) 1234-5678</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-text">
+                        <h4>Horario</h4>
+                        <p>Lunes a Viernes: 8:00 AM - 7:00 PM<br>
+                        Sábado: 9:00 AM - 2:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">💬</div>
+                    <div class="info-text">
+                        <h4>WhatsApp</h4>
+                        <p>(81) 9999-8888</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form">
+                <h3>Solicitar Servicio</h3>
+                
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Servicio Requerido</label>
+                    <select required>
+                        <option value="">Seleccionar servicio...</option>
+                        <option>Tintorería Premium</option>
+                        <option>Lavandería Regular</option>
+                        <option>Edredones y Blancos</option>
+                        <option>Vestidos de Fiesta</option>
+                        <option>Servicio a Domicilio</option>
+                        <option>Membresía Mensual</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Mensaje (Opcional)</label>
+                    <textarea rows="4" placeholder="Descripción de las prendas o requerimientos especiales..."></textarea>
+                </div>
+                
+                <button type="submit" class="form-btn">
+                    Enviar Solicitud
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="map-section">
+        <div class="map-placeholder">
+            <h3>📍 Encuéntranos en San Pedro</h3>
+            <p>Bosques del Valle 1er Sector, 66250 San Pedro Garza García</p>
+            <a href="https://maps.google.com" target="_blank" class="hero-btn hero-btn-primary">
+                Ver en Google Maps
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Ne Wash</h4>
+                <p>Tu tintorería y lavandería de confianza en San Pedro Garza García. Calidad premium y servicio excepcional desde hace más de 10 años.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#servicios">Tintorería Premium</a></li>
+                    <li><a href="#servicios">Lavandería</a></li>
+                    <li><a href="#servicios">Servicio a Domicilio</a></li>
+                    <li><a href="#precios">Membresías</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#proceso">Nuestro Proceso</a></li>
+                    <li><a href="#precios">Precios</a></li>
+                    <li><a href="#contacto">Ubicación</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contacto Rápido</h4>
+                <p>📞 (81) 1234-5678<br>
+                   📱 WhatsApp: (81) 9999-8888<br>
+                   📧 info@newash.mx<br>
+                   📍 San Pedro Garza García</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ne Wash. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem;">Bosques del Valle 1er Sector, 66250 San Pedro Garza García, N.L.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="window.open('https://wa.me/528199998888?text=Hola, me interesa el servicio de tintorería', '_blank')">
+        💬
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.textContent = '☰';
+                }
+            });
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.pageYOffset > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+
+        // Form Submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por contactarnos! Te llamaremos en los próximos 30 minutos para confirmar tu servicio.');
+            this.reset();
+        });
+
+        // Animate on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.service-card, .process-step, .pricing-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
