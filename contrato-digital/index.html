@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firma de Contrato - Desarrollo Web Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .discount-banner {
+            background: #FFF3E0;
+            border-left: 4px solid #FF9800;
+            padding: 1rem;
+            margin: 1rem 2rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .discount-banner .icon {
+            font-size: 2rem;
+        }
+        
+        .contract-content {
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            margin: 0 2rem;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        
+        .contract-content h2 {
+            color: #1976D2;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .contract-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contract-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-section {
+            background: #E3F2FD;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        .price-discount {
+            color: #F44336;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 1rem;
+        }
+        
+        .price-final {
+            color: #4CAF50;
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+            margin-top: 0.5rem;
+        }
+        
+        .signature-section {
+            padding: 2rem;
+            background: #f9f9f9;
+            border-top: 2px solid #eee;
+        }
+        
+        .signature-section h3 {
+            color: #1976D2;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #FFF9C4;
+            border-radius: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .signature-canvas {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: crosshair;
+            touch-action: none;
+            margin-bottom: 1rem;
+        }
+        
+        .canvas-instructions {
+            text-align: center;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .canvas-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            font-size: 1.2rem;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .timer {
+            background: #FFEBEE;
+            border: 2px solid #FFCDD2;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timer-title {
+            color: #C62828;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timer-countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D32F2F;
+        }
+        
+        .success-message {
+            display: none;
+            background: #E8F5E9;
+            border: 2px solid #A5D6A7;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem;
+        }
+        
+        .success-message h3 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .success-message p {
+            color: #388E3C;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2196F3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #D32F2F;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .contract-content {
+                margin: 0 1rem;
+                max-height: 300px;
+            }
+            
+            .signature-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CONTRATO DE DESARROLLO WEB</h1>
+            <p>Firma digital segura y vinculante</p>
+        </div>
+        
+        <div class="discount-banner">
+            <span class="icon">⏰</span>
+            <div>
+                <strong>¡OFERTA ESPECIAL HOY!</strong><br>
+                35% de descuento al firmar y dar anticipo ahora
+            </div>
+        </div>
+        
+        <div class="discount-banner" style="background: #E8F5E9; border-left-color: #4CAF50; margin-top: -1rem;">
+            <span class="icon">✅</span>
+            <div>
+                <strong>GARANTÍA DE DEVOLUCIÓN DE 7 DÍAS</strong><br>
+                Si no te gusta el diseño, te regresamos tu anticipo completo
+            </div>
+        </div>
+        
+        <div class="timer">
+            <div class="timer-title">⚡ DESCUENTO VÁLIDO POR:</div>
+            <div class="timer-countdown" id="countdown">23:59:45</div>
+        </div>
+        
+        <div class="contract-content">
+            <h2>1. DESCRIPCIÓN DEL SERVICIO</h2>
+            <p>El DESARROLLADOR se compromete a crear y entregar una página web profesional que incluye:</p>
+            <ul>
+                <li>✓ Diseño personalizado y moderno</li>
+                <li>✓ Página 100% responsive (móvil, tablet, computadora)</li>
+                <li>✓ Hasta 7 secciones de contenido</li>
+                <li>✓ Formulario de contacto funcional</li>
+                <li>✓ Integración con WhatsApp</li>
+                <li>✓ Optimización básica para Google (SEO)</li>
+                <li>✓ 1 año de hosting incluido</li>
+                <li>✓ Certificado SSL de seguridad</li>
+                <li>✓ Capacitación de 1 hora para manejo</li>
+            </ul>
+            
+            <h2>2. INVERSIÓN Y FORMA DE PAGO</h2>
+            <div class="price-section">
+                <span class="price-original">Precio Regular: $100,000 MXN</span>
+                <span class="price-discount">-35% HOY</span>
+                <span class="price-final">PRECIO FINAL: $65,000 MXN</span>
+            </div>
+            
+            <p><strong>Forma de pago:</strong></p>
+            <ul>
+                <li>HOY - Anticipo: $5,000 MXN (Para apartar precio con descuento)</li>
+                <li>Al aprobar diseño: $30,000 MXN (50% del saldo)</li>
+                <li>Al entregar página: $30,000 MXN (50% restante)</li>
+            </ul>
+            
+            <h2>3. TIEMPOS DE ENTREGA</h2>
+            <ul>
+                <li>Propuesta de diseño: 3-5 días hábiles</li>
+                <li>Desarrollo completo: 7-10 días hábiles</li>
+                <li>Entrega final: Máximo 15 días hábiles totales</li>
+            </ul>
+            
+            <h2>4. GARANTÍAS</h2>
+            <ul>
+                <li>✅ <strong>GARANTÍA DE SATISFACCIÓN DE 7 DÍAS:</strong> Si no está satisfecho con el diseño o proyecto, puede cancelar dentro de los primeros 7 días y se le devolverá el 100% de su anticipo ($5,000 MXN)</li>
+                <li>✓ Corrección de errores sin costo por 90 días</li>
+                <li>✓ Actualización de contenidos GRATIS el primer mes</li>
+                <li>✓ Soporte técnico básico por 3 meses</li>
+            </ul>
+        </div>
+        
+        <div class="signature-section">
+            <h3>FIRMA DIGITAL DEL CONTRATO</h3>
+            
+            <form id="signatureForm">
+                <div class="form-group">
+                    <label>Nombre completo del firmante *</label>
+                    <input type="text" id="fullName" required placeholder="Ej: Juan Pérez García">
+                    <span class="error" id="nameError">Por favor ingresa tu nombre completo</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Cargo en la empresa *</label>
+                    <input type="text" id="position" required placeholder="Ej: Director General">
+                </div>
+                
+                <div class="form-group">
+                    <label>RFC (Persona Física o Moral) *</label>
+                    <input type="text" id="rfc" required placeholder="Ej: XAXX010101000 o ABC123456789">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email para enviar copia del contrato *</label>
+                    <input type="email" id="email" required placeholder="correo@empresa.com">
+                    <span class="error" id="emailError">Por favor ingresa un email válido</span>
+                </div>
+                
+                <div class="canvas-instructions">
+                    Dibuja tu firma en el recuadro inferior
+                </div>
+                <canvas id="signatureCanvas" class="signature-canvas" width="600" height="200"></canvas>
+                
+                <div class="canvas-controls">
+                    <button type="button" class="btn btn-secondary" onclick="clearSignature()">
+                        🔄 Limpiar Firma
+                    </button>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="acceptTerms" required>
+                    <label for="acceptTerms">
+                        Acepto todos los términos y condiciones del contrato. Entiendo que este documento tiene validez legal y me comprometo a cumplir con los pagos y obligaciones establecidas.
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="acceptDiscount" required>
+                    <label for="acceptDiscount">
+                        Entiendo que el descuento del 35% es válido ÚNICAMENTE si realizo el pago del anticipo de $5,000 MXN el día de hoy. De lo contrario, el precio será de $100,000 MXN.
+                    </label>
+                </div>
+                
+                <div class="checkbox-group" style="background: #E8F5E9; border-left: 4px solid #4CAF50;">
+                    <input type="checkbox" id="acceptRefund" required>
+                    <label for="acceptRefund">
+                        <strong>GARANTÍA DE 7 DÍAS:</strong> Entiendo que tengo 7 días naturales a partir de hoy para evaluar el diseño/proyecto. Si no estoy satisfecho, puedo solicitar la devolución TOTAL de mi anticipo de $5,000 MXN sin penalización alguna.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    ✍️ FIRMAR CONTRATO Y PROCEDER AL PAGO
+                </button>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Procesando firma digital...</p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <h3>✅ ¡CONTRATO FIRMADO EXITOSAMENTE!</h3>
+                <p><strong>Firmado por:</strong> <span id="signerName"></span></p>
+                <p><strong>Fecha y hora:</strong> <span id="signDate"></span></p>
+                <p><strong>ID de contrato:</strong> <span id="contractId"></span></p>
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid #C8E6C9;">
+                <p style="font-size: 1.2rem; margin-top: 1rem;">
+                    <strong>SIGUIENTE PASO:</strong><br>
+                    Realiza el depósito de $5,000 MXN a:
+                </p>
+                <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    <p><strong>Banco:</strong> BBVA</p>
+                    <p><strong>Cuenta:</strong> 1234567890</p>
+                    <p><strong>CLABE:</strong> 012345678901234567</p>
+                    <p><strong>Nombre:</strong> Tu Nombre Aquí</p>
+                </div>
+                <p>📱 <strong>WhatsApp para confirmar pago:</strong> (81) 1234-5678</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Canvas para firma
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let hasSignature = false;
+        
+        // Ajustar canvas para alta resolución
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * 2;
+        canvas.height = rect.height * 2;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.scale(2, 2);
+        
+        // Configurar estilo de línea
+        ctx.strokeStyle = '#1976D2';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        // Eventos de mouse
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Eventos táctiles para móvil
+        canvas.addEventListener('touchstart', handleTouch);
+        canvas.addEventListener('touchmove', handleTouch);
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            hasSignature = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                            e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSignature = false;
+        }
+        
+        // Timer countdown
+        let totalSeconds = 3 * 3600 + 20 * 60 + 18; // 3:20:18 en segundos
+        
+        function updateCountdown() {
+            if (totalSeconds <= 0) {
+                document.getElementById('countdown').textContent = "00:00:00";
+                return;
+            }
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('countdown').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            totalSeconds--;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Form submission
+        document.getElementById('signatureForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validar campos
+            const fullName = document.getElementById('fullName').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const rfc = document.getElementById('rfc').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const acceptTerms = document.getElementById('acceptTerms').checked;
+            const acceptDiscount = document.getElementById('acceptDiscount').checked;
+            const acceptRefund = document.getElementById('acceptRefund').checked;
+            
+            // Validación básica
+            if (!fullName || fullName.split(' ').length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+            
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                document.getElementById('emailError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+            
+            if (!hasSignature) {
+                alert('Por favor dibuja tu firma en el recuadro');
+                return;
+            }
+            
+            if (!acceptTerms || !acceptDiscount || !acceptRefund) {
+                alert('Debes aceptar todos los términos para continuar');
+                return;
+            }
+            
+            // Mostrar loading
+            document.getElementById('signatureForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            // Simular procesamiento
+            setTimeout(() => {
+                // Generar ID único
+                const contractId = 'WEB-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                
+                // Fecha y hora actual
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('es-MX', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Mostrar mensaje de éxito
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('signerName').textContent = fullName;
+                document.getElementById('signDate').textContent = dateStr;
+                document.getElementById('contractId').textContent = contractId;
+                
+                // Obtener parámetros de URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const clienteParam = urlParams.get('cliente') || 'cliente-demo';
+                const proyectoParam = urlParams.get('proyecto') || 'proyecto-demo';
+                const precioParam = urlParams.get('precio') || '65000';
+                
+                // Datos para enviar
+                const contractData = {
+                    id: contractId,
+                    firmante: fullName,
+                    cargo: position,
+                    rfc: rfc,
+                    email: email,
+                    fecha: now.toISOString(),
+                    firma: canvas.toDataURL(),
+                    cliente: clienteParam,
+                    proyecto: proyectoParam,
+                    precio: precioParam,
+                    ip: 'Demo Mode',
+                    navegador: navigator.userAgent
+                };
+                
+                console.log('Contrato firmado:', contractData);
+                
+                // OPCIÓN 1: Enviar por WhatsApp automáticamente
+                const mensajeWhatsApp = `🔔 *NUEVA FIRMA DIGITAL*\n\n` +
+                    `📝 *Cliente:* ${fullName}\n` +
+                    `🏢 *Empresa:* ${clienteParam}\n` +
+                    `💼 *Cargo:* ${position}\n` +
+                    `🆔 *RFC:* ${rfc} (${rfc.length === 13 ? 'Persona Física' : 'Persona Moral'})\n` +
+                    `📧 *Email:* ${email}\n` +
+                    `💰 *Proyecto:* ${proyectoParam}\n` +
+                    `💵 *Monto:* $${parseInt(precioParam).toLocaleString('es-MX')} MXN\n` +
+                    `📅 *Fecha:* ${dateStr}\n` +
+                    `🔑 *ID:* ${contractId}\n\n` +
+                    `✅ *Anticipo pendiente:* $5,000 MXN`;
+                
+                // Crear enlace de WhatsApp
+                const numeroWhatsApp = '436765748509'; // TU NÚMERO AQUÍ
+                const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeWhatsApp)}`;
+                
+                // OPCIÓN 2: Guardar en localStorage para recuperar después
+                const firmasGuardadas = JSON.parse(localStorage.getItem('firmasDigitales') || '[]');
+                firmasGuardadas.push(contractData);
+                localStorage.setItem('firmasDigitales', JSON.stringify(firmasGuardadas));
+                
+                // OPCIÓN 3: Mostrar botón para enviar notificación manual
+                setTimeout(() => {
+                    if (confirm('¡Firma exitosa! ¿Deseas recibir los datos por WhatsApp?')) {
+                        window.open(urlWhatsApp, '_blank');
+                    }
+                    
+                    // También mostrar opción de copiar datos
+                    const datosTexto = `FIRMA DIGITAL\n` +
+                        `Cliente: ${fullName}\n` +
+                        `Empresa: ${clienteParam}\n` +
+                        `RFC: ${rfc}\n` +
+                        `Email: ${email}\n` +
+                        `ID: ${contractId}`;
+                    
+                    // Intentar copiar al portapapeles
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(datosTexto).then(() => {
+                            alert('Datos copiados al portapapeles. Puedes pegarlos donde necesites.');
+                        });
+                    }
+                }, 2000);
+                
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
