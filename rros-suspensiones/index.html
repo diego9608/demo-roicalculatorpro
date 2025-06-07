@@ -1127,6 +1127,40 @@
             transform: scale(1.1);
             box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
         }
+        
+        /* Contract Button Float */
+        .contract-float {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background: var(--red);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 5px 25px rgba(255, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1rem;
+            white-space: nowrap;
+            animation: pulse-red 2s infinite;
+            border: 2px solid transparent;
+        }
+        
+        @keyframes pulse-red {
+            0% { box-shadow: 0 5px 25px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 5px 35px rgba(255, 0, 0, 0.5); }
+            100% { box-shadow: 0 5px 25px rgba(255, 0, 0, 0.3); }
+        }
+        
+        .contract-float:hover {
+            transform: scale(1.05);
+            background: #cc0000;
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5);
+            border-color: var(--yellow);
+        }
 
         /* Mobile Menu */
         .mobile-menu-toggle {
@@ -1673,6 +1707,12 @@
     <div class="whatsapp-float" onclick="window.open('https://wa.me/528182588531?text=Hola, necesito información sobre servicios de suspensión y frenos', '_blank')">
         💬
     </div>
+    
+    <!-- Contract Button Float -->
+    <a href="../contrato-digital/?cliente=rros&proyecto=web-automotriz&precio=75000" 
+       class="contract-float">
+        ¡Aprovecha el Descuento!
+    </a>
 
     <script>
         // Loader
