@@ -822,8 +822,7 @@
         
         // Procesar pago con Stripe
         function procesarPagoStripe() {
-            const stripeUrl = CONFIG.stripePaymentLink;
-            window.open(stripeUrl, '_blank');
+            window.location.href = CONFIG.stripePaymentLink;
         }
 
         
