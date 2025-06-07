@@ -608,9 +608,9 @@
                 </p>
                 
                 <div class="payment-info">
-                    <p><strong>Banco:</strong> Banamex <button class="copy-btn" onclick="copyToClipboard('Banamex')">📋 Copiar</button></p>
+                    <p><strong>Banco:</strong> Banamex</p>
                     <p><strong>CLABE:</strong> <span id="clabeNumber">002580701579130163</span> <button class="copy-btn" onclick="copyToClipboard('002580701579130163')">📋 Copiar</button></p>
-                    <p><strong>Beneficiario:</strong> ROI Calculator Pro <button class="copy-btn" onclick="copyToClipboard('ROI Calculator Pro')">📋 Copiar</button></p>
+                    <p><strong>Beneficiario:</strong> ROI Calculator Pro</p>
                 </div>
                 
                 <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #C8E6C9;">
@@ -629,9 +629,6 @@
                     </a>
                     <a href="#" class="btn-action" id="whatsappBtn" target="_blank">
                         📱 Confirmar pago por WhatsApp
-                    </a>
-                    <a href="#" class="btn-action" onclick="openGoogleSheets()">
-                        📊 Ver base de datos
                     </a>
                 </div>
                 
@@ -661,7 +658,7 @@
             },
             
             // Stripe
-            stripePaymentLink: 'https://buy.stripe.com/aEU7ok02wGmU9Y9wNF',
+            stripePaymentLink: 'https://buy.stripe.com/9B6aEW8hx0igaNT8Qz7ok02',
             
             // WhatsApp
             whatsappNumber: '436765748509',
@@ -825,14 +822,10 @@
         
         // Procesar pago con Stripe
         function procesarPagoStripe() {
-            const stripeUrl = `${CONFIG.stripePaymentLink}?prefilled_email=${encodeURIComponent(lastContractData.email)}&client_reference_id=${lastContractData.contractId}`;
+            const stripeUrl = CONFIG.stripePaymentLink;
             window.open(stripeUrl, '_blank');
         }
-        
-        // Abrir Google Sheets
-        function openGoogleSheets() {
-            alert(`Puedes ver las respuestas en:\n\nGoogle Forms:\nhttps://docs.google.com/forms/d/1FAIpQLSdpVvo1ZnKbOpn1Pl5OdpTgvLMkhC4azmSgdlhE2n6C64z5CA/edit#responses\n\nPara exportar a Excel: Respuestas → Ícono de Sheets verde`);
-        }
+
         
         // Generar link de email
         function sendEmail() {
