@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Online - Grúas Montemayor | Cotiza en 3 Minutos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A1A2E;
+            --accent: #F7931E;
+            --dark: #0F0F0F;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #ff9800;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--light);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 76px;
+            left: 0;
+            right: 0;
+            background: var(--secondary);
+            padding: 1rem 5%;
+            z-index: 900;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            right: -50%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+
+        .step:last-child::before {
+            display: none;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: var(--gradient);
+            border-color: transparent;
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            border-color: transparent;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            width: 25%;
+            transition: width 0.5s ease;
+        }
+
+        /* Main Container */
+        .main-container {
+            padding: 10rem 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        /* Step 1: Crane Selection */
+        .crane-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .crane-option {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 15, 0.8) 100%);
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crane-option:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .crane-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+        }
+
+        .crane-option.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .crane-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .crane-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .crane-capacity {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .crane-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .crane-price span {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Step 2: Project Details */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group input[type="date"] {
+            cursor: pointer;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--secondary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Step 3: Contact Info */
+        .info-note {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .info-note p {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Step 4: Summary */
+        .quote-summary {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 15, 0.8) 100%);
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .summary-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-header h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .summary-details {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .summary-label {
+            color: #ccc;
+        }
+
+        .summary-value {
+            font-weight: bold;
+            color: var(--light);
+        }
+
+        .summary-total {
+            text-align: center;
+            padding: 2rem;
+            background: var(--gradient);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-amount {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .total-note {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .nav-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-prev {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-prev:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: var(--gradient);
+            color: white;
+            border: 2px solid transparent;
+            flex: 1;
+            max-width: 300px;
+            margin-left: auto;
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-next:disabled,
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .success-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+
+        .success-text {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .success-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-new {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--error);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Time Selector */
+        .time-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .time-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-option:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .time-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 107, 53, 0.2);
+        }
+
+        /* Additional Services */
+        .additional-services {
+            margin-top: 2rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .service-checkbox {
+            width: 24px;
+            height: 24px;
+            accent-color: var(--primary);
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-name {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .service-description {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .service-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .progress-steps {
+                font-size: 0.8rem;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .crane-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+            }
+
+            .btn-next,
+            .btn-submit {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">GRÚAS MONTEMAYOR</div>
+            <ul class="nav-links">
+                <li><a href="../gruas-montemayor/">Inicio</a></li>
+                <li><a href="../gruas-montemayor-v2-catalogo/">Catálogo</a></li>
+                <li><a href="#cotizador">Cotizador</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="tel:8181229400" class="cta-button">¡Llama Ahora!</a>
+        </nav>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-wrapper">
+            <div class="progress-steps">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Tipo de Grúa</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Detalles</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Contacto</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Resumen</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <form id="quoteForm">
+            <!-- Step 1: Crane Selection -->
+            <div class="form-section active" id="section1">
+                <div class="section-title">
+                    <h2>Selecciona el Tipo de <span style="color: var(--primary);">Grúa</span></h2>
+                    <p>Elige la grúa que mejor se adapte a tu proyecto</p>
+                </div>
+
+                <div class="crane-selection">
+                    <div class="crane-option" data-crane="titan-14" data-price="3500">
+                        <span class="crane-icon">🏗️</span>
+                        <div class="crane-name">Grúa Titán</div>
+                        <div class="crane-capacity">14-30 toneladas</div>
+                        <div class="crane-price">Desde $3,500 <span>/día</span></div>
+                    </div>
+
+                    <div class="crane-option" data-crane="autopropulsada-20" data-price="4500">
+                        <span class="crane-icon">🚧</span>
+                        <div class="crane-name">Autopropulsada</div>
+                        <div class="crane-capacity">20-30 toneladas</div>
+                        <div class="crane-price">Desde $4,500 <span>/día</span></div>
+                    </div>
+
+                    <div class="crane-option" data-crane="camion-40" data-price="6000">
+                        <span class="crane-icon">🚚</span>
+                        <div class="crane-name">Sobre Camión</div>
+                        <div class="crane-capacity">40-140 toneladas</div>
+                        <div class="crane-price">Desde $6,000 <span>/día</span></div>
+                    </div>
+
+                    <div class="crane-option" data-crane="montacargas-5000" data-price="2000">
+                        <span class="crane-icon">📦</span>
+                        <div class="crane-name">Montacargas</div>
+                        <div class="crane-capacity">5,000-16,000 libras</div>
+                        <div class="crane-price">Desde $2,000 <span>/día</span></div>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="nav-btn btn-next" onclick="nextStep()" disabled>Siguiente →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Project Details -->
+            <div class="form-section" id="section2">
+                <div class="section-title">
+                    <h2>Detalles del <span style="color: var(--primary);">Proyecto</span></h2>
+                    <p>Ayúdanos a entender mejor tus necesidades</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="projectType">Tipo de Proyecto *</label>
+                        <select id="projectType" name="projectType" required>
+                            <option value="">Selecciona...</option>
+                            <option value="construccion">Construcción</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="montaje">Montaje de Estructuras</option>
+                            <option value="emergencia">Emergencia</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <span class="error-message">Por favor selecciona un tipo de proyecto</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Ubicación del Proyecto *</label>
+                        <input type="text" id="location" name="location" placeholder="Ej: Monterrey Centro" required>
+                        <span class="error-message">Por favor ingresa la ubicación</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fechas del Proyecto *</label>
+                    <div class="date-inputs">
+                        <div>
+                            <input type="date" id="startDate" name="startDate" required>
+                            <span class="error-message">Selecciona fecha de inicio</span>
+                        </div>
+                        <div>
+                            <input type="date" id="endDate" name="endDate" required>
+                            <span class="error-message">Selecciona fecha de fin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Duración Estimada *</label>
+                    <div class="time-selector">
+                        <div class="time-option" data-duration="hours">
+                            <strong>Por Horas</strong>
+                            <p>1-8 horas</p>
+                        </div>
+                        <div class="time-option" data-duration="days">
+                            <strong>Por Días</strong>
+                            <p>1-30 días</p>
+                        </div>
+                        <div class="time-option" data-duration="weeks">
+                            <strong>Por Semanas</strong>
+                            <p>1-4 semanas</p>
+                        </div>
+                        <div class="time-option" data-duration="months">
+                            <strong>Por Meses</strong>
+                            <p>1+ meses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDetails">Detalles Adicionales</label>
+                    <textarea id="projectDetails" name="projectDetails" placeholder="Describe brevemente tu proyecto..."></textarea>
+                </div>
+
+                <div class="additional-services">
+                    <h3 style="margin-bottom: 1rem;">Servicios Adicionales</h3>
+                    <div class="service-item">
+                        <input type="checkbox" class="service-checkbox" id="operator" name="services" value="operator">
+                        <div class="service-info">
+                            <div class="service-name">Operador Certificado</div>
+                            <div class="service-description">Operador experto incluido</div>
+                        </div>
+                        <div class="service-price">Incluido</div>
+                    </div>
+                    <div class="service-item">
+                        <input type="checkbox" class="service-checkbox" id="transport" name="services" value="transport">
+                        <div class="service-info">
+                            <div class="service-name">Transporte</div>
+                            <div class="service-description">Llevamos la grúa a tu proyecto</div>
+                        </div>
+                        <div class="service-price">+$1,500</div>
+                    </div>
+                    <div class="service-item">
+                        <input type="checkbox" class="service-checkbox" id="permit" name="services" value="permit">
+                        <div class="service-info">
+                            <div class="service-name">Gestión de Permisos</div>
+                            <div class="service-description">Tramitamos los permisos necesarios</div>
+                        </div>
+                        <div class="service-price">+$2,000</div>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="nav-btn btn-prev" onclick="prevStep()">← Anterior</button>
+                    <button type="button" class="nav-btn btn-next" onclick="nextStep()">Siguiente →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Contact Information -->
+            <div class="form-section" id="section3">
+                <div class="section-title">
+                    <h2>Información de <span style="color: var(--primary);">Contacto</span></h2>
+                    <p>Para enviarte tu cotización personalizada</p>
+                </div>
+
+                <div class="info-note">
+                    <p>🔒 Tu información está segura con nosotros</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Nombre Completo *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Juan Pérez" required>
+                        <span class="error-message">Por favor ingresa tu nombre</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <input type="text" id="company" name="company" placeholder="Construcciones SA de CV">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                        <span class="error-message">Por favor ingresa un correo válido</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="81 1234 5678" required>
+                        <span class="error-message">Por favor ingresa tu teléfono</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Método de Contacto Preferido</label>
+                    <div class="time-selector">
+                        <div class="time-option selected" data-contact="phone">
+                            📞 Llamada
+                        </div>
+                        <div class="time-option" data-contact="whatsapp">
+                            💬 WhatsApp
+                        </div>
+                        <div class="time-option" data-contact="email">
+                            📧 Email
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="nav-btn btn-prev" onclick="prevStep()">← Anterior</button>
+                    <button type="button" class="nav-btn btn-next" onclick="nextStep()">Siguiente →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Quote Summary -->
+            <div class="form-section" id="section4">
+                <div class="section-title">
+                    <h2>Resumen de tu <span style="color: var(--primary);">Cotización</span></h2>
+                    <p>Revisa los detalles antes de enviar</p>
+                </div>
+
+                <div class="quote-summary">
+                    <div class="summary-header">
+                        <h3>Cotización #2024-1206</h3>
+                        <p>Válida por 15 días</p>
+                    </div>
+
+                    <div class="summary-details">
+                        <div class="summary-item">
+                            <span class="summary-label">Tipo de Grúa:</span>
+                            <span class="summary-value" id="summaryGrua">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Tipo de Proyecto:</span>
+                            <span class="summary-value" id="summaryProject">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Ubicación:</span>
+                            <span class="summary-value" id="summaryLocation">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Fechas:</span>
+                            <span class="summary-value" id="summaryDates">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Duración:</span>
+                            <span class="summary-value" id="summaryDuration">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Servicios Adicionales:</span>
+                            <span class="summary-value" id="summaryServices">Ninguno</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-total">
+                        <div class="total-label">Total Estimado:</div>
+                        <div class="total-amount" id="totalAmount">$0.00 MXN</div>
+                        <div class="total-note">*Precio sujeto a inspección del sitio</div>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="nav-btn btn-prev" onclick="prevStep()">← Anterior</button>
+                    <button type="submit" class="nav-btn btn-submit">Enviar Cotización</button>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="form-section" id="successSection">
+                <div class="success-message">
+                    <div class="success-icon">🎉</div>
+                    <h2 class="success-title">¡Cotización Enviada!</h2>
+                    <p class="success-text">
+                        Hemos recibido tu solicitud. Nuestro equipo te contactará en menos de 30 minutos.
+                    </p>
+                    <div class="success-actions">
+                        <a href="#" class="success-btn btn-download" onclick="downloadQuote()">📥 Descargar Cotización</a>
+                        <a href="#" class="success-btn btn-new" onclick="newQuote()">Nueva Cotización</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Grúas Montemayor. Todos los derechos reservados. | Sistema de Cotización v3.0</p>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        let selectedCrane = null;
+        let selectedDuration = null;
+        let selectedContact = 'phone';
+        let formData = {};
+
+        // Crane selection
+        document.querySelectorAll('.crane-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.crane-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedCrane = {
+                    type: this.dataset.crane,
+                    name: this.querySelector('.crane-name').textContent,
+                    price: parseInt(this.dataset.price)
+                };
+                document.querySelector('#section1 .btn-next').disabled = false;
+            });
+        });
+
+        // Duration selection
+        document.querySelectorAll('.time-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.closest('.time-selector');
+                parent.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                if (parent.closest('#section2')) {
+                    selectedDuration = this.dataset.duration;
+                } else if (parent.closest('#section3')) {
+                    selectedContact = this.dataset.contact;
+                }
+            });
+        });
+
+        // Navigation
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                saveStepData(currentStep);
+                
+                if (currentStep === 3) {
+                    updateSummary();
+                }
+                
+                document.getElementById(`section${currentStep}`).classList.remove('active');
+                document.getElementById(`step${currentStep}`).classList.add('completed');
+                
+                currentStep++;
+                
+                document.getElementById(`section${currentStep}`).classList.add('active');
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function prevStep() {
+            document.getElementById(`section${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            currentStep--;
+            
+            document.getElementById(`section${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}`).classList.remove('completed');
+            
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / 4) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+            
+            if (step === 1) {
+                if (!selectedCrane) {
+                    alert('Por favor selecciona un tipo de grúa');
+                    return false;
+                }
+            } else if (step === 2) {
+                const projectType = document.getElementById('projectType');
+                const location = document.getElementById('location');
+                const startDate = document.getElementById('startDate');
+                const endDate = document.getElementById('endDate');
+                
+                if (!projectType.value) {
+                    projectType.closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    projectType.closest('.form-group').classList.remove('error');
+                }
+                
+                if (!location.value) {
+                    location.closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    location.closest('.form-group').classList.remove('error');
+                }
+                
+                if (!startDate.value || !endDate.value) {
+                    startDate.closest('.date-inputs').parentElement.classList.add('error');
+                    isValid = false;
+                } else if (new Date(startDate.value) > new Date(endDate.value)) {
+                    alert('La fecha de fin debe ser posterior a la fecha de inicio');
+                    isValid = false;
+                } else {
+                    startDate.closest('.date-inputs').parentElement.classList.remove('error');
+                }
+                
+                if (!selectedDuration) {
+                    alert('Por favor selecciona la duración estimada');
+                    isValid = false;
+                }
+            } else if (step === 3) {
+                const fullName = document.getElementById('fullName');
+                const email = document.getElementById('email');
+                const phone = document.getElementById('phone');
+                
+                if (!fullName.value) {
+                    fullName.closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    fullName.closest('.form-group').classList.remove('error');
+                }
+                
+                if (!email.value || !email.validity.valid) {
+                    email.closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    email.closest('.form-group').classList.remove('error');
+                }
+                
+                if (!phone.value) {
+                    phone.closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    phone.closest('.form-group').classList.remove('error');
+                }
+            }
+            
+            return isValid;
+        }
+
+        function saveStepData(step) {
+            if (step === 1) {
+                formData.crane = selectedCrane;
+            } else if (step === 2) {
+                formData.projectType = document.getElementById('projectType').value;
+                formData.location = document.getElementById('location').value;
+                formData.startDate = document.getElementById('startDate').value;
+                formData.endDate = document.getElementById('endDate').value;
+                formData.duration = selectedDuration;
+                formData.details = document.getElementById('projectDetails').value;
+                
+                formData.services = [];
+                document.querySelectorAll('.service-checkbox:checked').forEach(cb => {
+                    formData.services.push(cb.value);
+                });
+            } else if (step === 3) {
+                formData.fullName = document.getElementById('fullName').value;
+                formData.company = document.getElementById('company').value;
+                formData.email = document.getElementById('email').value;
+                formData.phone = document.getElementById('phone').value;
+                formData.contactMethod = selectedContact;
+            }
+        }
+
+        function updateSummary() {
+            // Update summary values
+            document.getElementById('summaryGrua').textContent = formData.crane.name;
+            document.getElementById('summaryProject').textContent = formData.projectType;
+            document.getElementById('summaryLocation').textContent = formData.location;
+            
+            const startDate = new Date(formData.startDate);
+            const endDate = new Date(formData.endDate);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            
+            document.getElementById('summaryDates').textContent = 
+                `${startDate.toLocaleDateString('es-MX')} - ${endDate.toLocaleDateString('es-MX')}`;
+            document.getElementById('summaryDuration').textContent = `${days} días`;
+            
+            // Services
+            if (formData.services.length > 0) {
+                const serviceNames = {
+                    'operator': 'Operador Certificado',
+                    'transport': 'Transporte (+$1,500)',
+                    'permit': 'Gestión de Permisos (+$2,000)'
+                };
+                const services = formData.services.map(s => serviceNames[s]).join(', ');
+                document.getElementById('summaryServices').textContent = services;
+            }
+            
+            // Calculate total
+            let total = formData.crane.price * days;
+            if (formData.services.includes('transport')) total += 1500;
+            if (formData.services.includes('permit')) total += 2000;
+            
+            document.getElementById('totalAmount').textContent = 
+                '$' + total.toLocaleString('es-MX') + ' MXN';
+        }
+
+        // Form submission
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide form and show success
+            document.getElementById('section4').classList.remove('active');
+            document.getElementById('successSection').classList.add('active');
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('step4').classList.add('completed');
+            
+            // Here you would normally send the data to a server
+            console.log('Quote submitted:', formData);
+        });
+
+        function downloadQuote() {
+            alert('Descargando cotización PDF...\n\n(En producción, esto generaría un PDF real)');
+        }
+
+        function newQuote() {
+            location.reload();
+        }
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').setAttribute('min', today);
+        document.getElementById('endDate').setAttribute('min', today);
+    </script>
+</body>
+</html>
