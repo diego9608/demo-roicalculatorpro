@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Grúas - Grúas Montemayor | Encuentra tu Grúa Ideal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A1A2E;
+            --accent: #F7931E;
+            --dark: #0F0F0F;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            --success: #4CAF50;
+            --available: #00C853;
+            --busy: #FFD600;
+            --maintenance: #FF5252;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--light);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(15, 15, 15, 0.9) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        /* Search and Filters */
+        .search-section {
+            padding: 2rem 5%;
+            background: var(--secondary);
+            position: sticky;
+            top: 76px;
+            z-index: 900;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .filter-select option {
+            background: var(--secondary);
+        }
+
+        /* Status Indicators */
+        .status-legend {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-available { background: var(--available); }
+        .status-busy { background: var(--busy); }
+        .status-maintenance { background: var(--maintenance); }
+
+        /* Catalog Grid */
+        .catalog {
+            padding: 4rem 5%;
+            background: var(--dark);
+        }
+
+        .catalog-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: var(--gradient);
+            border-color: transparent;
+        }
+
+        .view-btn:hover {
+            background: rgba(255, 107, 53, 0.3);
+        }
+
+        .crane-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .crane-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 15, 0.8) 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .crane-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .crane-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-available {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--available);
+            border: 1px solid var(--available);
+        }
+
+        .status-busy {
+            background: rgba(255, 214, 0, 0.2);
+            color: var(--busy);
+            border: 1px solid var(--busy);
+        }
+
+        .status-maintenance {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--maintenance);
+            border: 1px solid var(--maintenance);
+        }
+
+        .crane-image {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .crane-image::before {
+            content: '🏗️';
+            font-size: 80px;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .crane-info {
+            padding: 1.5rem;
+        }
+
+        .crane-model {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .crane-type {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .crane-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .spec-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .crane-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-details,
+        .btn-quote {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-details {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-details:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-quote {
+            background: var(--gradient);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-quote:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            border-radius: 20px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            background: rgba(255, 107, 53, 0.2);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .detail-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 0.5rem 0;
+            color: #ccc;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-list li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #999;
+        }
+
+        .detail-value {
+            font-weight: bold;
+            color: var(--light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: auto;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .crane-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .crane-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 107, 53, 0.3);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">GRÚAS MONTEMAYOR</div>
+            <ul class="nav-links">
+                <li><a href="../gruas-montemayor/">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="tel:8181229400" class="cta-button">¡Llama Ahora!</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Catálogo de <span style="color: var(--primary);">Grúas</span></h1>
+        <p>Encuentra la grúa perfecta para tu proyecto. Flota moderna, mantenimiento constante y disponibilidad en tiempo real.</p>
+    </section>
+
+    <!-- Search and Filters -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Buscar por modelo, capacidad o tipo..." id="searchInput">
+                <button class="search-button" onclick="searchCranes()">🔍 Buscar</button>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <span class="filter-label">Capacidad:</span>
+                    <select class="filter-select" id="capacityFilter" onchange="filterCranes()">
+                        <option value="">Todas</option>
+                        <option value="14-20">14-20 ton</option>
+                        <option value="20-40">20-40 ton</option>
+                        <option value="40-80">40-80 ton</option>
+                        <option value="80+">80+ ton</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <span class="filter-label">Tipo:</span>
+                    <select class="filter-select" id="typeFilter" onchange="filterCranes()">
+                        <option value="">Todos</option>
+                        <option value="titan">Titán</option>
+                        <option value="autopropulsada">Autopropulsada</option>
+                        <option value="camion">Sobre Camión</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <span class="filter-label">Disponibilidad:</span>
+                    <select class="filter-select" id="statusFilter" onchange="filterCranes()">
+                        <option value="">Todas</option>
+                        <option value="available">Disponible</option>
+                        <option value="busy">Ocupada</option>
+                        <option value="maintenance">Mantenimiento</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="status-legend">
+                <div class="status-item">
+                    <div class="status-dot status-available"></div>
+                    <span>Disponible ahora</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-busy"></div>
+                    <span>En proyecto</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-maintenance"></div>
+                    <span>Mantenimiento</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Grid -->
+    <section class="catalog" id="catalogo">
+        <div class="catalog-container">
+            <div class="results-info">
+                <div class="results-count">
+                    <span id="resultCount">12</span> grúas encontradas
+                </div>
+                <div class="view-options">
+                    <button class="view-btn active" onclick="setView('grid')">⊞ Grid</button>
+                    <button class="view-btn" onclick="setView('list')">☰ Lista</button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Cargando catálogo...</p>
+            </div>
+
+            <div class="crane-grid" id="craneGrid">
+                <!-- Grúa 1 -->
+                <div class="crane-card" data-capacity="14" data-type="titan" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Titán TM-14</h3>
+                        <p class="crane-type">Grúa Titán</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>14 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 25m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📐</span>
+                                <span>Altura 30m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">⚡</span>
+                                <span>Instalación rápida</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Titán TM-14')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Titán TM-14')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 2 -->
+                <div class="crane-card" data-capacity="20" data-type="autopropulsada" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">AutoPro AP-20</h3>
+                        <p class="crane-type">Grúa Autopropulsada</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>20 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 30m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🚗</span>
+                                <span>Todo terreno</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🔄</span>
+                                <span>Giro 360°</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('AutoPro AP-20')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('AutoPro AP-20')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 3 -->
+                <div class="crane-card" data-capacity="30" data-type="autopropulsada" data-status="busy">
+                    <div class="crane-status status-busy">
+                        <div class="status-dot status-busy"></div>
+                        En Proyecto
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">AutoPro AP-30</h3>
+                        <p class="crane-type">Grúa Autopropulsada</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>30 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 35m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🚗</span>
+                                <span>Todo terreno</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📅</span>
+                                <span>Libre: 15 Dic</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('AutoPro AP-30')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('AutoPro AP-30')">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 4 -->
+                <div class="crane-card" data-capacity="40" data-type="camion" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Camión SC-40</h3>
+                        <p class="crane-type">Grúa Sobre Camión</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>40 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 40m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🚚</span>
+                                <span>Movilidad total</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">⏱️</span>
+                                <span>Setup rápido</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Camión SC-40')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Camión SC-40')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 5 -->
+                <div class="crane-card" data-capacity="60" data-type="camion" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Camión SC-60</h3>
+                        <p class="crane-type">Grúa Sobre Camión</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>60 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 45m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🏗️</span>
+                                <span>Proyectos grandes</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">✅</span>
+                                <span>Certificada</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Camión SC-60')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Camión SC-60')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 6 -->
+                <div class="crane-card" data-capacity="80" data-type="camion" data-status="maintenance">
+                    <div class="crane-status status-maintenance">
+                        <div class="status-dot status-maintenance"></div>
+                        Mantenimiento
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Camión SC-80</h3>
+                        <p class="crane-type">Grúa Sobre Camión</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>80 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 50m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🔧</span>
+                                <span>Mantenimiento preventivo</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📅</span>
+                                <span>Libre: 20 Dic</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Camión SC-80')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Camión SC-80')">Pre-reservar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 7 -->
+                <div class="crane-card" data-capacity="100" data-type="camion" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Camión SC-100</h3>
+                        <p class="crane-type">Grúa Sobre Camión</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>100 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 60m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🏢</span>
+                                <span>Mega proyectos</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">⭐</span>
+                                <span>Premium</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Camión SC-100')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Camión SC-100')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 8 -->
+                <div class="crane-card" data-capacity="140" data-type="camion" data-status="busy">
+                    <div class="crane-status status-busy">
+                        <div class="status-dot status-busy"></div>
+                        En Proyecto
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Camión SC-140 MAX</h3>
+                        <p class="crane-type">Grúa Sobre Camión</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>140 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 70m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🚀</span>
+                                <span>Máxima capacidad</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📅</span>
+                                <span>Libre: 25 Dic</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Camión SC-140 MAX')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Camión SC-140 MAX')">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 9 - Titán adicional -->
+                <div class="crane-card" data-capacity="20" data-type="titan" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Titán TM-20</h3>
+                        <p class="crane-type">Grúa Titán</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>20 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 30m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🏗️</span>
+                                <span>Construcción</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">💰</span>
+                                <span>Económica</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Titán TM-20')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Titán TM-20')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 10 - Titán grande -->
+                <div class="crane-card" data-capacity="30" data-type="titan" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Titán TM-30 Plus</h3>
+                        <p class="crane-type">Grúa Titán</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>30 toneladas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📏</span>
+                                <span>Alcance 35m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">⚡</span>
+                                <span>Alta eficiencia</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🛡️</span>
+                                <span>Extra segura</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Titán TM-30 Plus')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Titán TM-30 Plus')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 11 - Montacargas -->
+                <div class="crane-card" data-capacity="5" data-type="montacargas" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Montacargas MC-5000</h3>
+                        <p class="crane-type">Montacargas</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>5,000 libras</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📦</span>
+                                <span>Manejo de carga</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🏭</span>
+                                <span>Industrial</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">⚡</span>
+                                <span>Ágil</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Montacargas MC-5000')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Montacargas MC-5000')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grúa 12 - Montacargas grande -->
+                <div class="crane-card" data-capacity="16" data-type="montacargas" data-status="available">
+                    <div class="crane-status status-available">
+                        <div class="status-dot status-available"></div>
+                        Disponible
+                    </div>
+                    <div class="crane-image"></div>
+                    <div class="crane-info">
+                        <h3 class="crane-model">Montacargas MC-16000</h3>
+                        <p class="crane-type">Montacargas</p>
+                        <div class="crane-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>16,000 libras</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">📦</span>
+                                <span>Cargas pesadas</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">🏗️</span>
+                                <span>Construcción</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">💪</span>
+                                <span>Robusta</span>
+                            </div>
+                        </div>
+                        <div class="crane-actions">
+                            <a href="#" class="btn-details" onclick="showDetails('Montacargas MC-16000')">Ver Detalles</a>
+                            <a href="#" class="btn-quote" onclick="requestQuote('Montacargas MC-16000')">Cotizar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>¿No encuentras la grúa que necesitas?</h2>
+            <p>Contamos con más equipos en nuestra flota. Contáctanos y encontraremos la solución perfecta para tu proyecto.</p>
+            <a href="tel:8181229400" class="cta-button">Hablar con un Experto</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Grúas Montemayor</h3>
+                <p>Líderes en soluciones de izaje en Monterrey. Más de 20 años elevando los proyectos más importantes de la región.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="../gruas-montemayor/">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="../v3-cotizador/">Cotizador Online</a></li>
+                    <li><a href="../v4-portal-clientes/">Portal Clientes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📞 (81) 8122 9400</li>
+                    <li>📱 811-312-8129</li>
+                    <li>📍 Edison 2310-B nte. Col. Progreso</li>
+                    <li>🌐 gruasmontemayor.com</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Horario</h3>
+                <ul>
+                    <li>Lunes - Viernes: 8:00 AM - 6:00 PM</li>
+                    <li>Sábados: 8:00 AM - 2:00 PM</li>
+                    <li>Emergencias: 24/7</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Grúas Montemayor. Todos los derechos reservados. | Catálogo Digital v2.0</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Detalles de la Grúa</h2>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        function searchCranes() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.crane-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const model = card.querySelector('.crane-model').textContent.toLowerCase();
+                const type = card.querySelector('.crane-type').textContent.toLowerCase();
+                
+                if (model.includes(searchTerm) || type.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            updateResultCount(visibleCount);
+        }
+
+        // Filter functionality
+        function filterCranes() {
+            const capacityFilter = document.getElementById('capacityFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const cards = document.querySelectorAll('.crane-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                let show = true;
+                const capacity = parseInt(card.dataset.capacity);
+                const type = card.dataset.type;
+                const status = card.dataset.status;
+
+                // Capacity filter
+                if (capacityFilter) {
+                    if (capacityFilter === '14-20' && (capacity < 14 || capacity > 20)) show = false;
+                    else if (capacityFilter === '20-40' && (capacity < 20 || capacity > 40)) show = false;
+                    else if (capacityFilter === '40-80' && (capacity < 40 || capacity > 80)) show = false;
+                    else if (capacityFilter === '80+' && capacity < 80) show = false;
+                }
+
+                // Type filter
+                if (typeFilter && type !== typeFilter) show = false;
+
+                // Status filter
+                if (statusFilter && status !== statusFilter) show = false;
+
+                card.style.display = show ? 'block' : 'none';
+                if (show) visibleCount++;
+            });
+
+            updateResultCount(visibleCount);
+        }
+
+        // Update result count
+        function updateResultCount(count) {
+            document.getElementById('resultCount').textContent = count;
+        }
+
+        // Show details modal
+        function showDetails(craneName) {
+            const modal = document.getElementById('detailModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = craneName;
+            
+            // Simulate detailed content
+            modalBody.innerHTML = `
+                <div class="detail-grid">
+                    <div class="detail-section">
+                        <h3>Especificaciones Técnicas</h3>
+                        <ul class="detail-list">
+                            <li>
+                                <span class="detail-label">Capacidad máxima:</span>
+                                <span class="detail-value">Según modelo</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Alcance máximo:</span>
+                                <span class="detail-value">Variable</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Altura de izaje:</span>
+                                <span class="detail-value">Hasta 70m</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Radio de giro:</span>
+                                <span class="detail-value">360°</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Velocidad de izaje:</span>
+                                <span class="detail-value">0-120 m/min</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Características</h3>
+                        <ul class="detail-list">
+                            <li>
+                                <span class="detail-label">Sistema de seguridad:</span>
+                                <span class="detail-value">LMI integrado</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Certificaciones:</span>
+                                <span class="detail-value">ISO 9001:2015</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Operadores:</span>
+                                <span class="detail-value">Certificados</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Mantenimiento:</span>
+                                <span class="detail-value">Preventivo mensual</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Antigüedad:</span>
+                                <span class="detail-value">< 5 años</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" class="btn-quote" onclick="requestQuote('${craneName}'); closeModal();">Solicitar Cotización</a>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Request quote
+        function requestQuote(craneName) {
+            alert(`Cotización solicitada para: ${craneName}\n\nNos pondremos en contacto contigo en menos de 30 minutos.`);
+            // Here you would normally send the request to a server
+        }
+
+        // Set view mode
+        function setView(mode) {
+            const buttons = document.querySelectorAll('.view-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // In a real implementation, you would change the layout here
+            console.log('View mode:', mode);
+        }
+
+        // Close modal on outside click
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Simulate loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('active');
+            }, 500);
+        });
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchCranes();
+            }
+        });
+    </script>
+</body>
+</html>
