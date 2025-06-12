@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grúas Montemayor - Demos Interactivas | Todas las Versiones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A1A2E;
+            --accent: #F7931E;
+            --dark: #0F0F0F;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            --success: #4CAF50;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--light);
+            background: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .tagline {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(15, 15, 15, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Version Grid */
+        .versions-section {
+            padding: 4rem 5%;
+            flex: 1;
+        }
+
+        .versions-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .version-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 15, 0.8) 100%);
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .version-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .version-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .version-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .version-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .version-number {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .version-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .version-subtitle {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .version-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .version-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #ccc;
+        }
+
+        .version-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .version-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Client Portal Card - Special Styling */
+        .version-card.portal-special {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            border-color: var(--primary);
+        }
+
+        .portal-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Features Overview */
+        .features-overview {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .feature-item:nth-child(2) .feature-icon {
+            animation-delay: 0.2s;
+        }
+
+        .feature-item:nth-child(3) .feature-icon {
+            animation-delay: 0.4s;
+        }
+
+        .feature-item:nth-child(4) .feature-icon {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-info span {
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .versions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .version-actions {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">GRÚAS MONTEMAYOR</div>
+            <p class="tagline">Soluciones Digitales Innovadoras para la Industria de Grúas</p>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bienvenido al <span class="highlight">Centro de Demos</span></h1>
+            <p>Explora nuestras 4 versiones diseñadas para revolucionar tu experiencia digital y multiplicar tus ventas</p>
+        </div>
+    </section>
+
+    <!-- Versions Section -->
+    <section class="versions-section">
+        <div class="versions-container">
+            <div class="section-title">
+                <h2>Elige tu <span class="highlight">Experiencia</span></h2>
+            </div>
+
+            <div class="versions-grid">
+                <!-- Version 1 -->
+                <div class="version-card">
+                    <div class="version-header">
+                        <span class="version-number">VERSIÓN 1</span>
+                        <h3 class="version-title">Landing Page Moderna</h3>
+                        <p class="version-subtitle">Conversión Optimizada</p>
+                    </div>
+                    <ul class="version-features">
+                        <li>Diseño ultra moderno y atractivo</li>
+                        <li>Animaciones fluidas y profesionales</li>
+                        <li>Modal comparativo (antes vs después)</li>
+                        <li>CTAs estratégicos para conversión</li>
+                        <li>Carga ultrarrápida < 2 segundos</li>
+                    </ul>
+                    <div class="version-actions">
+                        <a href="./gruas-montemayor/" class="btn btn-primary">Ver Demo</a>
+                        <a href="https://github.com/diego9608/demo-roicalculatorpro/tree/main/gruas/gruas-montemayor" class="btn btn-secondary">Código</a>
+                    </div>
+                </div>
+
+                <!-- Version 2 -->
+                <div class="version-card">
+                    <div class="version-header">
+                        <span class="version-number">VERSIÓN 2</span>
+                        <h3 class="version-title">Catálogo Interactivo</h3>
+                        <p class="version-subtitle">Gestión de Inventario</p>
+                    </div>
+                    <ul class="version-features">
+                        <li>Búsqueda en tiempo real</li>
+                        <li>Filtros dinámicos avanzados</li>
+                        <li>Estados de disponibilidad en vivo</li>
+                        <li>Vista detallada con especificaciones</li>
+                        <li>12+ modelos de grúas catalogados</li>
+                    </ul>
+                    <div class="version-actions">
+                        <a href="./gruas-montemayor-v2-catalogo/" class="btn btn-primary">Ver Demo</a>
+                        <a href="https://github.com/diego9608/demo-roicalculatorpro/tree/main/gruas/gruas-montemayor-v2-catalogo" class="btn btn-secondary">Código</a>
+                    </div>
+                </div>
+
+                <!-- Version 3 -->
+                <div class="version-card">
+                    <div class="version-header">
+                        <span class="version-number">VERSIÓN 3</span>
+                        <h3 class="version-title">Sistema de Cotización</h3>
+                        <p class="version-subtitle">Ventas Automatizadas</p>
+                    </div>
+                    <ul class="version-features">
+                        <li>Proceso guiado en 4 pasos</li>
+                        <li>Cálculo automático de precios</li>
+                        <li>Calendario integrado de proyectos</li>
+                        <li>Servicios adicionales opcionales</li>
+                        <li>Generación de PDF (simulado)</li>
+                    </ul>
+                    <div class="version-actions">
+                        <a href="./gruas-montemayor-v3-cotizador/" class="btn btn-primary">Ver Demo</a>
+                        <a href="https://github.com/diego9608/demo-roicalculatorpro/tree/main/gruas/gruas-montemayor-v3-cotizador" class="btn btn-secondary">Código</a>
+                    </div>
+                </div>
+
+                <!-- Version 4 -->
+                <div class="version-card portal-special">
+                    <span class="portal-badge">⭐ Premium</span>
+                    <div class="version-header">
+                        <span class="version-number">VERSIÓN 4</span>
+                        <h3 class="version-title">Portal de Clientes</h3>
+                        <p class="version-subtitle">Retención & Fidelización</p>
+                    </div>
+                    <ul class="version-features">
+                        <li>Dashboard personalizado</li>
+                        <li>Tracking GPS en tiempo real</li>
+                        <li>Gestión de proyectos activos</li>
+                        <li>Acceso a facturas y documentos</li>
+                        <li>Chat de soporte integrado</li>
+                    </ul>
+                    <div class="version-actions">
+                        <a href="./gruas-montemayor-v4-portal/" class="btn btn-primary">Ver Demo</a>
+                        <a href="https://github.com/diego9608/demo-roicalculatorpro/tree/main/gruas/gruas-montemayor-v4-portal" class="btn btn-secondary">Código</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Overview -->
+            <div class="features-overview">
+                <h3 class="features-title">Características Principales</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <div class="feature-name">Ultra Rápido</div>
+                        <div class="feature-desc">Carga en menos de 2 segundos</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <div class="feature-name">100% Responsivo</div>
+                        <div class="feature-desc">Perfecto en cualquier dispositivo</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎨</span>
+                        <div class="feature-name">Diseño Premium</div>
+                        <div class="feature-desc">Interfaces modernas y atractivas</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📈</span>
+                        <div class="feature-name">ROI Garantizado</div>
+                        <div class="feature-desc">300%+ aumento en conversiones</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">¿Listo para <span class="highlight">Transformar</span> tu Negocio?</h2>
+            <p class="cta-text">Implementa estas soluciones y observa cómo tus ventas se multiplican</p>
+            <div class="cta-buttons">
+                <a href="tel:8181229400" class="cta-btn btn-primary">📞 Llamar Ahora</a>
+                <a href="https://wa.me/528113128129" class="cta-btn btn-secondary">💬 WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>📍 Monterrey, NL, México</span>
+                <span>📞 (81) 8122 9400</span>
+                <span>🌐 gruasmontemayor.com</span>
+            </div>
+            <p>&copy; 2024 Grúas Montemayor. Todos los derechos reservados. | Demos Interactivas v1.0</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = 'fadeIn 0.5s ease-out forwards';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.version-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add hover effect to feature icons
+        document.querySelectorAll('.feature-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2) rotate(10deg)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
