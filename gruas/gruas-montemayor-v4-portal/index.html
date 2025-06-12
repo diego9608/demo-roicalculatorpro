@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Clientes - Grúas Montemayor | Mi Cuenta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A1A2E;
+            --accent: #F7931E;
+            --dark: #0F0F0F;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --info: #2196F3;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--light);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .user-menu:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-dropdown {
+            font-size: 0.8rem;
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: var(--error);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .dashboard-container {
+            display: flex;
+            margin-top: 76px;
+            min-height: calc(100vh - 76px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--secondary);
+            padding: 2rem 0;
+            position: fixed;
+            height: calc(100vh - 76px);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sidebar-link:hover {
+            color: var(--primary);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .sidebar-link.active {
+            color: var(--primary);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .sidebar-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient);
+        }
+
+        .sidebar-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem 5%;
+            max-width: calc(100% - 250px);
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            margin-bottom: 3rem;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .welcome-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .quick-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 15, 0.8) 100%);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 107, 53, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-trend {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--error);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Active Projects */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .projects-table {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .project-id {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success);
+        }
+
+        .status-scheduled {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--info);
+        }
+
+        .status-completed {
+            background: rgba(158, 158, 158, 0.2);
+            color: #9e9e9e;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Recent Activity */
+        .activity-timeline {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-item:last-child::before {
+            display: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-description {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Documents Section */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .document-card {
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .document-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .document-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .document-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Support Chat */
+        .chat-bubble {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chat-bubble:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quick-actions {
+                width: 100%;
+            }
+
+            .quick-btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 600px;
+            }
+        }
+
+        /* Loading States */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 5px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Charts Placeholder */
+        .chart-container {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder {
+            text-align: center;
+            color: #999;
+        }
+
+        .chart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+            <div class="logo">GRÚAS MONTEMAYOR</div>
+            <div class="nav-right">
+                <div class="notification-bell">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar">JM</div>
+                    <div>
+                        <div class="user-name">Juan Martínez</div>
+                        <div class="user-dropdown">Mi Cuenta ▼</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#dashboard" class="sidebar-link active">
+                        <span class="sidebar-icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#proyectos" class="sidebar-link">
+                        <span class="sidebar-icon">🏗️</span>
+                        <span>Mis Proyectos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#cotizaciones" class="sidebar-link">
+                        <span class="sidebar-icon">💰</span>
+                        <span>Cotizaciones</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#facturas" class="sidebar-link">
+                        <span class="sidebar-icon">📄</span>
+                        <span>Facturas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#documentos" class="sidebar-link">
+                        <span class="sidebar-icon">📁</span>
+                        <span>Documentos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#tracking" class="sidebar-link">
+                        <span class="sidebar-icon">📍</span>
+                        <span>Tracking GPS</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#soporte" class="sidebar-link">
+                        <span class="sidebar-icon">💬</span>
+                        <span>Soporte</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#configuracion" class="sidebar-link">
+                        <span class="sidebar-icon">⚙️</span>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="welcome-section">
+                    <div class="welcome-text">
+                        <h1>¡Bienvenido, Juan!</h1>
+                        <p>Aquí puedes gestionar todos tus proyectos y servicios</p>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="../gruas-montemayor-v3-cotizador/" class="quick-btn btn-primary">Nueva Cotización</a>
+                        <a href="#proyectos" class="quick-btn btn-secondary">Ver Proyectos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🏗️</div>
+                        <div class="stat-trend trend-up">↑ 12%</div>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Proyectos Activos</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-trend trend-up">↑ 25%</div>
+                    </div>
+                    <div class="stat-value">27</div>
+                    <div class="stat-label">Servicios Completados</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-trend">→ 0%</div>
+                    </div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Horas de Servicio</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-trend trend-up">↑ 5%</div>
+                    </div>
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Calificación Promedio</div>
+                </div>
+            </div>
+
+            <!-- Active Projects -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Proyectos Activos</h2>
+                    <a href="#proyectos" class="view-all">Ver todos →</a>
+                </div>
+                <div class="projects-table">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Proyecto</th>
+                                    <th>Tipo de Grúa</th>
+                                    <th>Ubicación</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="project-id">#P2024-147</td>
+                                    <td>Grúa Titán 30T</td>
+                                    <td>San Pedro Garza García</td>
+                                    <td>10 Dic 2024</td>
+                                    <td><span class="status-badge status-active">En Progreso</span></td>
+                                    <td><button class="action-btn" onclick="viewProject()">Ver Detalles</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="project-id">#P2024-153</td>
+                                    <td>Grúa Sobre Camión 60T</td>
+                                    <td>Santa Catarina</td>
+                                    <td>15 Dic 2024</td>
+                                    <td><span class="status-badge status-scheduled">Programado</span></td>
+                                    <td><button class="action-btn" onclick="viewProject()">Ver Detalles</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="project-id">#P2024-159</td>
+                                    <td>Montacargas 16,000 lb</td>
+                                    <td>Monterrey Centro</td>
+                                    <td>18 Dic 2024</td>
+                                    <td><span class="status-badge status-scheduled">Programado</span></td>
+                                    <td><button class="action-btn" onclick="viewProject()">Ver Detalles</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Análisis de Uso</h2>
+                    <select style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,107,53,0.3); color: white; padding: 0.5rem; border-radius: 5px;">
+                        <option>Últimos 30 días</option>
+                        <option>Últimos 90 días</option>
+                        <option>Este año</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-bg"></div>
+                    <div class="chart-placeholder">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                        <p>Gráfica de uso de servicios</p>
+                        <p style="font-size: 0.9rem;">(Los datos se cargarían dinámicamente)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Actividad Reciente</h2>
+                    <a href="#actividad" class="view-all">Ver toda →</a>
+                </div>
+                <div class="activity-timeline">
+                    <div class="activity-item">
+                        <div class="activity-icon">📄</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Nueva factura disponible</div>
+                            <div class="activity-description">Factura #F2024-892 por servicio de grúa titán</div>
+                            <div class="activity-time">Hace 2 horas</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">✅</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Proyecto completado</div>
+                            <div class="activity-description">Proyecto #P2024-142 finalizado exitosamente</div>
+                            <div class="activity-time">Hace 1 día</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">📍</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Grúa en camino</div>
+                            <div class="activity-description">La grúa SC-60 está en ruta a tu proyecto</div>
+                            <div class="activity-time">Hace 2 días</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">💰</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Cotización aprobada</div>
+                            <div class="activity-description">Tu cotización #C2024-458 ha sido aprobada</div>
+                            <div class="activity-time">Hace 3 días</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Quick Access -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Documentos Recientes</h2>
+                    <a href="#documentos" class="view-all">Ver todos →</a>
+                </div>
+                <div class="documents-grid">
+                    <div class="document-card" onclick="downloadDocument()">
+                        <div class="document-icon">📄</div>
+                        <div class="document-name">Factura #F2024-892</div>
+                        <div class="document-date">10 Dic 2024</div>
+                    </div>
+                    <div class="document-card" onclick="downloadDocument()">
+                        <div class="document-icon">📋</div>
+                        <div class="document-name">Contrato P2024-147</div>
+                        <div class="document-date">8 Dic 2024</div>
+                    </div>
+                    <div class="document-card" onclick="downloadDocument()">
+                        <div class="document-icon">🔒</div>
+                        <div class="document-name">Certificado Seguro</div>
+                        <div class="document-date">1 Dic 2024</div>
+                    </div>
+                    <div class="document-card" onclick="downloadDocument()">
+                        <div class="document-icon">📊</div>
+                        <div class="document-name">Reporte Mensual</div>
+                        <div class="document-date">30 Nov 2024</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Support Chat Bubble -->
+    <div class="chat-bubble" onclick="openChat()">
+        <span class="chat-icon">💬</span>
+    </div>
+
+    <script>
+        // Sidebar toggle for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+                
+                // Here you would normally load the corresponding content
+                console.log('Loading section:', this.getAttribute('href'));
+            });
+        });
+
+        // View project details
+        function viewProject() {
+            alert('Abriendo detalles del proyecto...\n\nEn producción, esto mostraría información completa del proyecto, tracking GPS en tiempo real, documentos asociados y más.');
+        }
+
+        // Download document
+        function downloadDocument() {
+            alert('Descargando documento...\n\nEn producción, esto descargaría el documento seleccionado.');
+        }
+
+        // Open support chat
+        function openChat() {
+            alert('Abriendo chat de soporte...\n\nEstamos aquí para ayudarte 24/7.\n\n¿En qué podemos asistirte hoy?');
+        }
+
+        // Simulate notifications
+        setInterval(() => {
+            const badge = document.querySelector('.notification-badge');
+            const currentCount = parseInt(badge.textContent);
+            if (Math.random() > 0.8) {
+                badge.textContent = currentCount + 1;
+                badge.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    badge.style.animation = '';
+                }, 500);
+            }
+        }, 10000);
+
+        // Add loading skeletons on page load
+        window.addEventListener('load', () => {
+            // Simulate data loading
+            setTimeout(() => {
+                document.querySelectorAll('.skeleton').forEach(el => {
+                    el.classList.remove('skeleton');
+                });
+            }, 1000);
+        });
+
+        // Handle responsive sidebar
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
