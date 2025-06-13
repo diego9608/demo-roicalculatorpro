@@ -211,6 +211,7 @@
             cursor: crosshair;
             touch-action: none;
             margin-bottom: 1rem;
+            width: 100%;
         }
         
         .canvas-instructions {
@@ -573,7 +574,7 @@
                 <div class="canvas-instructions">
                     Dibuja tu firma en el recuadro inferior
                 </div>
-                <canvas id="signatureCanvas" class="signature-canvas" width="600" height="200"></canvas>
+                <canvas id="signatureCanvas" class="signature-canvas" height="200"></canvas>
                 
                 <div class="canvas-controls">
                     <button type="button" class="btn btn-secondary" onclick="clearSignature()">
@@ -723,12 +724,24 @@
         let hasSignature = false;
         
         // Ajustar canvas para alta resolución
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * 2;
-        canvas.height = rect.height * 2;
-        canvas.style.width = rect.width + 'px';
-        canvas.style.height = rect.height + 'px';
-        ctx.scale(2, 2);
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = 400; // 200px * 2 para alta resolución
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = '200px';
+            ctx.scale(2, 2);
+    
+        // Reconfigurar estilo de línea después de redimensionar
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        // Llamar al cargar y al cambiar tamaño de ventana
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
         
         // Configurar estilo de línea
         ctx.strokeStyle = '#1976D2';
