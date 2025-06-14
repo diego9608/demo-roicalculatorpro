@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firma de Contrato - Desarrollo Web Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, -20px) rotate(360deg); }
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .notification-banner {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .notification-banner .icon {
+            font-size: 2.5rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .guarantee-banner {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            padding: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .timer {
+            background: linear-gradient(135deg, #FF8A80, #FF5722);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .timer-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timer-countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contract-content {
+            padding: 2rem;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px solid #f0f0f0;
+            margin: 2rem;
+            border-radius: 15px;
+            background: #fafafa;
+            scrollbar-width: thin;
+            scrollbar-color: #667eea #f0f0f0;
+        }
+        
+        .contract-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .contract-content::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+        
+        .contract-content::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+        
+        .contract-content h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .contract-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contract-content li {
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .contract-content li:hover {
+            color: #667eea;
+        }
+        
+        .price-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.8;
+            font-size: 1.3rem;
+        }
+        
+        .price-discount {
+            color: #FFE082;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .price-final {
+            color: #C8E6C9;
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-top: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .signature-section {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .signature-section h3 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #555;
+            font-size: 1rem;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .checkbox-group label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+        
+        .checkbox-group.guarantee {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .signature-canvas {
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            background: white;
+            cursor: crosshair;
+            touch-action: none;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .signature-canvas:hover {
+            border-color: #5a67d8;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .canvas-instructions {
+            text-align: center;
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        .canvas-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            color: #666;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1.3rem;
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-stripe {
+            background: linear-gradient(135deg, #635BFF, #5548E8);
+            color: white;
+            padding: 1.5rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-stripe:hover {
+            background: linear-gradient(135deg, #5548E8, #4F46E5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 91, 255, 0.4);
+        }
+        
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border: 2px solid #A5D6A7;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem;
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .success-message h3 {
+            color: #2E7D32;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .success-message p {
+            color: #388E3C;
+            margin-bottom: 0.8rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #D32F2F;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            background: #FFEBEE;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #D32F2F;
+        }
+        
+        .btn-action {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .payment-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .payment-info p {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border: 2px solid #2196F3;
+            color: #1976D2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 15px;
+                margin: 0;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .contract-content {
+                margin: 1rem;
+                max-height: 400px;
+                padding: 1.5rem;
+            }
+            
+            .signature-section {
+                padding: 1.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .timer-countdown {
+                font-size: 2rem;
+            }
+            
+            .price-final {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Mejoras adicionales */
+        .highlight {
+            background: linear-gradient(135deg, #FFE082, #FFCC02);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        .feature-check {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .urgent {
+            animation: urgentPulse 1.5s infinite;
+        }
+        
+        @keyframes urgentPulse {
+            0%, 100% { background-color: #FF8A80; }
+            50% { background-color: #FF5722; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-text">ROI<br>Pro</div>
+            </div>
+            <h1>CONTRATO DE DESARROLLO WEB</h1>
+            <p>Firma digital segura y vinculante</p>
+        </div>
+        
+        <div class="notification-banner">
+            <span class="icon">⚡</span>
+            <div>
+                <strong>¡OFERTA ESPECIAL HOY!</strong><br>
+                <span class="highlight">32% de descuento</span> al firmar y dar anticipo ahora
+            </div>
+        </div>
+        
+        <div class="guarantee-banner">
+            <span class="icon">🛡️</span>
+            <div>
+                <strong>GARANTÍA DE DEVOLUCIÓN DE 7 DÍAS</strong><br>
+                Si no te gusta el diseño, te regresamos tu anticipo completo
+            </div>
+        </div>
+        
+        <div class="timer urgent">
+            <div class="timer-title">⏰ DESCUENTO VÁLIDO POR:</div>
+            <div class="timer-countdown" id="countdown">03:20:18</div>
+        </div>
+        
+        <div class="contract-content">
+            <h2>1. DESCRIPCIÓN DEL SERVICIO</h2>
+            <p>El DESARROLLADOR se compromete a crear y entregar una página web profesional que incluye:</p>
+            <ul>
+                <li><span class="feature-check">✓</span> Diseño personalizado y moderno</li>
+                <li><span class="feature-check">✓</span> Página 100% responsive (móvil, tablet, computadora)</li>
+                <li><span class="feature-check">✓</span> Hasta 7 secciones de contenido</li>
+                <li><span class="feature-check">✓</span> Formulario de contacto funcional</li>
+                <li><span class="feature-check">✓</span> Integración con WhatsApp</li>
+                <li><span class="feature-check">✓</span> Optimización básica para Google (SEO)</li>
+                <li><span class="feature-check">✓</span> 1 año de hosting incluido</li>
+                <li><span class="feature-check">✓</span> Certificado SSL de seguridad</li>
+                <li><span class="feature-check">✓</span> Capacitación de 1 hora para manejo</li>
+            </ul>
+            
+            <h2>2. INVERSIÓN Y FORMA DE PAGO</h2>
+            <div class="price-section">
+                <span class="price-original">Precio Regular: $124,450 MXN</span>
+                <br>
+                <span class="price-discount">-32% HOY SOLAMENTE</span>
+                <span class="price-final">PRECIO FINAL: $84,500 MXN</span>
+            </div>
+            
+            <p><strong>Forma de pago:</strong></p>
+            <ul>
+                <li><strong>HOY</strong> - Anticipo: <span class="highlight">$15,000 MXN</span> (Para apartar precio con descuento)</li>
+                <li>Al aprobar diseño: $34,750 MXN (50% del saldo)</li>
+                <li>Al entregar página: $34,750 MXN (50% restante)</li>
+            </ul>
+            
+            <h2>3. TIEMPOS DE ENTREGA</h2>
+            <ul>
+                <li>Propuesta de diseño: 3-5 días hábiles</li>
+                <li>Desarrollo completo: 7-10 días hábiles</li>
+                <li>Entrega final: Máximo 15 días hábiles totales</li>
+            </ul>
+            
+            <h2>4. GARANTÍAS</h2>
+            <ul>
+                <li><span class="feature-check">✅</span> <strong>GARANTÍA DE SATISFACCIÓN DE 7 DÍAS:</strong> Si no está satisfecho con el diseño o proyecto, puede cancelar dentro de los primeros 7 días y se le devolverá el 100% de su anticipo ($15,000 MXN)</li>
+                <li><span class="feature-check">✓</span> Corrección de errores sin costo por 90 días</li>
+                <li><span class="feature-check">✓</span> Actualización de contenidos GRATIS el primer mes</li>
+                <li><span class="feature-check">✓</span> Soporte técnico básico por 3 meses</li>
+            </ul>
+        </div>
+        
+        <div class="signature-section">
+            <h3>🖊️ FIRMA DIGITAL DEL CONTRATO</h3>
+            
+            <form id="signatureForm">
+                <div class="form-group">
+                    <label>Nombre completo del firmante *</label>
+                    <input type="text" id="fullName" required placeholder="Ej: Juan Pérez García">
+                    <span class="error" id="nameError">Por favor ingresa tu nombre completo</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nombre de la empresa *</label>
+                    <input type="text" id="companyName" required placeholder="Ej: Empresa ABC S.A. de C.V.">
+                </div>
+                
+                <div class="form-group">
+                    <label>Cargo en la empresa *</label>
+                    <input type="text" id="position" required placeholder="Ej: Director General">
+                </div>
+                
+                <div class="form-group">
+                    <label>RFC (Persona Física o Moral) *</label>
+                    <input type="text" id="rfc" required placeholder="Ej: XAXX010101000 o ABC123456789" maxlength="13">
+                    <span class="error" id="rfcError">RFC inválido. Debe tener 12-13 caracteres</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Teléfono de contacto *</label>
+                    <input type="tel" id="phone" required placeholder="Ej: 8112345678" pattern="[0-9]{10}" maxlength="10">
+                    <span class="error" id="phoneError">Teléfono debe tener 10 dígitos</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email para enviar copia del contrato *</label>
+                    <input type="email" id="email" required placeholder="correo@empresa.com">
+                    <span class="error" id="emailError">Por favor ingresa un email válido</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Giro de la empresa *</label>
+                    <select id="businessType" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="restaurante">Restaurante/Comida</option>
+                        <option value="servicios">Servicios Profesionales</option>
+                        <option value="comercio">Comercio/Tienda</option>
+                        <option value="construccion">Construcción</option>
+                        <option value="salud">Salud/Medicina</option>
+                        <option value="educacion">Educación</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="inmobiliaria">Inmobiliaria</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="canvas-instructions">
+                    ✍️ Dibuja tu firma en el recuadro inferior
+                </div>
+                <canvas id="signatureCanvas" class="signature-canvas" width="600" height="200"></canvas>
+                
+                <div class="canvas-controls">
+                    <button type="button" class="btn btn-secondary" onclick="clearSignature()">
+                        🔄 Limpiar Firma
+                    </button>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="acceptTerms" required>
+                    <label for="acceptTerms">
+                        Acepto todos los términos y condiciones del contrato. Entiendo que este documento tiene validez legal y me comprometo a cumplir con los pagos y obligaciones establecidas.
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="acceptDiscount" required>
+                    <label for="acceptDiscount">
+                        Entiendo que el descuento del 32% es válido <strong>ÚNICAMENTE</strong> si realizo el pago del anticipo de $15,000 MXN el día de hoy. De lo contrario, el precio será de $124,450 MXN.
+                    </label>
+                </div>
+                
+                <div class="checkbox-group guarantee">
+                    <input type="checkbox" id="acceptRefund" required>
+                    <label for="acceptRefund">
+                        <strong>🛡️ GARANTÍA DE 7 DÍAS:</strong> Entiendo que tengo 7 días naturales a partir de hoy para evaluar el diseño/proyecto. Si no estoy satisfecho, puedo solicitar la devolución TOTAL de mi anticipo de $15,000 MXN sin penalización alguna.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    ✍️ FIRMAR CONTRATO Y PROCEDER AL PAGO
+                </button>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Procesando firma digital...</p>
+                <p><small>Verificando datos y generando contrato...</small></p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <h3>✅ ¡CONTRATO FIRMADO EXITOSAMENTE!</h3>
+                <p><strong>Firmado por:</strong> <span id="signerName"></span></p>
+                <p><strong>Empresa:</strong> <span id="signerCompany"></span></p>
+                <p><strong>Fecha y hora:</strong> <span id="signDate"></span></p>
+                <p><strong>ID de contrato:</strong> <span id="contractId"></span></p>
+                <hr style="margin: 1.5rem 0; border: none; border-top: 2px solid #C8E6C9;">
+                
+                <p style="font-size: 1.3rem; margin-top: 1.5rem; font-weight: bold; color: #2E7D32;">
+                    💳 SIGUIENTE PASO: Realiza el anticipo de $15,000 MXN
+                </p>
+                
+                <div class="payment-info">
+                    <p><strong>Banco:</strong> Banamex</p>
+                    <p><strong>CLABE:</strong> <span id="clabeNumber">002580701579130163</span> <button class="copy-btn" onclick="copyToClipboard('002580701579130163')">📋 Copiar</button></p>
+                    <p><strong>Beneficiario:</strong> ROI Calculator Pro</p>
+                    <p><strong>Concepto:</strong> Anticipo <span id="contractRef"></span></p>
+                </div>
+                
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #C8E6C9;">
+                    <h4 style="margin-bottom: 1.5rem; color: #2E7D32;">💳 También puedes pagar con tarjeta:</h4>
+                    <button onclick="procesarPagoStripe()" class="btn-stripe">
+                        💳 Pagar con Tarjeta (Proceso Seguro) →
+                    </button>
+                    <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.95rem;">
+                        🔒 Sin comisión adicional • Pago 100% seguro con Stripe
+                    </p>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="#" class="btn-action" id="emailBtn" onclick="sendEmail()">
+                        📧 Enviar comprobante por email
+                    </a>
+                    <a href="#" class="btn-action" id="whatsappBtn" target="_blank">
+                        📱 Confirmar pago por WhatsApp
+                    </a>
+                </div>
+                
+                <p style="margin-top: 2rem; color: #666; line-height: 1.6;">
+                    💡 Los datos se han guardado automáticamente.<br>
+                    📧 Revisa tu correo, te enviamos una copia del contrato.<br>
+                    ⏰ Completa el pago hoy para mantener el 32% de descuento.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Configuración mejorada
+        const CONFIG = {
+            // Google Forms
+            googleFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdpVvo1ZnKbOpn1Pl5OdpTgvLMkhC4azmSgdlhE2n6C64z5CA/formResponse',
+            formFields: {
+                name: 'entry.278151307',
+                company: 'entry.1600251907',
+                rfc: 'entry.1962216330',
+                email: 'entry.765562324',
+                project: 'entry.1705897331',
+                price: 'entry.102303019',
+                contractId: 'entry.1621040127',
+                signDate: 'entry.230218973',
+                position: 'entry.1234567890',
+                phone: 'entry.0987654321',
+                businessType: 'entry.1122334455'
+            },
+            
+            // Stripe
+            stripePaymentLink: 'https://buy.stripe.com/9B6dR8gO30igbRX4Aj7ok03',
+            
+            // WhatsApp
+            whatsappNumber: '436765748509',
+            
+            // Datos bancarios
+            bankName: 'Banamex',
+            clabe: '002580701579130163',
+            accountHolder: 'ROI Calculator Pro'
+        };
+        
+        // TIMER COUNTDOWN mejorado
+        let totalSeconds = 3 * 3600 + 20 * 60 + 18; // 3:20:18 en segundos
+        let timerInterval;
+        
+        function updateCountdown() {
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('countdown').textContent = "00:00:00";
+                document.getElementById('countdown').style.color = "#FF1744";
+                document.querySelector('.timer-title').innerHTML = "⚠️ OFERTA EXPIRADA";
+                document.querySelector('.timer').classList.remove('urgent');
+                document.querySelector('.timer').style.background = 'linear-gradient(135deg, #757575, #424242)';
+                return;
+            }
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            const timeString = 
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+            
+            document.getElementById('countdown').textContent = timeString;
+            
+            // Efectos visuales cuando queda poco tiempo
+            if (totalSeconds <= 600) { // Últimos 10 minutos
+                document.querySelector('.timer').style.background = 'linear-gradient(135deg, #FF1744, #D50000)';
+            } else if (totalSeconds <= 1800) { // Últimos 30 minutos
+                document.querySelector('.timer').style.background = 'linear-gradient(135deg, #FF6D00, #E65100)';
+            }
+            
+            totalSeconds--;
+        }
+        
+        // Iniciar timer inmediatamente
+        updateCountdown();
+        timerInterval = setInterval(updateCountdown, 1000);
+        
+        // Canvas para firma mejorado
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let hasSignature = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // Ajustar canvas para alta resolución
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            ctx.scale(2, 2);
+            
+            // Configurar estilo de línea mejorado
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.shadowColor = 'rgba(25, 118, 210, 0.3)';
+            ctx.shadowBlur = 2;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Eventos de mouse mejorados
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Eventos táctiles mejorados para móvil
+        canvas.addEventListener('touchstart', handleTouch, { passive: false });
+        canvas.addEventListener('touchmove', handleTouch, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing, { passive: false });
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            hasSignature = true;
+            const rect = canvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const currentX = e.clientX - rect.left;
+            const currentY = e.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+            
+            lastX = currentX;
+            lastY = currentY;
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+        
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            if (!touch) return;
+            
+            const mouseEvent = new MouseEvent(
+                e.type === 'touchstart' ? 'mousedown' : 
+                e.type === 'touchmove' ? 'mousemove' : 'mouseup', 
+                {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                }
+            );
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width / 2, canvas.height / 2);
+            hasSignature = false;
+            // Agregar efecto visual
+            canvas.style.borderColor = '#667eea';
+            setTimeout(() => {
+                canvas.style.borderColor = '#667eea';
+            }, 300);
+        }
+        
+        // Variable global para guardar últimos datos
+        let lastContractData = {};
+        
+        // Validación de RFC mejorada
+        function validateRFC(rfc) {
+            const rfcPattern = /^[A-ZÑ&]{3,4}[0-9]{6}[A-V1-9][A-Z1-9][0-9A]$/;
+            return rfc.length >= 12 && rfc.length <= 13 && /^[A-ZÑ&0-9]*$/.test(rfc);
+        }
+        
+        // Validación de teléfono
+        function validatePhone(phone) {
+            return /^[0-9]{10}$/.test(phone);
+        }
+        
+        // Validación de email
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        // Copiar al portapapeles mejorado
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copiado';
+                btn.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.transform = 'scale(1)';
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar:', err);
+                // Fallback para navegadores que no soportan clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Copiado al portapapeles');
+            }
+        }
+        
+        // Enviar datos a Google Forms mejorado
+        async function sendToGoogleForms(data) {
+            const formData = new FormData();
+            
+            // Mapear los datos a los campos del formulario
+            Object.keys(CONFIG.formFields).forEach(key => {
+                if (data[key]) {
+                    formData.append(CONFIG.formFields[key], data[key]);
+                }
+            });
+            
+            try {
+                const response = await fetch(CONFIG.googleFormUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                console.log('Datos enviados a Google Forms exitosamente');
+                return true;
+            } catch (error) {
+                console.error('Error al enviar a Google Forms:', error);
+                return false;
+            }
+        }
+        
+        // Procesar pago con Stripe
+        function procesarPagoStripe() {
+            // Abrir en nueva ventana para mejor UX
+            window.open(CONFIG.stripePaymentLink, '_blank');
+        }
+        
+        // Generar link de email mejorado
+        function sendEmail() {
+            const subject = `🧾 Comprobante de Pago - Contrato ${lastContractData.contractId}`;
+            const body = `Estimado equipo de ROI Calculator Pro,
+
+Adjunto comprobante de pago del anticipo correspondiente al contrato de desarrollo web.
+
+📋 DATOS DEL CONTRATO:
+• ID de Contrato: ${lastContractData.contractId}
+• Cliente: ${lastContractData.name}
+• Empresa: ${lastContractData.company}
+• Fecha de firma: ${lastContractData.signDate}
+
+💰 DATOS DEL PAGO:
+• Fecha de transferencia: ${new Date().toLocaleDateString('es-MX')}
+• Monto: $15,000 MXN
+• Concepto: Anticipo ${lastContractData.contractId}
+• Cuenta destino: ${CONFIG.clabe}
+
+Quedo en espera de la confirmación de recepción del pago para proceder con el desarrollo del proyecto.
+
+Saludos cordiales,
+${lastContractData.name}
+${lastContractData.position}
+${lastContractData.company}`;
+            
+            const mailtoLink = `mailto:clientes@roicalculatorpro.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+        
+        // Generar ID de contrato único
+        function generateContractId() {
+            const prefix = 'WEB';
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+            return `${prefix}-${timestamp}-${random}`;
+        }
+        
+        // Form submission mejorado
+        document.getElementById('signatureForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            const formData = {
+                fullName: document.getElementById('fullName').value.trim(),
+                companyName: document.getElementById('companyName').value.trim(),
+                position: document.getElementById('position').value.trim(),
+                rfc: document.getElementById('rfc').value.trim().toUpperCase(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                businessType: document.getElementById('businessType').value,
+                acceptTerms: document.getElementById('acceptTerms').checked,
+                acceptDiscount: document.getElementById('acceptDiscount').checked,
+                acceptRefund: document.getElementById('acceptRefund').checked
+            };
+            
+            // Resetear errores
+            document.querySelectorAll('.error').forEach(err => err.style.display = 'none');
+            
+            // Validaciones mejoradas
+            let hasErrors = false;
+            
+            if (!formData.fullName || formData.fullName.split(' ').length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                document.getElementById('nameError').textContent = 'Ingresa tu nombre completo (nombre y apellido)';
+                hasErrors = true;
+            }
+            
+            if (!validateRFC(formData.rfc)) {
+                document.getElementById('rfcError').style.display = 'block';
+                document.getElementById('rfcError').textContent = 'RFC inválido. Formato: XAXX010101000 (12-13 caracteres)';
+                hasErrors = true;
+            }
+            
+            if (!validatePhone(formData.phone)) {
+                document.getElementById('phoneError').style.display = 'block';
+                document.getElementById('phoneError').textContent = 'Teléfono debe tener exactamente 10 dígitos';
+                hasErrors = true;
+            }
+            
+            if (!validateEmail(formData.email)) {
+                document.getElementById('emailError').style.display = 'block';
+                document.getElementById('emailError').textContent = 'Ingresa un email válido';
+                hasErrors = true;
+            }
+            
+            if (!hasSignature) {
+                alert('⚠️ Por favor dibuja tu firma en el recuadro antes de continuar');
+                canvas.style.borderColor = '#FF1744';
+                setTimeout(() => {
+                    canvas.style.borderColor = '#667eea';
+                }, 3000);
+                return;
+            }
+            
+            if (!formData.acceptTerms || !formData.acceptDiscount || !formData.acceptRefund) {
+                alert('⚠️ Debes aceptar todos los términos y condiciones para continuar');
+                return;
+            }
+            
+            if (hasErrors) {
+                // Scroll al primer error
+                const firstError = document.querySelector('.error[style*="block"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+            
+            // Mostrar loading con mejor UX
+            document.getElementById('signatureForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            // Generar datos del contrato
+            const contractId = generateContractId();
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-MX', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'America/Mexico_City'
+            });
+            
+            // Preparar datos completos para enviar
+            const contractData = {
+                name: formData.fullName,
+                company: formData.companyName,
+                position: formData.position,
+                rfc: formData.rfc,
+                phone: formData.phone,
+                email: formData.email,
+                businessType: formData.businessType,
+                contractId: contractId,
+                signDate: dateStr,
+                signature: canvas.toDataURL('image/png'),
+                timestamp: now.toISOString(),
+                project: 'Desarrollo Web Premium',
+                price: '84500'
+            };
+            
+            // Guardar datos globalmente
+            lastContractData = contractData;
+            
+            // Simular procesamiento
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Enviar a Google Forms
+            try {
+                await sendToGoogleForms(contractData);
+            } catch (error) {
+                console.error('Error al enviar datos:', error);
+            }
+            
+            // Mostrar mensaje de éxito
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Actualizar información en el mensaje de éxito
+            document.getElementById('signerName').textContent = formData.fullName;
+            document.getElementById('signerCompany').textContent = formData.companyName;
+            document.getElementById('signDate').textContent = dateStr;
+            document.getElementById('contractId').textContent = contractId;
+            document.getElementById('contractRef').textContent = contractId;
+            
+            // Actualizar botón de WhatsApp con mensaje mejorado
+            const whatsappMessage = `🔔 *NUEVA FIRMA DIGITAL RECIBIDA*
+
+📝 *DATOS DEL CLIENTE:*
+• Nombre: ${formData.fullName}
+• Empresa: ${formData.companyName}
+• Cargo: ${formData.position}
+• RFC: ${formData.rfc}
+• Email: ${formData.email}
+• Teléfono: ${formData.phone}
+• Giro: ${formData.businessType}
+
+📋 *DATOS DEL CONTRATO:*
+• ID: ${contractId}
+• Fecha: ${dateStr}
+• Servicio: Desarrollo Web Premium
+• Precio con descuento: $84,500 MXN
+
+💰 *ANTICIPO PENDIENTE:*
+• Monto: $15,000 MXN
+• Válido hasta: Hoy mismo (32% descuento)
+
+✅ Cliente acepta términos, descuento y garantía de 7 días.
+
+🔗 Favor de confirmar recepción y proceder con seguimiento.`;
+            
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            whatsappBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Scroll al mensaje de éxito
+            document.getElementById('successMessage').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+            
+            console.log('Contrato procesado exitosamente:', contractData);
+        });
+        
+        // Validación en tiempo real
+        document.getElementById('rfc').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase().replace(/[^A-ZÑ&0-9]/g, '');
+        });
+        
+        document.getElementById('phone').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 10);
+        });
+        
+        // Mejorar experiencia del usuario
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animar elementos cuando aparecen en viewport
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observar elementos para animación
+            document.querySelectorAll('.form-group, .checkbox-group').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
