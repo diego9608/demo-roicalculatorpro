@@ -989,29 +989,36 @@
         canvas.addEventListener('touchend', stopDrawing, { passive: false });
         
         function startDrawing(e) {
-            isDrawing = true;
-            hasSignature = true;
-            const rect = canvas.getBoundingClientRect();
-            lastX = e.clientX - rect.left;
-            lastY = e.clientY - rect.top;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-        }
-        
-        function draw(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            const currentX = e.clientX - rect.left;
-            const currentY = e.clientY - rect.top;
-            
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(currentX, currentY);
-            ctx.stroke();
-            
-            lastX = currentX;
-            lastY = currentY;
-        }
+    isDrawing = true;
+    hasSignature = true;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    
+    lastX = (e.clientX - rect.left) * scaleX / 2;
+    lastY = (e.clientY - rect.top) * scaleY / 2;
+    
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+}
+
+function draw(e) {
+    if (!isDrawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    
+    const currentX = (e.clientX - rect.left) * scaleX / 2;
+    const currentY = (e.clientY - rect.top) * scaleY / 2;
+    
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(currentX, currentY);
+    ctx.stroke();
+    
+    lastX = currentX;
+    lastY = currentY;
+}
         
         function stopDrawing() {
             isDrawing = false;
