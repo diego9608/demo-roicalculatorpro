@@ -68,8 +68,8 @@
         }
         
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 1.5rem;
             background: white;
             border-radius: 50%;
@@ -348,6 +348,9 @@
             touch-action: none;
             margin-bottom: 1rem;
             transition: all 0.3s ease;
+            width: 100%; /* AÑADE ESTA LÍNEA */
+            margin-left: auto; /* Añade esta línea */
+            margin-right: auto; /* Añade esta línea */
         }
         
         .signature-canvas:hover {
@@ -657,7 +660,7 @@
     <div class="container">
         <div class="header">
             <div class="logo">
-                <div class="logo-text">ROI<br>Pro</div>
+                <img src="../assets/images/logoDigitalConverter.png" alt="ROI Calculator Pro" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <h1>CONTRATO DE DESARROLLO WEB</h1>
             <p>Firma digital segura y vinculante</p>
@@ -787,7 +790,7 @@
                 <div class="canvas-instructions">
                     ✍️ Dibuja tu firma en el recuadro inferior
                 </div>
-                <canvas id="signatureCanvas" class="signature-canvas" width="600" height="200"></canvas>
+                <canvas id="signatureCanvas" class="signature-canvas" height="130"></canvas>
                 
                 <div class="canvas-controls">
                     <button type="button" class="btn btn-secondary" onclick="clearSignature()">
@@ -957,7 +960,7 @@
         function resizeCanvas() {
             const rect = canvas.getBoundingClientRect();
             canvas.width = rect.width * 2;
-            canvas.height = rect.height * 2;
+            canvas.height = 130 * 2;
             canvas.style.width = rect.width + 'px';
             canvas.style.height = rect.height + 'px';
             ctx.scale(2, 2);
@@ -1255,7 +1258,7 @@ ${lastContractData.company}`;
                 signDate: dateStr,
                 signature: canvas.toDataURL('image/png'),
                 timestamp: now.toISOString(),
-                project: 'Desarrollo Web Premium',
+                project: 'Newash Lavandería Premium',
                 price: '84500'
             };
             
