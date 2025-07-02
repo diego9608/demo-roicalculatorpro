@@ -547,9 +547,64 @@
                 </div>
             </div>
             
-            <div class="image-placeholder animate delay-4">
-                [Gráfica: Análisis de presencia digital vs. competencia]
-            </div>
+            <div class="animate delay-4" style="margin: 40px 0;">
+    <svg width="100%" height="400" viewBox="0 0 800 400" style="max-width: 800px; margin: 0 auto; display: block;">
+        <!-- Background -->
+        <rect width="800" height="400" fill="#0a0a0a" rx="10"/>
+        
+        <!-- Grid lines -->
+        <line x1="100" y1="350" x2="700" y2="350" stroke="#333" stroke-width="1"/>
+        <line x1="100" y1="280" x2="700" y2="280" stroke="#333" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="100" y1="210" x2="700" y2="210" stroke="#333" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="100" y1="140" x2="700" y2="140" stroke="#333" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="100" y1="70" x2="700" y2="70" stroke="#333" stroke-width="1" stroke-dasharray="5,5"/>
+        
+        <!-- Y axis labels -->
+        <text x="80" y="355" text-anchor="end" fill="#888" font-size="12">0%</text>
+        <text x="80" y="285" text-anchor="end" fill="#888" font-size="12">25%</text>
+        <text x="80" y="215" text-anchor="end" fill="#888" font-size="12">50%</text>
+        <text x="80" y="145" text-anchor="end" fill="#888" font-size="12">75%</text>
+        <text x="80" y="75" text-anchor="end" fill="#888" font-size="12">100%</text>
+        
+        <!-- Bars -->
+        <!-- Quesos Chiapas -->
+        <rect x="150" y="280" width="80" height="70" fill="#666" rx="5">
+            <animate attributeName="height" from="0" to="70" dur="1s" fill="freeze"/>
+            <animate attributeName="y" from="350" to="280" dur="1s" fill="freeze"/>
+        </rect>
+        <text x="190" y="270" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">25%</text>
+        
+        <!-- Competidor 1 -->
+        <rect x="300" y="140" width="80" height="210" fill="#DAA520" rx="5">
+            <animate attributeName="height" from="0" to="210" dur="1s" begin="0.2s" fill="freeze"/>
+            <animate attributeName="y" from="350" to="140" dur="1s" begin="0.2s" fill="freeze"/>
+        </rect>
+        <text x="340" y="130" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">75%</text>
+        
+        <!-- Competidor 2 -->
+        <rect x="450" y="175" width="80" height="175" fill="#DAA520" rx="5">
+            <animate attributeName="height" from="0" to="175" dur="1s" begin="0.4s" fill="freeze"/>
+            <animate attributeName="y" from="350" to="175" dur="1s" begin="0.4s" fill="freeze"/>
+        </rect>
+        <text x="490" y="165" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">62%</text>
+        
+        <!-- Potencial -->
+        <rect x="600" y="70" width="80" height="280" fill="#F5DEB3" opacity="0.3" rx="5" stroke="#DAA520" stroke-width="2" stroke-dasharray="5,5">
+            <animate attributeName="height" from="0" to="280" dur="1s" begin="0.6s" fill="freeze"/>
+            <animate attributeName="y" from="350" to="70" dur="1s" begin="0.6s" fill="freeze"/>
+        </rect>
+        <text x="640" y="60" text-anchor="middle" fill="#DAA520" font-size="14" font-weight="bold">100%</text>
+        
+        <!-- Labels -->
+        <text x="190" y="380" text-anchor="middle" fill="#ccc" font-size="12">Quesos Chiapas</text>
+        <text x="340" y="380" text-anchor="middle" fill="#ccc" font-size="12">Competidor A</text>
+        <text x="490" y="380" text-anchor="middle" fill="#ccc" font-size="12">Competidor B</text>
+        <text x="640" y="380" text-anchor="middle" fill="#DAA520" font-size="12">Su Potencial</text>
+        
+        <!-- Title -->
+        <text x="400" y="30" text-anchor="middle" fill="#DAA520" font-size="20" font-weight="bold">Presencia Digital vs. Competencia</text>
+    </svg>
+</div>
             
             <div class="luxury-card animate delay-4" style="text-align: center; margin-top: 50px;">
                 <p style="font-size: 1.4rem;">
@@ -735,9 +790,95 @@
                 </div>
             </div>
             
-            <div class="image-placeholder animate delay-4" style="margin-top: 50px;">
-                [Gráfica: Curva de crecimiento proyectada a 12 meses]
-            </div>
+            <div class="animate delay-4" style="margin-top: 50px;">
+    <svg width="100%" height="400" viewBox="0 0 800 400" style="max-width: 900px; margin: 0 auto; display: block;">
+        <!-- Background -->
+        <rect width="800" height="400" fill="#0a0a0a" rx="10"/>
+        
+        <!-- Grid -->
+        <defs>
+            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#222" stroke-width="1"/>
+            </pattern>
+        </defs>
+        <rect width="800" height="400" fill="url(#grid)"/>
+        
+        <!-- Axes -->
+        <line x1="80" y1="350" x2="720" y2="350" stroke="#444" stroke-width="2"/>
+        <line x1="80" y1="50" x2="80" y2="350" stroke="#444" stroke-width="2"/>
+        
+        <!-- Growth curve -->
+        <path d="M 80 320 Q 200 300, 300 250 T 500 150 T 700 80" 
+              fill="none" 
+              stroke="#DAA520" 
+              stroke-width="3"
+              stroke-dasharray="1000"
+              stroke-dashoffset="1000">
+            <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2s" fill="freeze"/>
+        </path>
+        
+        <!-- Area under curve -->
+        <path d="M 80 350 L 80 320 Q 200 300, 300 250 T 500 150 T 700 80 L 700 350 Z" 
+              fill="url(#goldGradient)" 
+              opacity="0.2">
+            <animate attributeName="opacity" from="0" to="0.2" dur="2s" fill="freeze"/>
+        </path>
+        
+        <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#DAA520;stop-opacity:0.5"/>
+                <stop offset="100%" style="stop-color:#DAA520;stop-opacity:0"/>
+            </linearGradient>
+        </defs>
+        
+        <!-- Data points -->
+        <circle cx="80" cy="320" r="5" fill="#DAA520">
+            <animate attributeName="r" from="0" to="5" dur="0.3s" begin="0.5s" fill="freeze"/>
+        </circle>
+        <circle cx="300" cy="250" r="5" fill="#DAA520">
+            <animate attributeName="r" from="0" to="5" dur="0.3s" begin="1s" fill="freeze"/>
+        </circle>
+        <circle cx="500" cy="150" r="5" fill="#DAA520">
+            <animate attributeName="r" from="0" to="5" dur="0.3s" begin="1.5s" fill="freeze"/>
+        </circle>
+        <circle cx="700" cy="80" r="5" fill="#DAA520">
+            <animate attributeName="r" from="0" to="5" dur="0.3s" begin="2s" fill="freeze"/>
+        </circle>
+        
+        <!-- Labels -->
+        <text x="80" y="380" text-anchor="middle" fill="#888" font-size="12">Mes 1</text>
+        <text x="300" y="380" text-anchor="middle" fill="#888" font-size="12">Mes 3</text>
+        <text x="500" y="380" text-anchor="middle" fill="#888" font-size="12">Mes 6</text>
+        <text x="700" y="380" text-anchor="middle" fill="#888" font-size="12">Mes 12</text>
+        
+        <!-- Y axis labels -->
+        <text x="60" y="325" text-anchor="end" fill="#888" font-size="12">$250K</text>
+        <text x="60" y="255" text-anchor="end" fill="#888" font-size="12">$400K</text>
+        <text x="60" y="155" text-anchor="end" fill="#888" font-size="12">$600K</text>
+        <text x="60" y="85" text-anchor="end" fill="#888" font-size="12">$800K</text>
+        
+        <!-- Value labels on points -->
+        <text x="80" y="305" text-anchor="middle" fill="#DAA520" font-size="14" font-weight="bold" opacity="0">
+            $250K
+            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.5s" fill="freeze"/>
+        </text>
+        <text x="300" y="235" text-anchor="middle" fill="#DAA520" font-size="14" font-weight="bold" opacity="0">
+            $400K
+            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1s" fill="freeze"/>
+        </text>
+        <text x="500" y="135" text-anchor="middle" fill="#DAA520" font-size="14" font-weight="bold" opacity="0">
+            $600K
+            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.5s" fill="freeze"/>
+        </text>
+        <text x="700" y="65" text-anchor="middle" fill="#DAA520" font-size="14" font-weight="bold" opacity="0">
+            $800K+
+            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2s" fill="freeze"/>
+        </text>
+        
+        <!-- Title -->
+        <text x="400" y="30" text-anchor="middle" fill="#DAA520" font-size="20" font-weight="bold">Proyección de Ventas - 12 Meses</text>
+    </svg>
+</div>
         </div>
     </section>
 
