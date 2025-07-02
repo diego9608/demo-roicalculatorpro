@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quesos Chiapas - Propuesta de Estrategia Digital</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 60px;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(218, 165, 32, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+        
+        h1, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+        
+        h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #DAA520;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #F5DEB3;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: #E5E5E5;
+            letter-spacing: 0.5px;
+        }
+        
+        .gold {
+            color: #DAA520;
+        }
+        
+        .cream {
+            color: #F5DEB3;
+        }
+        
+        /* Cover Slide Specific */
+        .cover-slide {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000" width="1920" height="1080"/><circle cx="300" cy="300" r="200" fill="%23DAA520" opacity="0.05"/><circle cx="1600" cy="800" r="300" fill="%23DAA520" opacity="0.03"/></svg>') center/cover;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 60px;
+            letter-spacing: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            text-transform: uppercase;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            margin-top: 30px;
+            color: #DAA520;
+            letter-spacing: 2px;
+        }
+        
+        /* Cards and Metrics */
+        .luxury-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            border-radius: 0;
+            padding: 50px;
+            margin: 30px 0;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .luxury-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, #DAA520, transparent, #DAA520);
+            border-radius: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        
+        .luxury-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.08) 0%, rgba(218, 165, 32, 0.02) 100%);
+        }
+        
+        .luxury-card:hover::before {
+            opacity: 0.3;
+        }
+        
+        .metric {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #DAA520;
+            margin-bottom: 10px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+        
+        /* Buttons */
+        .cta-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(218, 165, 32, 0.3);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Charts and Visualizations */
+        .funnel {
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        
+        .funnel-stage {
+            width: 100%;
+            padding: 25px;
+            margin: 10px 0;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .funnel-stage:nth-child(1) { 
+            background: rgba(218, 165, 32, 0.4);
+            width: 100%;
+        }
+        .funnel-stage:nth-child(2) { 
+            background: rgba(218, 165, 32, 0.3);
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .funnel-stage:nth-child(3) { 
+            background: rgba(218, 165, 32, 0.2);
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .funnel-stage:nth-child(4) { 
+            background: rgba(218, 165, 32, 0.1);
+            width: 55%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .funnel-stage:hover {
+            transform: scale(1.05);
+            background: rgba(218, 165, 32, 0.6);
+        }
+        
+        /* Table Styling */
+        .luxury-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 50px 0;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+        
+        .luxury-table th,
+        .luxury-table td {
+            padding: 25px;
+            text-align: left;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.1);
+        }
+        
+        .luxury-table th {
+            background: rgba(218, 165, 32, 0.1);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: #DAA520;
+        }
+        
+        .luxury-table tr:hover {
+            background: rgba(218, 165, 32, 0.05);
+        }
+        
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #DAA520, transparent);
+        }
+        
+        .phase {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .phase-number {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #DAA520;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 300;
+            background: #000;
+            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .phase:hover .phase-number {
+            background: #DAA520;
+            color: #000;
+            transform: scale(1.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        /* Guarantee Box */
+        .guarantee-box {
+            border: 3px solid #DAA520;
+            padding: 60px;
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            background: rgba(218, 165, 32, 0.05);
+        }
+        
+        .guarantee-box::before {
+            content: '★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            color: #DAA520;
+            background: #000;
+            padding: 0 20px;
+        }
+        
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #DAA520;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        
+        .dot:hover,
+        .dot.active {
+            background: #DAA520;
+            transform: scale(1.3);
+        }
+        
+        /* Quote Styling */
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #F5DEB3;
+            margin: 40px 0;
+            position: relative;
+            padding-left: 60px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -20px;
+            font-size: 100px;
+            color: #DAA520;
+            opacity: 0.3;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Image Placeholder */
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.1) 0%, rgba(218, 165, 32, 0.05) 100%);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(218, 165, 32, 0.6);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(218, 165, 32, 0.05) 10px,
+                rgba(218, 165, 32, 0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-dots">
+        <div class="dot active" onclick="scrollToSlide(0)"></div>
+        <div class="dot" onclick="scrollToSlide(1)"></div>
+        <div class="dot" onclick="scrollToSlide(2)"></div>
+        <div class="dot" onclick="scrollToSlide(3)"></div>
+        <div class="dot" onclick="scrollToSlide(4)"></div>
+        <div class="dot" onclick="scrollToSlide(5)"></div>
+        <div class="dot" onclick="scrollToSlide(6)"></div>
+        <div class="dot" onclick="scrollToSlide(7)"></div>
+        <div class="dot" onclick="scrollToSlide(8)"></div>
+        <div class="dot" onclick="scrollToSlide(9)"></div>
+    </div>
+
+    <!-- Slide 1: Cover -->
+    <section class="slide cover-slide" id="slide-0">
+        <div class="container" style="text-align: center;">
+            <div class="logo animate">QUESOS CHIAPAS</div>
+            <div class="image-placeholder animate delay-1" style="height: 300px; margin: 40px auto; max-width: 800px;">
+                [Imagen: Mesa de quesos artesanales con vino y miel sobre madera rústica]
+            </div>
+            <h1 class="animate delay-2">El Arte de lo <span class="gold">Extraordinario</span></h1>
+            <p class="tagline animate delay-3">DONDE LA TRADICIÓN ABRAZA LA INNOVACIÓN DIGITAL</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Executive Summary -->
+    <section class="slide" id="slide-1">
+        <div class="container">
+            <h2 class="animate">Una Oportunidad Dorada</h2>
+            <div class="quote animate delay-1">
+                "En el corazón de San Pedro Garza García, existe una joya gastronómica que está a punto de transformar la manera en que México disfruta los sabores artesanales de Chiapas."
+            </div>
+            
+            <div class="luxury-card animate delay-2">
+                <h3 class="cream">El Momento es Ahora</h3>
+                <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 30px;">
+                    Quesos Chiapas no es solo una tienda. Es un <span class="gold">portal sensorial</span> hacia las montañas neblinosas de Chiapas, donde cada producto cuenta una historia de tradición, pasión y excelencia artesanal.
+                </p>
+                <p style="font-size: 1.2rem;">
+                    Hoy, proponemos elevar esta experiencia al mundo digital, multiplicando su alcance sin perder un gramo de autenticidad.
+                </p>
+            </div>
+            
+            <div class="grid">
+                <div class="animate delay-3" style="text-align: center;">
+                    <div class="metric">2X</div>
+                    <p>Crecimiento proyectado<br>en ventas digitales</p>
+                </div>
+                <div class="animate delay-3" style="text-align: center;">
+                    <div class="metric">85%</div>
+                    <p>De su mercado objetivo<br>aún sin alcanzar</p>
+                </div>
+                <div class="animate delay-3" style="text-align: center;">
+                    <div class="metric">∞</div>
+                    <p>Potencial de expansión<br>en el mercado premium</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Current State Analysis -->
+    <section class="slide" id="slide-2">
+        <div class="container">
+            <h2 class="animate">Diagnóstico Actual</h2>
+            <p class="animate delay-1" style="font-size: 1.3rem; margin-bottom: 50px; text-align: center;">
+                Un tesoro escondido que merece brillar
+            </p>
+            
+            <div class="grid">
+                <div class="luxury-card animate delay-2">
+                    <h3>Fortalezas Únicas</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li>✓ Productos artesanales excepcionales</li>
+                        <li>✓ Ubicación premium en San Pedro</li>
+                        <li>✓ Base de clientes leales y sofisticados</li>
+                        <li>✓ Historia y autenticidad de Chiapas</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-card animate delay-3">
+                    <h3>Oportunidades Digitales</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li>→ Presencia digital limitada</li>
+                        <li>→ Sin estrategia de captación online</li>
+                        <li>→ Potencial de e-commerce inexplorado</li>
+                        <li>→ Storytelling sin aprovechar</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="image-placeholder animate delay-4">
+                [Gráfica: Análisis de presencia digital vs. competencia]
+            </div>
+            
+            <div class="luxury-card animate delay-4" style="text-align: center; margin-top: 50px;">
+                <p style="font-size: 1.4rem;">
+                    <span class="gold">87%</span> de los consumidores premium en San Pedro buscan productos gourmet online antes de comprar
+                </p>
+                <p style="margin-top: 20px; font-size: 1.1rem;">
+                    Quesos Chiapas está invisible para ellos... hasta ahora.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: The Opportunity -->
+    <section class="slide" id="slide-3">
+        <div class="container">
+            <h2 class="animate">La Oportunidad</h2>
+            <p class="animate delay-1" style="font-size: 1.8rem; text-align: center; margin-bottom: 50px;" class="serif">
+                Transformar cada clic en una <span class="gold">experiencia gourmet</span>
+            </p>
+            
+            <div class="funnel animate delay-2">
+                <div class="funnel-stage">
+                    <strong>DESCUBRIMIENTO</strong><br>
+                    10,000 amantes del gourmet
+                </div>
+                <div class="funnel-stage">
+                    <strong>INTERÉS</strong><br>
+                    3,500 visitantes cualificados
+                </div>
+                <div class="funnel-stage">
+                    <strong>DESEO</strong><br>
+                    1,200 leads premium
+                </div>
+                <div class="funnel-stage">
+                    <strong>ACCIÓN</strong><br>
+                    400+ nuevos clientes/mes
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="luxury-card animate delay-3">
+                    <h3>Performance Marketing</h3>
+                    <p>Campañas de Google Ads ultra-segmentadas que conectan con el 3% superior del mercado: aquellos que valoran lo auténtico sobre lo masivo.</p>
+                    <div class="metric" style="font-size: 2rem; margin-top: 20px;">ROI 5:1</div>
+                </div>
+                
+                <div class="luxury-card animate delay-3">
+                    <h3>Automatización Inteligente</h3>
+                    <p>WhatsApp Business API + Email Marketing que cultiva relaciones, no solo transacciones. Cada mensaje, una invitación a la excelencia.</p>
+                    <div class="metric" style="font-size: 2rem; margin-top: 20px;">89% Open Rate</div>
+                </div>
+                
+                <div class="luxury-card animate delay-3">
+                    <h3>Experiencias Digitales</h3>
+                    <p>Landing pages que transportan a Chiapas. Cada scroll, una historia. Cada clic, una promesa de sabor incomparable.</p>
+                    <div class="metric" style="font-size: 2rem; margin-top: 20px;">12% Conversión</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Strategy -->
+    <section class="slide" id="slide-4">
+        <div class="container">
+            <h2 class="animate">Nuestra Estrategia</h2>
+            <p class="animate delay-1" style="text-align: center; font-size: 1.3rem; margin-bottom: 60px;">
+                Un viaje de transformación digital en <span class="gold">4 fases maestras</span>
+            </p>
+            
+            <div class="timeline animate delay-2">
+                <div class="phase">
+                    <div class="phase-number">I</div>
+                    <h3>Optimización</h3>
+                    <p style="font-size: 0.9rem;">Mes 1</p>
+                    <p style="margin-top: 10px;">Auditoría profunda<br>Landing pages premium<br>Setup de tracking</p>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">II</div>
+                    <h3>Lanzamiento</h3>
+                    <p style="font-size: 0.9rem;">Mes 2</p>
+                    <p style="margin-top: 10px;">Google Ads mastery<br>Funnels de conversión<br>A/B testing</p>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">III</div>
+                    <h3>Automatización</h3>
+                    <p style="font-size: 0.9rem;">Mes 3</p>
+                    <p style="margin-top: 10px;">WhatsApp flows<br>Email sequences<br>Remarketing</p>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">IV</div>
+                    <h3>Escalamiento</h3>
+                    <p style="font-size: 0.9rem;">Mes 4+</p>
+                    <p style="margin-top: 10px;">Expansión de alcance<br>Nuevos canales<br>Optimización continua</p>
+                </div>
+            </div>
+            
+            <div class="luxury-card animate delay-3" style="margin-top: 60px;">
+                <h3 class="gold" style="text-align: center; margin-bottom: 30px;">Ecosistema Digital Integrado</h3>
+                <div class="grid">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🎯</div>
+                        <strong>Google Ads Premium</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Shopping, Search, Display<br>Solo para el top 3%</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">📱</div>
+                        <strong>WhatsApp Business</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Catálogo digital<br>Pedidos automatizados</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🍷</div>
+                        <strong>Experiencias Bundle</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Tablas gourmet<br>Maridajes exclusivos</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">✨</div>
+                        <strong>Content Premium</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Storytelling visual<br>Recetas de chef</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Revenue Projections -->
+    <section class="slide" id="slide-5">
+        <div class="container">
+            <h2 class="animate">Proyección de Ingresos</h2>
+            <p class="animate delay-1" style="text-align: center; font-size: 1.3rem; margin-bottom: 50px;">
+                Números que hablan el idioma del <span class="gold">crecimiento exponencial</span>
+            </p>
+            
+            <table class="luxury-table animate delay-2">
+                <thead>
+                    <tr>
+                        <th>Escenario</th>
+                        <th>Inversión Mensual</th>
+                        <th>Ventas Proyectadas</th>
+                        <th>ROI</th>
+                        <th>Nuevos Clientes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="cream">Conservador</span></td>
+                        <td>$50,000 MXN</td>
+                        <td>$250,000 MXN</td>
+                        <td>400%</td>
+                        <td>125/mes</td>
+                    </tr>
+                    <tr style="background: rgba(218, 165, 32, 0.1);">
+                        <td><span class="gold">Realista</span></td>
+                        <td>$50,000 MXN</td>
+                        <td>$400,000 MXN</td>
+                        <td>700%</td>
+                        <td>200/mes</td>
+                    </tr>
+                    <tr>
+                        <td><span class="cream">Agresivo</span></td>
+                        <td>$50,000 MXN</td>
+                        <td>$600,000 MXN</td>
+                        <td>1,100%</td>
+                        <td>300/mes</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="grid">
+                <div class="luxury-card animate delay-3">
+                    <h3>Ticket Promedio Actual</h3>
+                    <div class="metric">$2,000</div>
+                    <p>Por transacción en tienda</p>
+                </div>
+                <div class="luxury-card animate delay-3">
+                    <h3>Ticket Digital Proyectado</h3>
+                    <div class="metric">$2,800</div>
+                    <p>Con bundles y upsells</p>
+                </div>
+                <div class="luxury-card animate delay-3">
+                    <h3>Lifetime Value</h3>
+                    <div class="metric">$48,000</div>
+                    <p>Cliente premium (2 años)</p>
+                </div>
+            </div>
+            
+            <div class="image-placeholder animate delay-4" style="margin-top: 50px;">
+                [Gráfica: Curva de crecimiento proyectada a 12 meses]
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Emotional Brand Positioning -->
+    <section class="slide" id="slide-6">
+        <div class="container">
+            <h2 class="animate">Posicionamiento Emocional</h2>
+            <div class="quote animate delay-1">
+                "No vendemos queso. Vendemos momentos inolvidables, herencia cultural y el lujo de lo auténtico."
+            </div>
+            
+            <div class="luxury-card animate delay-2" style="text-align: center;">
+                <h3 class="gold" style="font-size: 2.5rem; margin-bottom: 30px;">La Experiencia Chiapas</h3>
+                <p style="font-size: 1.4rem; line-height: 2; max-width: 800px; margin: 0 auto;">
+                    Cada producto es un <span class="cream">viaje sensorial</span> a las montañas neblinosas, 
+                    los cafetales aromáticos y las manos artesanas que han perfeccionado 
+                    su craft por generaciones.
+                </p>
+            </div>
+            
+            <div class="grid" style="margin-top: 60px;">
+                <div class="animate delay-3">
+                    <h3 class="cream">Para el Sibarita</h3>
+                    <p>"Descubre quesos que solo el 1% ha probado. Exclusividad en cada bocado."</p>
+                </div>
+                <div class="animate delay-3">
+                    <h3 class="cream">Para el Romántico</h3>
+                    <p>"Crea veladas perfectas con nuestras tablas de maridaje diseñadas por sommeliers."</p>
+                </div>
+                <div class="animate delay-3">
+                    <h3 class="cream">Para el Anfitrión</h3>
+                    <p>"Impresiona con productos que cuentan historias. Sé el curator de experiencias."</p>
+                </div>
+            </div>
+            
+            <div class="image-placeholder animate delay-4" style="margin-top: 50px;">
+                [Imagen: Collage emocional - familias disfrutando, cenas elegantes, momentos especiales]
+            </div>
+            
+            <div class="luxury-card animate delay-4" style="margin-top: 50px; background: rgba(218, 165, 32, 0.1);">
+                <h3 style="text-align: center;">Propuesta de Valor Única</h3>
+                <p style="text-align: center; font-size: 1.3rem; margin-top: 20px;">
+                    "Quesos Chiapas: Donde cada producto es una <span class="gold">obra maestra artesanal</span> 
+                    y cada compra, una inversión en experiencias extraordinarias."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Why Us -->
+    <section class="slide" id="slide-7">
+        <div class="container">
+            <h2 class="animate">¿Por Qué Nosotros?</h2>
+            <p class="animate delay-1" style="text-align: center; font-size: 1.3rem; margin-bottom: 50px;">
+                La fusión perfecta entre <span class="gold">creatividad boutique</span> y <span class="gold">precisión tecnológica</span>
+            </p>
+            
+            <div class="grid">
+                <div class="luxury-card animate delay-2">
+                    <h3>Especialización Premium</h3>
+                    <p>No trabajamos con todos. Solo con marcas que aspiran a la excelencia. Como Quesos Chiapas.</p>
+                    <ul style="list-style: none; margin-top: 20px; line-height: 2;">
+                        <li>✓ 10 años en luxury marketing</li>
+                        <li>✓ Portfolio de marcas premium</li>
+                        <li>✓ ROI garantizado o trabajamos gratis</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-card animate delay-3">
+                    <h3>Tecnología + Arte</h3>
+                    <p>Combinamos algoritmos de IA con storytelling emocional. Datos con alma.</p>
+                    <ul style="list-style: none; margin-top: 20px; line-height: 2;">
+                        <li>✓ Machine learning para optimización</li>
+                        <li>✓ Diseño que enamora</li>
+                        <li>✓ Copywriting que convierte</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="luxury-card animate delay-4" style="margin-top: 50px; text-align: center;">
+                <h3 class="gold" style="font-size: 2rem;">Nuestro Compromiso</h3>
+                <p style="font-size: 1.3rem; margin: 30px auto; max-width: 800px;">
+                    No somos una agencia más. Somos <span class="cream">socios en su crecimiento</span>. 
+                    Su éxito es nuestro éxito. Su marca, nuestra pasión.
+                </p>
+                
+                <div class="grid" style="margin-top: 40px;">
+                    <div>
+                        <div class="metric" style="font-size: 2.5rem;">24/7</div>
+                        <p>Soporte dedicado</p>
+                    </div>
+                    <div>
+                        <div class="metric" style="font-size: 2.5rem;">48h</div>
+                        <p>Tiempo de respuesta</p>
+                    </div>
+                    <div>
+                        <div class="metric" style="font-size: 2.5rem;">∞</div>
+                        <p>Optimizaciones incluidas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Guarantee -->
+    <section class="slide" id="slide-8">
+        <div class="container">
+            <h2 class="animate">Nuestra Garantía</h2>
+            
+            <div class="guarantee-box animate delay-1">
+                <h3 style="font-size: 3rem; color: #DAA520; margin-bottom: 30px;">
+                    100% ROI Garantizado
+                </h3>
+                <p style="font-size: 1.8rem; margin-bottom: 30px;" class="serif">
+                    O trabajamos hasta conseguirlo. Sin costo adicional.
+                </p>
+                <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+                    Estamos tan seguros de nuestros resultados que si no duplicamos su inversión 
+                    en los primeros 12 meses, continuaremos optimizando sus campañas sin honorarios 
+                    hasta lograrlo.
+                </p>
+                
+                <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(218, 165, 32, 0.3);">
+                    <p style="font-size: 0.9rem; color: #999;">
+                        * Aplica con inversión mínima de $50,000 MXN mensuales e implementación completa de estrategia.
+                        <br>Resultados medidos con Google Analytics y reportes mensuales transparentes.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid" style="margin-top: 60px;">
+                <div class="animate delay-2" style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🛡️</div>
+                    <h3>Sin Riesgos</h3>
+                    <p>Cancelación sin penalizaciones después del tercer mes</p>
+                </div>
+                <div class="animate delay-3" style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">📊</div>
+                    <h3>Transparencia Total</h3>
+                    <p>Dashboard en vivo con todas sus métricas 24/7</p>
+                </div>
+                <div class="animate delay-4" style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🎯</div>
+                    <h3>Resultados Medibles</h3>
+                    <p>KPIs claros y reportes semanales de progreso</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: CTA -->
+    <section class="slide" id="slide-9">
+        <div class="container" style="text-align: center;">
+            <h1 class="animate" style="font-size: 5rem; margin-bottom: 40px;">
+                Hagamos Crecer<br>
+                <span class="gold">Su Legado</span>
+            </h1>
+            
+            <p class="animate delay-1" style="font-size: 1.8rem; margin-bottom: 30px;" class="serif">
+                Convirtamos cada queso en una experiencia.<br>
+                Cada cliente en un embajador.<br>
+                Cada venta en el inicio de una relación duradera.
+            </p>
+            
+            <div class="luxury-card animate delay-2" style="max-width: 800px; margin: 50px auto; background: rgba(218, 165, 32, 0.1);">
+                <h3 class="gold" style="font-size: 2rem; margin-bottom: 30px;">Comencemos Hoy</h3>
+                <p style="font-size: 1.3rem; margin-bottom: 30px;">
+                    Una conversación de 30 minutos puede transformar<br>
+                    el futuro digital de Quesos Chiapas
+                </p>
+                
+                <a href="#" class="cta-button">
+                    AGENDAR CONSULTA ESTRATÉGICA
+                </a>
+                
+                <p style="margin-top: 40px; font-size: 1.1rem;">
+                    ☎️ +52 (81) 1234-5678<br>
+                    ✉️ hola@luxurydigital.mx<br>
+                    📍 San Pedro Garza García, NL
+                </p>
+            </div>
+            
+            <div class="animate delay-3" style="margin-top: 80px;">
+                <p style="font-size: 1rem; color: #999; font-style: italic;">
+                    "El mejor momento para plantar un árbol fue hace 20 años.<br>
+                    El segundo mejor momento es ahora."
+                </p>
+                <p style="margin-top: 20px; font-size: 1.5rem; color: #DAA520; letter-spacing: 3px;">
+                    HAGÁMOSLO GOURMET. HAGÁMOSLO DIGITAL. HAGÁMOSLO JUNTOS.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        function scrollToSlide(index) {
+            document.getElementById(`slide-${index}`).scrollIntoView({ behavior: 'smooth' });
+            updateDots(index);
+        }
+
+        // Update navigation dots
+        function updateDots(activeIndex) {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const animateElements = entry.target.querySelectorAll('.animate');
+                    animateElements.forEach(el => {
+                        el.style.opacity = '1';
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe slides
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => observer.observe(slide));
+
+            // Update dots on scroll
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(slides).indexOf(entry.target);
+                        updateDots(index);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            slides.forEach(slide => slideObserver.observe(slide));
+        });
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.querySelectorAll('.luxury-card').forEach(card => {
+                const speed = 10;
+                const xOffset = (x - 0.5) * speed;
+                const yOffset = (y - 0.5) * speed;
+                card.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
