@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beirut Restaurant Grill & Cafe Libanés | Productos Mediterráneos y Postres Finos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --beirut-red: #CE1126;
+            --lebanese-green: #00732F;
+            --wood-brown: #8B4513;
+            --stone-gray: #696969;
+            --warm-light: #FFA500;
+            --cream: #FFF8DC;
+            --dark: #1A1A1A;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 3s forwards;
+            animation-delay: 2s;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .cedar-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInRotate 1s forwards;
+        }
+
+        .loader-text {
+            color: var(--warm-light);
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+
+        @keyframes fadeInRotate {
+            to {
+                opacity: 1;
+                transform: rotate(360deg);
+            }
+            from {
+                opacity: 0;
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--beirut-red);
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: var(--warm-light);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+        }
+
+        .logo-cedar {
+            width: 40px;
+            height: 40px;
+            fill: var(--lebanese-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--warm-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section with Real Images */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 3;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 3s;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            color: var(--warm-light);
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--beirut-red);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--beirut-red);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--warm-light);
+            border-color: var(--warm-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Floating lights effect */
+        .lights {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .light {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--warm-light);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--warm-light);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .light:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .light:nth-child(2) { top: 30%; left: 80%; animation-delay: 3s; }
+        .light:nth-child(3) { top: 60%; left: 10%; animation-delay: 6s; }
+        .light:nth-child(4) { top: 80%; left: 60%; animation-delay: 9s; }
+        .light:nth-child(5) { top: 50%; left: 50%; animation-delay: 12s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(10px) translateX(-10px); }
+            75% { transform: translateY(-10px) translateX(5px); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--beirut-red);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--lebanese-green);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-image {
+            position: relative;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+        }
+
+        .about-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Menu Section */
+        .menu-preview {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--beirut-red);
+            color: var(--beirut-red);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--beirut-red);
+            color: var(--white);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid #eee;
+        }
+
+        .menu-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-card-image {
+            transform: scale(1.1);
+        }
+
+        .menu-card-content {
+            padding: 2rem;
+        }
+
+        .menu-card h3 {
+            color: var(--beirut-red);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .menu-card p {
+            color: var(--dark);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            color: var(--lebanese-green);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+            background: var(--dark);
+        }
+
+        .gallery .section-title {
+            color: var(--warm-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 300px;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            color: var(--white);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--cream);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 1s ease;
+        }
+
+        .contact-info.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--beirut-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--lebanese-green);
+            transform: rotate(360deg);
+        }
+
+        .reservation-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 1s ease;
+        }
+
+        .reservation-form.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--beirut-red);
+            box-shadow: 0 0 10px rgba(206, 17, 38, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--beirut-red);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--lebanese-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 115, 47, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 5px solid var(--beirut-red);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--warm-light);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--beirut-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--lebanese-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 115, 47, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .menu-categories {
+                justify-content: center;
+            }
+
+            .category-btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.5rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--beirut-red);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--lebanese-green);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-content">
+            <svg class="cedar-logo" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="75" cy="75" r="70" fill="#1A1A1A" stroke="#00732F" stroke-width="5"/>
+                <path d="M75 30 L55 60 L95 60 Z" fill="#00732F"/>
+                <path d="M75 45 L50 75 L100 75 Z" fill="#00732F"/>
+                <path d="M75 60 L45 90 L105 90 Z" fill="#00732F"/>
+                <rect x="70" y="90" width="10" height="25" fill="#8B4513"/>
+                <text x="75" y="135" text-anchor="middle" font-size="16" fill="#FFA500" font-family="Georgia">BEIRUT</text>
+            </svg>
+            <h1 class="loader-text">Cargando...</h1>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-cedar" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 5 L15 15 L25 15 Z"/>
+                    <path d="M20 10 L12 20 L28 20 Z"/>
+                    <path d="M20 15 L10 25 L30 25 Z"/>
+                    <rect x="18" y="25" width="4" height="10"/>
+                </svg>
+                BEIRUT
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#about">Nosotros</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#gallery">Galería</a></li>
+                <li><a href="#contact">Reservaciones</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <img src="assets/images/entradabanqueta2horizontal.jpg" alt="Beirut Restaurant Entrada">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/ventanabeirut.jpg" alt="Beirut Restaurant Ventana">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/puertadeentrada.jpg" alt="Beirut Restaurant Puerta">
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="lights">
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+        </div>
+        <div class="hero-content">
+            <h1>BEIRUT</h1>
+            <p class="hero-subtitle">Restaurant Grill & Cafe Libanés</p>
+            <p class="hero-tagline">Productos Mediterráneos y Postres Finos</p>
+            <a href="#contact" class="cta-button">Reserva tu Mesa</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">Nuestra Esencia</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 style="color: var(--beirut-red); margin-bottom: 1rem; font-size: 2rem;">Tradición Mediterránea en San Pedro</h3>
+                    <p style="line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                        En Beirut Restaurant, cada platillo cuenta una historia de pasión y tradición. 
+                        Somos el destino predilecto para los amantes de la auténtica cocina libanesa 
+                        y mediterránea en San Pedro Garza García.
+                    </p>
+                    <p style="line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                        Nuestro compromiso es ofrecer una experiencia gastronómica única, donde los 
+                        sabores del Mediterráneo se combinan con la hospitalidad libanesa para crear 
+                        momentos inolvidables.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🍴</div>
+                            <h4>Cocina Auténtica</h4>
+                            <p>Recetas tradicionales con ingredientes frescos</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎂</div>
+                            <h4>Postres Artesanales</h4>
+                            <p>Dulces finos elaborados diariamente</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌿</div>
+                            <h4>Ingredientes Premium</h4>
+                            <p>Productos mediterráneos de la más alta calidad</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏆</div>
+                            <h4>Experiencia Única</h4>
+                            <p>Ambiente acogedor con servicio excepcional</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="assets/images/ventanabeirutcuadrada.jpg" alt="Interior Beirut Restaurant">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-preview" id="menu">
+        <div class="container">
+            <h2 class="section-title fade-in">Nuestro Menú</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="mezze">Mezze</button>
+                <button class="category-btn" data-category="principales">Platos Principales</button>
+                <button class="category-btn" data-category="postres">Postres Finos</button>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card" data-category="mezze">
+                    <img src="https://images.unsplash.com/photo-1547058881-aa0edd92aab3?w=400&h=300&fit=crop" alt="Mezze Mixto" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Mezze Beirut</h3>
+                        <p>Selección especial de hummus, baba ganoush, tabbouleh, kibbeh y falafel</p>
+                        <p class="price">$325</p>
+                    </div>
+                </div>
+                <div class="menu-card" data-category="principales">
+                    <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&h=300&fit=crop" alt="Shawarma" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Shawarma Premium</h3>
+                        <p>Láminas de cordero marinado con especias libanesas, servido con arroz y ensalada</p>
+                        <p class="price">$425</p>
+                    </div>
+                </div>
+                <div class="menu-card" data-category="principales">
+                    <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400&h=300&fit=crop" alt="Kafta" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Kafta a la Parrilla</h3>
+                        <p>Brochetas de carne molida con perejil y especias, asadas a la perfección</p>
+                        <p class="price">$385</p>
+                    </div>
+                </div>
+                <div class="menu-card" data-category="principales">
+                    <img src="https://images.unsplash.com/photo-1580554530778-ca36943938b2?w=400&h=300&fit=crop" alt="Pescado Mediterráneo" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Pescado Mediterráneo</h3>
+                        <p>Filete de pescado fresco con salsa de limón y hierbas mediterráneas</p>
+                        <p class="price">$395</p>
+                    </div>
+                </div>
+                <div class="menu-card" data-category="postres">
+                    <img src="https://images.unsplash.com/photo-1598110750624-207050c4f28c?w=400&h=300&fit=crop" alt="Baklava" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Baklava Artesanal</h3>
+                        <p>Hojaldre crujiente con nueces, pistachos y miel de azahar</p>
+                        <p class="price">$165</p>
+                    </div>
+                </div>
+                <div class="menu-card" data-category="postres">
+                    <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400&h=300&fit=crop" alt="Knafeh" class="menu-card-image">
+                    <div class="menu-card-content">
+                        <h3>Knafeh</h3>
+                        <p>Postre tradicional de queso dulce con fideos kataifi y jarabe de rosas</p>
+                        <p class="price">$185</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title fade-in">Galería</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="assets/images/entradabanqueta1.jpg" alt="Entrada del restaurante">
+                    <div class="gallery-caption">
+                        <h4>Nuestra Entrada</h4>
+                        <p>Fachada característica con piedra</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/ventanabeirut.jpg" alt="Vista desde la ventana">
+                    <div class="gallery-caption">
+                        <h4>Ambiente Acogedor</h4>
+                        <p>Vista del interior del restaurante</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/salidapinobeirut.jpg" alt="Decoración navideña">
+                    <div class="gallery-caption">
+                        <h4>Celebraciones Especiales</h4>
+                        <p>Decoración temática para eventos</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=400&fit=crop" alt="Platillos">
+                    <div class="gallery-caption">
+                        <h4>Nuestros Platillos</h4>
+                        <p>Presentación gourmet</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=400&fit=crop" alt="Mesa preparada">
+                    <div class="gallery-caption">
+                        <h4>Mesa Libanesa</h4>
+                        <p>Preparada para su visita</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=400&fit=crop" alt="Especialidades">
+                    <div class="gallery-caption">
+                        <h4>Especialidades de la Casa</h4>
+                        <p>Sabores únicos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Reservaciones</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Ubicación</h4>
+                            <p>San Pedro Garza García, N.L.</p>
+                            <p style="font-size: 0.9rem; color: #666;">Plaza comercial</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>(81) 1234-5678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <h4>Horarios</h4>
+                            <p>Lunes a Jueves: 12:00 PM - 10:00 PM</p>
+                            <p>Viernes a Domingo: 12:00 PM - 11:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@beirutrestaurant.mx</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🎉</div>
+                        <div>
+                            <h4>Eventos Especiales</h4>
+                            <p>Celebra con nosotros tus momentos especiales</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="reservation-form">
+                    <h3 style="color: var(--beirut-red); margin-bottom: 2rem;">Haz tu Reservación</h3>
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Hora</label>
+                        <select id="time" required>
+                            <option value="">Selecciona una hora</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Número de Personas</label>
+                        <select id="guests" required>
+                            <option value="">Selecciona</option>
+                            <option value="1">1 persona</option>
+                            <option value="2">2 personas</option>
+                            <option value="4">4 personas</option>
+                            <option value="6">6 personas</option>
+                            <option value="8">8 personas</option>
+                            <option value="10+">10+ personas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="occasion">Ocasión (opcional)</label>
+                        <select id="occasion">
+                            <option value="">Selecciona una ocasión</option>
+                            <option value="cumpleanos">Cumpleaños</option>
+                            <option value="aniversario">Aniversario</option>
+                            <option value="negocios">Reunión de Negocios</option>
+                            <option value="romantica">Cena Romántica</option>
+                            <option value="familiar">Reunión Familiar</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Confirmar Reservación
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-logo">BEIRUT</h3>
+            <p>Restaurant Grill & Cafe Libanés</p>
+            <p style="margin-top: 0.5rem;">Productos Mediterráneos y Postres Finos</p>
+            <p style="margin-top: 1rem; color: #888;">© 2025 Beirut Restaurant. Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="#" title="Facebook">f</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="WhatsApp">📱</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Image Slider
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Menu filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuCards = document.querySelectorAll('.menu-card');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+
+                menuCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, 100);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('menu-card')) {
+                        const cards = document.querySelectorAll('.menu-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, index * 100);
+                        });
+                    }
+                    if (entry.target.classList.contains('gallery-item')) {
+                        const items = document.querySelectorAll('.gallery-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.fade-in, .about-text, .about-image, .menu-card, .gallery-item, .contact-info, .reservation-form').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('.reservation-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Animate button
+            const button = e.target.querySelector('.submit-btn');
+            button.innerHTML = '¡Reservación Confirmada! ✓';
+            button.style.background = '#00732F';
+            
+            // Reset form after delay
+            setTimeout(() => {
+                e.target.reset();
+                button.innerHTML = 'Confirmar Reservación';
+                button.style.background = '';
+            }, 3000);
+        });
+
+        // Parallax effect for elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const lights = document.querySelectorAll('.light');
+            
+            lights.forEach((light, index) => {
+                const speed = 0.5 + (index * 0.1);
+                light.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
