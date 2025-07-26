@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Mayorista - Beirut Market | Proveedor B2B de Productos Mediterráneos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #CE1126;
+            --secondary: #00732F;
+            --accent: #FFB300;
+            --dark: #1A1A1A;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --success: #4CAF50;
+            --info: #2196F3;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        /* B2B Header */
+        .b2b-header {
+            background: var(--dark);
+            color: var(--white);
+            padding: 1rem 0;
+        }
+
+        .b2b-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .b2b-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .b2b-logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .b2b-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .b2b-nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .b2b-nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .b2b-nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .b2b-hero {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .b2b-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .b2b-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .benefit-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* Clients Section */
+        .clients-section {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .clients-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .client-logo {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .client-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Catalog Section */
+        .catalog-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .catalog-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .catalog-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .catalog-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .catalog-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .catalog-info {
+            padding: 1.5rem;
+        }
+
+        .catalog-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .catalog-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Order Form Section */
+        .order-section {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .order-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .order-table th,
+        .order-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+
+        .add-product-btn {
+            background: var(--secondary);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background 0.3s;
+        }
+
+        .add-product-btn:hover {
+            background: var(--primary);
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-order-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .testimonial-company {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .b2b-hero h2 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- B2B Header -->
+    <header class="b2b-header">
+        <nav class="b2b-nav">
+            <a href="index.html" class="b2b-logo">
+                <h1>Beirut Market</h1>
+                <span class="b2b-badge">Portal B2B</span>
+            </a>
+            <ul class="b2b-nav-links">
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#pedidos">Pedidos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="index.html">← Tienda Retail</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="b2b-hero">
+        <h2>Soluciones Mayoristas para tu Negocio</h2>
+        <p>Proveedor oficial de las principales cadenas de supermercados en México</p>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Productos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Clientes B2B</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Años de Experiencia</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Satisfacción</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section" id="beneficios">
+        <div class="section-container">
+            <h2 class="section-title">Ventajas de ser Cliente Mayorista</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3 class="benefit-title">Precios Especiales</h3>
+                    <p>Descuentos exclusivos por volumen con escalas competitivas según tu pedido</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚚</div>
+                    <h3 class="benefit-title">Logística Eficiente</h3>
+                    <p>Entrega directa a tu negocio con flota propia y tiempos garantizados</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3 class="benefit-title">Sistema de Pedidos</h3>
+                    <p>Plataforma B2B exclusiva para gestionar tus órdenes 24/7</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3 class="benefit-title">Ejecutivo Dedicado</h3>
+                    <p>Atención personalizada con un representante asignado a tu cuenta</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📋</div>
+                    <h3 class="benefit-title">Facturación Completa</h3>
+                    <p>Sistema de facturación electrónica y líneas de crédito disponibles</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Productos Exclusivos</h3>
+                    <p>Acceso anticipado a nuevos productos y ediciones limitadas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients-section">
+        <div class="section-container">
+            <h2 class="section-title">Nuestros Clientes Confían en Nosotros</h2>
+            <div class="clients-logos">
+                <div class="client-logo">
+                    <h3>HEB</h3>
+                </div>
+                <div class="client-logo">
+                    <h3>Soriana</h3>
+                </div>
+                <div class="client-logo">
+                    <h3>City Market</h3>
+                </div>
+                <div class="client-logo">
+                    <h3>La Comer</h3>
+                </div>
+                <div class="client-logo">
+                    <h3>Fresko</h3>
+                </div>
+                <div class="client-logo">
+                    <h3>Chedraui</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section" id="catalogo">
+        <div class="section-container">
+            <h2 class="section-title">Catálogo Digital B2B</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">Explora nuestras categorías y descarga catálogos completos con lista de precios</p>
+            <div class="catalog-categories">
+                <div class="catalog-card">
+                    <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=300&fit=crop" alt="Especias" class="catalog-image">
+                    <div class="catalog-info">
+                        <h3 class="catalog-title">Especias y Condimentos</h3>
+                        <p class="catalog-count">120+ productos disponibles</p>
+                    </div>
+                </div>
+                <div class="catalog-card">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop" alt="Conservas" class="catalog-image">
+                    <div class="catalog-info">
+                        <h3 class="catalog-title">Conservas y Encurtidos</h3>
+                        <p class="catalog-count">85+ productos disponibles</p>
+                    </div>
+                </div>
+                <div class="catalog-card">
+                    <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop" alt="Aceites" class="catalog-image">
+                    <div class="catalog-info">
+                        <h3 class="catalog-title">Aceites Premium</h3>
+                        <p class="catalog-count">45+ productos disponibles</p>
+                    </div>
+                </div>
+                <div class="catalog-card">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop" alt="Granos" class="catalog-image">
+                    <div class="catalog-info">
+                        <h3 class="catalog-title">Granos y Legumbres</h3>
+                        <p class="catalog-count">60+ productos disponibles</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="download-btn">📥 Descargar Catálogo Completo PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="order-section" id="pedidos">
+        <div class="section-container">
+            <h2 class="section-title">Solicitar Cotización</h2>
+            <form class="order-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="company">Empresa *</label>
+                        <input type="text" id="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rfc">RFC *</label>
+                        <input type="text" id="rfc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Nombre del Contacto *</label>
+                        <input type="text" id="contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Cargo</label>
+                        <input type="text" id="position">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Corporativo *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono *</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="address">Dirección de Entrega *</label>
+                        <input type="text" id="address" required>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem;">Productos Solicitados</h3>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <tr>
+                            <td><input type="text" placeholder="Ej: ESP-001"></td>
+                            <td><input type="text" placeholder="Nombre del producto"></td>
+                            <td><input type="number" placeholder="0" min="1"></td>
+                            <td>
+                                <select>
+                                    <option>Cajas</option>
+                                    <option>Unidades</option>
+                                    <option>Kilos</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="add-product-btn" onclick="addProductRow()">+ Agregar Producto</button>
+
+                <div class="form-group full-width">
+                    <label for="notes">Notas Adicionales</label>
+                    <textarea id="notes" rows="3" placeholder="Información adicional sobre su pedido..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-order-btn">Enviar Solicitud de Cotización</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="section-container">
+            <h2 class="section-title">Lo que Dicen Nuestros Clientes B2B</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">
+                        "Beirut Market ha sido nuestro proveedor de confianza por más de 5 años. 
+                        La calidad de sus productos mediterráneos es excepcional y su servicio de 
+                        entrega es impecable."
+                    </p>
+                    <div class="testimonial-author">María González</div>
+                    <div class="testimonial-company">Gerente de Compras - HEB México</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">
+                        "La variedad de productos y la flexibilidad en los pedidos nos permite 
+                        mantener siempre stock de productos especializados que nuestros clientes 
+                        más exigentes buscan."
+                    </p>
+                    <div class="testimonial-author">Carlos Mendoza</div>
+                    <div class="testimonial-company">Director Comercial - City Market</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">
+                        "El soporte del equipo de ventas B2B es excepcional. Siempre están 
+                        disponibles para resolver cualquier duda y nos mantienen informados 
+                        sobre nuevos productos."
+                    </p>
+                    <div class="testimonial-author">Ana Rodríguez</div>
+                    <div class="testimonial-company">Jefe de Categoría - La Comer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contacto">
+        <div class="section-container">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">¿Listo para ser parte de nuestra red B2B?</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Contacta a nuestro equipo de ventas mayoristas</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>(81) 1234-5678 Ext. 200</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>ventas.mayoreo@beirutmarket.mx</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🕒</span>
+                    <span>Lun-Vie: 8:00 AM - 6:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add product row to order form
+        function addProductRow() {
+            const tbody = document.getElementById('orderTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="Ej: ESP-001"></td>
+                <td><input type="text" placeholder="Nombre del producto"></td>
+                <td><input type="number" placeholder="0" min="1"></td>
+                <td>
+                    <select>
+                        <option>Cajas</option>
+                        <option>Unidades</option>
+                        <option>Kilos</option>
+                    </select>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        // Form submission
+        document.querySelector('.order-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Solicitud enviada correctamente. Nuestro equipo se pondrá en contacto en las próximas 24 horas.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Beirut Market | Especias y Productos Mediterráneos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for products page */
+        .breadcrumb {
+            padding: 1rem 2rem;
+            background: var(--white);
+            border-bottom: 1px solid #eee;
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .products-page {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .filter-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .price-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .clear-filters {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .clear-filters:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Products Section */
+        .products-main {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-count {
+            color: #666;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem;
+            background: var(--light);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Product Grid/List */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .products-container.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .product-card.list-view {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .product-card.list-view .product-image {
+            height: 150px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .page-btn {
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .page-btn:hover {
+            background: var(--light);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Quick View Modal */
+        .quick-view-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-view-content {
+            background: var(--white);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .quick-view-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .quick-view-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .quick-view-image {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .quick-view-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-view-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .products-page {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .quick-view-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include header from main page -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Inicio</a>
+            <span>›</span>
+            <span>Productos</span>
+        </div>
+    </div>
+
+    <!-- Products Page -->
+    <div class="products-page">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <h3 style="margin-bottom: 1.5rem;">Filtrar Productos</h3>
+            
+            <div class="filter-section">
+                <div class="filter-title">
+                    Categorías
+                    <span>−</span>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-especias" checked>
+                        <label for="cat-especias">Especias</label>
+                        <span class="filter-count">(120)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-conservas">
+                        <label for="cat-conservas">Conservas</label>
+                        <span class="filter-count">(85)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-aceites">
+                        <label for="cat-aceites">Aceites</label>
+                        <span class="filter-count">(45)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-granos">
+                        <label for="cat-granos">Granos</label>
+                        <span class="filter-count">(60)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-dulces">
+                        <label for="cat-dulces">Dulces</label>
+                        <span class="filter-count">(90)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">
+                    Marca
+                    <span>−</span>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-beirut">
+                        <label for="brand-beirut">Beirut Premium</label>
+                        <span class="filter-count">(45)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-cedar">
+                        <label for="brand-cedar">Cedar Valley</label>
+                        <span class="filter-count">(32)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-mediterranean">
+                        <label for="brand-mediterranean">Mediterranean Gold</label>
+                        <span class="filter-count">(28)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">
+                    Precio
+                    <span>−</span>
+                </div>
+                <div class="price-range">
+                    <input type="number" class="price-input" placeholder="Min" value="0">
+                    <span>-</span>
+                    <input type="number" class="price-input" placeholder="Max" value="1000">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">
+                    Características
+                    <span>−</span>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="feat-organic">
+                        <label for="feat-organic">Orgánico</label>
+                        <span class="filter-count">(67)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="feat-gluten">
+                        <label for="feat-gluten">Sin Gluten</label>
+                        <span class="filter-count">(43)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="feat-vegan">
+                        <label for="feat-vegan">Vegano</label>
+                        <span class="filter-count">(89)</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="clear-filters">Limpiar Filtros</button>
+        </aside>
+
+        <!-- Products Main Section -->
+        <main class="products-main">
+            <div class="products-header">
+                <div class="results-count">
+                    Mostrando <strong>1-24</strong> de <strong>120</strong> productos
+                </div>
+                <div class="sort-options">
+                    <label>Ordenar por:</label>
+                    <select class="sort-select">
+                        <option>Más Relevantes</option>
+                        <option>Precio: Menor a Mayor</option>
+                        <option>Precio: Mayor a Menor</option>
+                        <option>Más Nuevos</option>
+                        <option>Mejor Calificados</option>
+                    </select>
+                    <div class="view-options">
+                        <button class="view-btn active" onclick="setGridView()">⊞</button>
+                        <button class="view-btn" onclick="setListView()">☰</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="products-container" id="productsContainer">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn">←</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn">→</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="quick-view-content">
+            <button class="quick-view-close" onclick="closeQuickView()">✕</button>
+            <div class="quick-view-body">
+                <img src="" alt="" class="quick-view-image" id="quickViewImage">
+                <div class="quick-view-info">
+                    <h2 id="quickViewName"></h2>
+                    <p id="quickViewCategory" style="color: var(--secondary); margin-bottom: 1rem;"></p>
+                    <div class="quick-view-price" id="quickViewPrice"></div>
+                    <p id="quickViewDescription" style="margin-bottom: 1.5rem;"></p>
+                    <div class="quantity-selector">
+                        <label>Cantidad:</label>
+                        <button class="quantity-btn" onclick="decreaseQty()">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" id="quickViewQty">
+                        <button class="quantity-btn" onclick="increaseQty()">+</button>
+                    </div>
+                    <button class="btn-add-cart" style="width: 100%; padding: 1rem;">
+                        Agregar al Carrito
+                    </button>
+                    <div style="margin-top: 2rem;">
+                        <h4>Detalles del Producto</h4>
+                        <ul style="margin-top: 1rem; color: #666;">
+                            <li>Origen: Líbano</li>
+                            <li>Peso neto: 250g</li>
+                            <li>Vida útil: 12 meses</li>
+                            <li>Almacenamiento: Lugar fresco y seco</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample products data
+        const products = [
+            {
+                id: 1,
+                name: "Za'atar Premium Libanés",
+                category: "Especias",
+                price: 89,
+                image: "https://images.unsplash.com/photo-1607672632458-9eb56696346b?w=300&h=300&fit=crop",
+                description: "Mezcla tradicional con sésamo tostado, tomillo silvestre y sumac",
+                badge: "-20%"
+            },
+            {
+                id: 2,
+                name: "Sumac Molido Fino",
+                category: "Especias",
+                price: 75,
+                image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&h=300&fit=crop",
+                description: "Especia ácida perfecta para ensaladas y carnes"
+            },
+            {
+                id: 3,
+                name: "7 Especias Libanesas",
+                category: "Especias",
+                price: 95,
+                image: "https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=300&h=300&fit=crop",
+                description: "Mezcla aromática tradicional para carnes y guisos",
+                badge: "Nuevo"
+            },
+            {
+                id: 4,
+                name: "Cardamomo Verde Entero",
+                category: "Especias",
+                price: 125,
+                image: "https://images.unsplash.com/photo-1599909533586-280c9f8e6c69?w=300&h=300&fit=crop",
+                description: "Premium quality para café árabe y postres"
+            },
+            {
+                id: 5,
+                name: "Canela de Ceylon",
+                category: "Especias",
+                price: 110,
+                image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=300&fit=crop",
+                description: "La verdadera canela, suave y aromática"
+            },
+            {
+                id: 6,
+                name: "Pimienta de Alepo",
+                category: "Especias",
+                price: 98,
+                image: "https://images.unsplash.com/photo-1599598425947-5202edd56bdb?w=300&h=300&fit=crop",
+                description: "Picante moderado con notas frutales",
+                badge: "Popular"
+            },
+            {
+                id: 7,
+                name: "Comino Molido",
+                category: "Especias",
+                price: 65,
+                image: "https://images.unsplash.com/photo-1599909533143-f1e36e9f2b7a?w=300&h=300&fit=crop",
+                description: "Esencial para hummus y falafel"
+            },
+            {
+                id: 8,
+                name: "Coriandro en Grano",
+                category: "Especias",
+                price: 58,
+                image: "https://images.unsplash.com/photo-1599909533277-8cb140f8d68f?w=300&h=300&fit=crop",
+                description: "Aromático y cítrico, ideal para moler fresco"
+            }
+        ];
+
+        // Load products
+        function loadProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">
+                            <span class="price-current">$${product.price}.00</span>
+                            <span class="price-unit">/ 250g</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-add-cart" onclick="addToCart(${product.id})">Agregar al Carrito</button>
+                            <button class="btn-wishlist" onclick="quickView(${product.id})">👁️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Quick view functions
+        function quickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.getElementById('quickViewImage').src = product.image;
+                document.getElementById('quickViewName').textContent = product.name;
+                document.getElementById('quickViewCategory').textContent = product.category;
+                document.getElementById('quickViewPrice').textContent = `$${product.price}.00`;
+                document.getElementById('quickViewDescription').textContent = product.description;
+                document.getElementById('quickViewModal').style.display = 'flex';
+            }
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickViewModal').style.display = 'none';
+        }
+
+        function increaseQty() {
+            const input = document.getElementById('quickViewQty');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQty() {
+            const input = document.getElementById('quickViewQty');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        // View mode functions
+        function setGridView() {
+            document.getElementById('productsContainer').classList.remove('list-view');
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.remove('list-view');
+            });
+            document.querySelectorAll('.view-btn')[0].classList.add('active');
+            document.querySelectorAll('.view-btn')[1].classList.remove('active');
+        }
+
+        function setListView() {
+            document.getElementById('productsContainer').classList.add('list-view');
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.add('list-view');
+            });
+            document.querySelectorAll('.view-btn')[1].classList.add('active');
+            document.querySelectorAll('.view-btn')[0].classList.remove('active');
+        }
+
+        // Add to cart function
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            console.log('Added to cart:', product);
+            // Show feedback
+            event.target.textContent = '✓ Agregado';
+            event.target.style.background = 'var(--success)';
+            setTimeout(() => {
+                event.target.textContent = 'Agregar al Carrito';
+                event.target.style.background = '';
+            }, 2000);
+        }
+
+        // Load products on page load
+        loadProducts();
+
+        // Close modal on outside click
+        document.getElementById('quickViewModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('quickViewModal')) {
+                closeQuickView();
+            }
+        });
+    </script>
+</body>
+</html>
